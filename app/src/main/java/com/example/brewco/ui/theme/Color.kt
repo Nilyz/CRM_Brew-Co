@@ -2,10 +2,14 @@ package com.example.brewco.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+//Modo claro
+val Cream = Color(0xFFF5F3F1)
+val Beige = Color(0xFFD0C3B8)
+val Brown = Color(0xFF917161)
+val DarkBrown = Color(0xFF2A1E1E)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+//Modo oscuro
+val LightBeige = Color(0xFFE7E0DA)
+val BrownLatte = Color(0xFF7C5C52)
+val Chocolate = Color(0xFF644944)
+/* + Cream y DarkBrown del modo claro*/
