@@ -20,6 +20,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
+
     primary = Cream,
     secondary = Beige,
     tertiary = Brown,
