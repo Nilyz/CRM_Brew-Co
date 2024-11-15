@@ -1,27 +1,43 @@
 package com.example.brewco.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.brewco.R
 import com.example.brewco.ui.theme.*
 import com.example.brewco.ui.components.*
 
@@ -33,22 +49,44 @@ fun LoginScreen(navHostController: NavHostController) {
         modifier = Modifier
             .fillMaxSize()
             .background(Brown)
+            .padding(top = 30.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.40f)
         ) {
-            Box() {
-                Button(onClick = {
-                    navHostController.navigate("startSplashScreen")
-                }) {
-                    Text("Atrás")
-                }
+
+            ArrowButton {
+                navHostController.navigate("startSplashScreen")
             }
-            Column() {
-                Text("Iniciar Sesión")
-                Text("Inicia sesión con el correo de la empresa para poder acceder")
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+
+            ) {
+                Text(
+                    "Iniciar Sesión",
+                    style = TextStyle(
+                        fontSize = 38.sp,
+                        fontWeight = FontWeight.Bold,
+                        color= Cream
+
+                    )
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    "Inicia sesión con el correo de la empresa para poder acceder",
+                    style = TextStyle(
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center,
+                        color= Cream
+                    )
+                )
             }
         }
 
@@ -57,19 +95,54 @@ fun LoginScreen(navHostController: NavHostController) {
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .fillMaxHeight(0.60f)
-                .background(Beige),
+                .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+                .background(Cream, shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp))
+                .padding(30.dp),
+
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            TextField(
-                value = "",
-                labelText = "Email"
-            )
-            TextField(
-                value = "",
-                labelText = "Contraseña"
-            )
+            Column() {
+                TextField(
+                    value = "",
+                    labelText = "Email"
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+                TextField(
+                    value = "",
+                    labelText = "Contraseña"
+                )
+            }
+            TextButton(onClick = {
+            }) {
+                Text(
+                    "Olvidaste la contraseña?",
+                    style = TextStyle(
+                        fontSize = 15.sp,
+                        textAlign = TextAlign.Right,
+                                color= DarkBrown
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
+            CustomButton(
+                text = "Iniciar Sesión",
+                onClick = {
+                    navHostController.navigate("loginScreen")
+                },
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Recuérdame",
+                    style = TextStyle(
+                        color= DarkBrown
+                    ),)
+                ToggleSwitch()
+            }
 
         }
 
