@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.brewco.ui.components.CustomBottomNavBar
+import com.example.brewco.ui.components.CustomFloatingActionButton
 import com.example.brewco.ui.components.TopBar
 
 @Composable
@@ -24,6 +25,9 @@ fun CustomerScreen(navHostController: NavHostController) {
     Scaffold(
         topBar = { TopBar(title = "Clientes") },
         bottomBar = { CustomBottomNavBar(navHostController) },
+        floatingActionButton = {
+            CustomFloatingActionButton(navHostController)
+        },
         content = { paddingValues ->
             Box(
                 modifier = Modifier
@@ -44,6 +48,7 @@ fun CustomerScreen(navHostController: NavHostController) {
         }
     )
 }
+
 
 @Composable
 fun CustomerItem(index: Int) {

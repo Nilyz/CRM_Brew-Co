@@ -23,6 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -102,7 +105,7 @@ fun CustomBottomNavBar(navController: NavController) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // Botón de perfil
+        // Botón de Clientes
         IconButton(onClick = { navController.navigate("customerScreen") }) {
             Icon(
                 Icons.Default.AccountCircle,
@@ -114,7 +117,7 @@ fun CustomBottomNavBar(navController: NavController) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // Botón de inicio con imagen personalizada
+        // Botón de Inicio
         IconButton(onClick = { navController.navigate("homeScreen") }) {
             Icon(
                 Icons.Default.Home,
@@ -126,7 +129,7 @@ fun CustomBottomNavBar(navController: NavController) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // Botón de perfil adicional
+        // Botón de Inventario
         IconButton(onClick = { navController.navigate("inventoryScreen") }) {
             Image(
                 painter = painterResource(id = R.drawable.bxsbox), // Recurso de drawable
@@ -151,4 +154,19 @@ fun CustomBottomNavBar(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
     }
 }
+
+@Composable
+fun CustomFloatingActionButton(navController: NavController) {
+    FloatingActionButton(
+        onClick = { navController.navigate("") },
+        containerColor = Brown
+    ) {
+        Icon(
+            Icons.Default.Add, contentDescription = "Agregar",
+            modifier = Modifier.size(36.dp),
+            Color.White
+        )
+    }
+}
+
 
