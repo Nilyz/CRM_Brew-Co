@@ -1,18 +1,12 @@
 package com.example.brewco.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
@@ -23,115 +17,138 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.brewco.R
 import com.example.brewco.ui.theme.Brown
-import com.example.brewco.ui.theme.DarkBrown
 import com.example.brewco.ui.theme.Beige
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopBar(title: String) {
+fun TopBar(title:String) {
     TopAppBar(
-        title = { Text(title) },
-        navigationIcon = {
-            IconButton(onClick = { }) {
-                Icon(Icons.Default.Menu, contentDescription = "Perfil")
+        title = {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = title,
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
             }
-        }
+        },
+        navigationIcon = {
+            IconButton(onClick = { /* Acción del botón de menú */ }) {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "Perfil",
+                    modifier = Modifier.size(36.dp) // Cambia el tamaño del icono
+                )
+            }
+        },
+        actions = {
+            IconButton(onClick = { /* Acción del icono de usuario */ }) {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "User Icon",
+                    modifier = Modifier.size(36.dp) // Cambia el tamaño del icono
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.White,
+            titleContentColor = Color.Black,
+            navigationIconContentColor = Color.Black,
+            actionIconContentColor = Color.Black
+        )
     )
 }
 
 @Composable
-fun CustomBottomBar(
-    navController: NavController,
-    onAgendaClick: () -> Unit = { navController.navigate("pantallaPacientesVer") },
-    onCustomerClick: () -> Unit = { navController.navigate("customerScreen") },
-    onHomeClick: () -> Unit = { navController.navigate("homeScreen") },
-    onInventoryClick: () -> Unit = { navController.navigate("inventoryScreen") },
-    onNotificationClick: () -> Unit = { navController.navigate("notificationScreen") },
-    agendaIconColor: Color = Color.White, // Parámetro para el color del ícono Agenda
-    customerIconColor: Color = Color.White, // Parámetro para el color del ícono Cliente
-    homeIconColor: Color = Brown, // Color por defecto para Home (puedes cambiarlo dinámicamente)
-    inventoryIconColor: Color = Color.White, // Parámetro para el color del ícono Inventario
-    notificationIconColor: Color = Color.White // Parámetro para el color del ícono Notificaciones
-) {
-    Box(
+fun CustomBottomNavBar(navController: NavController) {
+    // Obtener la ruta actual para determinar el icono activo
+    val pantallaActual = navController.currentBackStackEntryAsState().value?.destination?.route
+
+    BottomAppBar(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp), // Espacio debajo para separar de la parte inferior de la pantalla
-        contentAlignment = Alignment.Center
+            .fillMaxWidth(),
+        containerColor = Beige, // Fondo personalizado
     ) {
-        BottomAppBar(
-            modifier = Modifier
-                .fillMaxWidth(0.95f) // 95% del ancho total
-                .clip(RoundedCornerShape(15.dp)) // Esquinas redondeadas
-                .padding(vertical = 4.dp)
-                .height(56.dp), // Establecer una altura más baja para la BottomAppBar
-            containerColor = Beige , // Color de fondo gris claro
-            contentColor = Color.Gray // Color de los iconos
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(onClick = onAgendaClick) {
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = "Agenda",
-                        tint = agendaIconColor, // Color dinámico
-                        modifier = Modifier.size(36.dp) // Reducir tamaño de los íconos
-                    )
-                }
-                IconButton(onClick = onCustomerClick) {
-                    Icon(
-                        imageVector = Icons.Default.AccountCircle,
-                        contentDescription = "Perfil Cliente",
-                        tint = customerIconColor, // Color dinámico
-                        modifier = Modifier.size(36.dp) // Reducir tamaño de los íconos
-                    )
-                }
-                IconButton(onClick = onHomeClick) {
-                    Icon(
-                        imageVector = Icons.Default.Home,
-                        contentDescription = "Home",
-                        tint = homeIconColor, // Color dinámico
-                        modifier = Modifier.size(36.dp) // Reducir tamaño de los íconos
-                    )
-                }
-                IconButton(onClick = onInventoryClick) {
-                    // Cargar el icono SVG desde los recursos
-                    Image(
-                        painter = painterResource(id = R.drawable.bxsbox), // Ruta del archivo SVG
-                        contentDescription = "Inventario", // Descripción del icono
-                        modifier = Modifier.size(36.dp), // Reducir tamaño del icono
-                        colorFilter = ColorFilter.tint(inventoryIconColor) // Aplica el color dinámico
-                    )
-                }
-                IconButton(onClick = onNotificationClick) {
-                    Icon(
-                        imageVector = Icons.Default.Notifications,
-                        contentDescription = "Notificaciones",
-                        tint = notificationIconColor, // Color dinámico
-                        modifier = Modifier.size(36.dp) // Reducir tamaño de los íconos
-                    )
-                }
-            }
+        Spacer(modifier = Modifier.weight(1f))
+
+        // Botón de calendario
+        IconButton(onClick = { navController.navigate("agendaScreen") }) {
+            Icon(
+                Icons.Default.DateRange,
+                contentDescription = "Agenda",
+                modifier = Modifier.size(50.dp), // Tamaño del icono
+                tint = if (pantallaActual == "agendaScreen") Brown else Color.White // Cambia el color si es la pantalla activa
+            )
         }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        // Botón de perfil
+        IconButton(onClick = { navController.navigate("customerScreen") }) {
+            Icon(
+                Icons.Default.AccountCircle,
+                contentDescription = "Clientes",
+                modifier = Modifier.size(50.dp), // Tamaño del icono
+                tint = if (pantallaActual == "customerScreen") Brown else Color.White
+            )
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        // Botón de inicio con imagen personalizada
+        IconButton(onClick = { navController.navigate("homeScreen") }) {
+            Icon(
+                Icons.Default.Home,
+                contentDescription = "Home",
+                modifier = Modifier.size(50.dp), // Tamaño del icono
+                tint = if (pantallaActual == "homeScreen") Brown else Color.White
+            )
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        // Botón de perfil adicional
+        IconButton(onClick = { navController.navigate("inventoryScreen") }) {
+            Image(
+                painter = painterResource(id = R.drawable.bxsbox), // Recurso de drawable
+                contentDescription = "Inventario",
+                modifier = Modifier.size(50.dp), // Tamaño del icono
+                colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen") Brown else Color.White)
+            )
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        // Botón de notificaciones
+        IconButton(onClick = { navController.navigate("notificationScreen") }) {
+            Icon(
+                Icons.Default.Notifications,
+                contentDescription = "Notificaciones",
+                modifier = Modifier.size(50.dp), // Tamaño del icono
+                tint = if (pantallaActual == "notificationScreen") Brown else Color.White
+            )
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
     }
 }
-
-
 

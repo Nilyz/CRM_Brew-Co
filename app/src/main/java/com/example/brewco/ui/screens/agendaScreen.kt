@@ -1,51 +1,45 @@
 package com.example.brewco.ui.screens
 
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.brewco.ui.components.CustomBottomBar
-import com.example.brewco.ui.components.CustomTopBar
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import com.example.brewco.ui.components.TopBar
+import com.example.brewco.ui.components.CustomBottomNavBar
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.brewco.ui.components.CustomBottomBar
-import com.example.brewco.ui.components.CustomTopBar
 
 @Composable
 fun AgendaScreen(navHostController: NavHostController) {
     Scaffold(
-        topBar = {
-            CustomTopBar(title = "Agenda")
-        },
-        bottomBar = {
-            CustomBottomBar(navController = navHostController)
+        topBar = { TopBar(title = "Agenda") },
+        bottomBar = { CustomBottomNavBar(navHostController) },
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+
+                }
+            }
         }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues) // Espacio para evitar solapamiento con las barras
-        ) {
-            Text(
-                text = "Bienvenido a la Agenda",
-                modifier = Modifier.padding(16.dp)
-            )
-            Text(
-                text = "Aquí iría tu contenido principal.",
-                modifier = Modifier.padding(16.dp)
-            )
-        }
-    }
+    )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun AgendaScreenPreview() {
-    AgendaScreen(navHostController = rememberNavController())
-}
