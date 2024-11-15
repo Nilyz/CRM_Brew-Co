@@ -23,12 +23,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BrewCoTheme {
-                // Crear el NavController para la navegación
                 val navHostController = rememberNavController()
 
-                // Usar Scaffold con un NavHost para manejar las pantallas
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    // Configurar el NavHost con las pantallas
                     NavHost(
                         navController = navHostController,
                         startDestination = "splashScreen"
@@ -43,21 +40,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BrewCoTheme {
-        Greeting("Android")
     }
 }

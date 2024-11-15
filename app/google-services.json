@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "387425019180",
+    "project_id": "brewco-a0e83",
+    "storage_bucket": "brewco-a0e83.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387425019180:android:b4633731a71e2306207889",
+        "android_client_info": {
+          "package_name": "com.example.brewco"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLJ5AET8DoaH3lgywfHVfQrJYDLJ1bAf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
