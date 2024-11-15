@@ -39,9 +39,10 @@ fun StartSplashScreen(navHostController: NavHostController, modifier: Modifier =
             painter = painterResource(id = R.drawable.logobrewco),
             contentDescription = "Logo",
             modifier = Modifier
-                .size(50.dp)
+                .size(200.dp)
                 .padding(bottom = 8.dp)
         )
+        Text("Brew & Co")
         Box(
             modifier = modifier
                 .size(150.dp)
