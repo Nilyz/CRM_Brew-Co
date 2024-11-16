@@ -21,19 +21,21 @@ import com.example.brewco.ui.theme.Gray
 @Composable
 fun TextField(
     value: String,
-    labelText: String
+    labelText: String,
+    onValueChange: (String) -> Unit
 ) {
     TextField(
         value = value,
-        onValueChange = { /* Acción de cambio de texto */ },
+        onValueChange = onValueChange,
         label = { Text(text = labelText) },
         modifier = Modifier.fillMaxWidth(),
+        textStyle = androidx.compose.ui.text.TextStyle(color = DarkBrown), // Estilo del texto
         colors = TextFieldDefaults.textFieldColors(
-            containerColor = Gray,
-            focusedIndicatorColor = Brown,
-            unfocusedIndicatorColor = Gray,
-            focusedTextColor = DarkBrown,
-            unfocusedTextColor = Gray
+            containerColor = Gray, // Fondo del campo
+            focusedIndicatorColor = Brown, // Línea inferior enfocada
+            unfocusedIndicatorColor = Gray, // Línea inferior no enfocada
+            focusedLabelColor = Brown, // Color de la etiqueta enfocada
+            unfocusedLabelColor = Gray // Color de la etiqueta no enfocada
         )
     )
 }
