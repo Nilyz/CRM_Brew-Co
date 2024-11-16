@@ -23,6 +23,8 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.brewco.R
+import com.example.brewco.ui.theme.*
+
 
 
 
@@ -31,7 +33,7 @@ fun StartSplashScreen(navHostController: NavHostController, modifier: Modifier =
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF917161)),
+            .background(Brown),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -39,9 +41,10 @@ fun StartSplashScreen(navHostController: NavHostController, modifier: Modifier =
             painter = painterResource(id = R.drawable.logobrewco),
             contentDescription = "Logo",
             modifier = Modifier
-                .size(50.dp)
+                .size(200.dp)
                 .padding(bottom = 8.dp)
         )
+        Text("Brew & Co")
         Box(
             modifier = modifier
                 .size(150.dp)

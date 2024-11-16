@@ -1,5 +1,7 @@
 package com.example.brewco.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -8,6 +10,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ButtonDefaults
+import com.example.brewco.ui.theme.*
 
 @Composable
 fun CustomButton(
@@ -17,7 +21,13 @@ fun CustomButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier.padding(16.dp)
+        modifier = modifier
+            .fillMaxWidth()
+        ,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Beige
+        )
+
 
     ) {
         Text(
@@ -25,14 +35,4 @@ fun CustomButton(
             color = Color.White
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewCustomButton() {
-    CustomButton(
-        text = "Botón",
-        onClick = {},
-
-    )
 }
