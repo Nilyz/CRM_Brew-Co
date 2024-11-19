@@ -1,4 +1,4 @@
-package com.example.brewco.ui.screens
+package com.example.brewco.ui.screens.inventory
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,6 +30,8 @@ fun InventoryScreen(navHostController: NavHostController) {
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
+                    //
+
 
                 }
             }

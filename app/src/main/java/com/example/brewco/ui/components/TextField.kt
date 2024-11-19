@@ -28,6 +28,7 @@ fun TextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(text = labelText) },
+        singleLine = true,
         modifier = Modifier.fillMaxWidth(),
         textStyle = androidx.compose.ui.text.TextStyle(color = DarkBrown), // Estilo del texto
         colors = TextFieldDefaults.textFieldColors(
