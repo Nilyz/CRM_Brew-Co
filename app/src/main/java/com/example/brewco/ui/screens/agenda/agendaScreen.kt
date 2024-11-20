@@ -1,4 +1,4 @@
-package com.example.brewco.ui.screens
+package com.example.brewco.ui.screens.agenda
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,16 +8,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import com.example.brewco.ui.components.TopBar
+import com.example.brewco.ui.components.CustomBottomNavBar
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.example.brewco.ui.components.CustomBottomNavBar
-import com.example.brewco.ui.components.TopBar
 
 @Composable
-fun NotificationtScreen(navHostController: NavHostController) {
+fun AgendaScreen(navHostController: NavHostController) {
     Scaffold(
-        topBar = { TopBar(title = "Notificaciones") },
+        topBar = { TopBar(title = "Agenda") },
         bottomBar = { CustomBottomNavBar(navHostController) },
         content = { paddingValues ->
             Box(
@@ -36,3 +36,4 @@ fun NotificationtScreen(navHostController: NavHostController) {
         }
     )
 }
+

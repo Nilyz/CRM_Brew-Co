@@ -1,4 +1,4 @@
-package com.example.brewco.ui.screens
+package com.example.brewco.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
