@@ -36,8 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.brewco.R
 import com.example.brewco.data.model.Product
-import com.example.brewco.ui.components.CustomBottomNavBar
-import com.example.brewco.ui.components.TopBar
+import com.example.brewco.ui.components.*
 import com.example.brewco.ui.theme.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -51,6 +50,9 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
     Scaffold(
         topBar = { TopBar(title = "Inventario") },
         bottomBar = { CustomBottomNavBar(navHostController) },
+        floatingActionButton = {
+            PlusButton(navHostController, onClick = { navHostController.navigate("loginScreen")})
+        },
         content = { paddingValues ->
             Box(
                 modifier = Modifier
@@ -63,7 +65,7 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(productList) { product ->
-                        ProductItem(product = product) // Pasamos el producto real
+                        ProductItem(product = product, navHostController= navHostController)
                     }
                 }
             }
@@ -72,7 +74,7 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
 }
 
 @Composable
-fun ProductItem(product: Product) {
+fun ProductItem(product: Product,navHostController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -136,11 +138,11 @@ fun ProductItem(product: Product) {
                     }
                     Row() {
                         Text("Stock mínimo: ",color= DarkBrown, fontWeight = FontWeight.Bold)
-                        Text("${product.inventario}",color= DarkBrown)
+                        Text("${product.inventario_minimo}",color= DarkBrown)
                     }
                     Row() {
                         Text("Precio: ",color= DarkBrown,fontWeight = FontWeight.Bold)
-                        Text("${product.precio}",color= DarkBrown)
+                        Text("${product.precio} €",color= DarkBrown)
                     }
                 }
 
@@ -149,13 +151,7 @@ fun ProductItem(product: Product) {
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.logobrewco),
-                        contentDescription = "Logo",
-                        modifier = Modifier
-                            .size(50.dp)
-
-                    )
+                    EditButton(navHostController, onClick = { navHostController.navigate("loginScreen")})
                 }
             }
         }
