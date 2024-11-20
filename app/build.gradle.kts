@@ -66,7 +66,8 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.firebase.firestore)
-    implementation("androidx.compose.material3:material3:1.2.0-alpha06") // O la versión más reciente
+    implementation("androidx.compose.material3:material3:1.2.0-alpha06")
+    implementation ("io.coil-kt:coil-compose:2.2.2")
 
 
     testImplementation(libs.junit)
