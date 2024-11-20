@@ -51,7 +51,7 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
         topBar = { TopBar(title = "Inventario") },
         bottomBar = { CustomBottomNavBar(navHostController) },
         floatingActionButton = {
-            PlusButton(navHostController, onClick = { navHostController.navigate("loginScreen")})
+            PlusButton(navHostController, onClick = { navHostController.navigate("addProductScreen")})
         },
         content = { paddingValues ->
             Box(
@@ -151,7 +151,7 @@ fun ProductItem(product: Product,navHostController: NavHostController) {
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    EditButton(navHostController, onClick = { navHostController.navigate("loginScreen")})
+                    EditButton(navHostController, onClick = { navHostController.navigate("addProductscreen")})
                 }
             }
         }
