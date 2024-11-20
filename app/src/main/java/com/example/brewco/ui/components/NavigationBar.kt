@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.filled.Add
@@ -80,6 +81,53 @@ fun TopBar(title:String) {
         )
     )
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopBarWithText(title: String, text1 : String, text2 : String) {
+    TopAppBar(
+        title = {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = title,
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            }
+        },
+        navigationIcon = {
+            Text(
+                text = text1,
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .clickable { /* Acción del texto de navegación */ },
+                fontSize = 16.sp,
+                color = Brown
+            )
+        },
+        actions = {
+            Text(
+                text = text2,
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .clickable { /* Acción del texto de acción */ },
+                fontSize = 16.sp,
+                color = Brown
+            )
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.White,
+            titleContentColor = Color.Black,
+            navigationIconContentColor = Color.Black,
+            actionIconContentColor = Color.Black
+        )
+    )
+}
+
 
 @Composable
 fun CustomBottomNavBar(navController: NavController) {
