@@ -11,7 +11,7 @@ import com.example.brewco.ui.viewmodel.AuthViewModel
 @Composable
 fun NavigationWrapper (navHostController: NavHostController, authViewModel: AuthViewModel) {
 
-    NavHost(navController = navHostController, startDestination = "startSplashScreen") {
+    NavHost(navController = navHostController, startDestination = "HomeScreen") {
 
         composable ("startSplashScreen") { StartSplashScreen(navHostController) }
         composable ("loginScreen") {LoginScreen(navHostController, authViewModel)}
