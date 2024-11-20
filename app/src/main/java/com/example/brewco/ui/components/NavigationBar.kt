@@ -40,7 +40,7 @@ import com.example.brewco.ui.theme.Beige
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(title:String) {
+fun TopBar(title: String) {
     TopAppBar(
         title = {
             Row(
@@ -84,7 +84,7 @@ fun TopBar(title:String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarWithText(title: String, text1 : String, text2 : String) {
+fun TopBarWithText(title: String, text1: String, text2: String, onActionClick: () -> Unit) {
     TopAppBar(
         title = {
             Row(
@@ -114,7 +114,7 @@ fun TopBarWithText(title: String, text1 : String, text2 : String) {
                 text = text2,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
-                    .clickable { /* Acción del texto de acción */ },
+                    .clickable { onActionClick() },
                 fontSize = 16.sp,
                 color = Brown
             )

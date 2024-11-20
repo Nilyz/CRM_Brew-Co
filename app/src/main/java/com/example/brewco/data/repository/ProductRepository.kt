@@ -15,7 +15,7 @@ class ProductRepository {
             productsCollection.add(producto).await()
             true
         } catch (e: Exception) {
-            false // Manejo básico de errores
+            false
         }
     }
 

@@ -27,4 +27,15 @@ class StockViewModel : ViewModel() {
             _products.value = productsFromRepo
         }
     }
+
+    fun addProduct(product: Product, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            val isAdded = productRepository.addProduct(product)
+            if (isAdded) {
+                onSuccess() // Añadir correctamente
+            } else {
+                onError("Error al añadir el producto")
+            }
+        }
+    }
 }
