@@ -15,6 +15,7 @@ import androidx.navigation.NavHostController
 import com.example.brewco.ui.components.CustomBottomNavBar
 import com.example.brewco.ui.components.CustomDrawer
 import com.example.brewco.ui.components.TopBar
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(navHostController: NavHostController) {
@@ -36,7 +37,17 @@ fun HomeScreen(navHostController: NavHostController) {
         }
     ) {
         Scaffold(
-            topBar = { TopBar(title = "Inicio") },
+            topBar = {
+                TopBar(title = "Inicio", onMenuClick = {
+                    scope.launch {
+                        if (drawerState.isOpen) {
+                            drawerState.close()
+                        } else {
+                            drawerState.open()
+                        }
+                    }
+                })
+            },
             bottomBar = { CustomBottomNavBar(navHostController) },
             content = { paddingValues ->
                 Box(
