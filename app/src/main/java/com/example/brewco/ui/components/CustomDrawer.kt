@@ -1,6 +1,5 @@
 package com.example.brewco.ui.components
 
-import android.provider.SyncStateContract.Columns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -24,7 +22,7 @@ import com.example.brewco.ui.theme.Brown
 @Composable
 fun CustomDrawer(
     navHostController: NavHostController,
-    onLogoutClik: () -> Unit
+    onLogoutClick: () -> Unit
 ) {
     Column (
         modifier = Modifier.fillMaxSize()
@@ -51,7 +49,7 @@ fun CustomDrawer(
             TextButton(
                 onClick = {
                     navHostController.navigate("loginScreen")
-                    onLogoutClik()
+                    onLogoutClick()
                 }
             ) {
                 Text(
