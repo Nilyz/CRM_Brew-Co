@@ -3,9 +3,13 @@ package com.example.brewco.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Icon
@@ -25,7 +29,9 @@ fun CustomDrawer(
     onLogoutClick: () -> Unit
 ) {
     Column (
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxWidth(0.45f)
+            .fillMaxHeight()
             .background(color = Brown)
             .padding(16.dp),
         verticalArrangement = Arrangement.SpaceBetween
@@ -46,6 +52,7 @@ fun CustomDrawer(
                 text = "Usuario",
                 color = Black,
             )
+            Spacer(modifier = Modifier.weight(1f))
             TextButton(
                 onClick = {
                     navHostController.navigate("splashScreen") {
@@ -55,7 +62,8 @@ fun CustomDrawer(
                 }
             ) {
                 Text(
-                    text = "Inicio",
+
+                    text = "Cerrar Sesión",
                     color = Black,
                     modifier = Modifier.padding(8.dp)
                 )
