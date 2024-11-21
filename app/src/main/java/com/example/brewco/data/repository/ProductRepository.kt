@@ -10,6 +10,7 @@ class ProductRepository {
     private val db = FirebaseFirestore.getInstance()
     private val productsCollection = db.collection("productos")
 
+
     suspend fun addProduct(producto: Product): Boolean {
         return try {
             productsCollection.add(producto).await()

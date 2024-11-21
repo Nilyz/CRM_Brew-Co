@@ -8,6 +8,8 @@ val Beige = Color(0xFFD0C3B8)
 val Brown = Color(0xFF917161)
 val DarkBrown = Color(0xFF2A1E1E)
 val Gray = Color(0xFFD9D9D9)
+val DarkGray = Color(0xFF8D8D8D)
+
 
 //Modo oscuro
 val LightBeige = Color(0xFFE7E0DA)

@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.firebase.firestore)
     implementation("androidx.compose.material3:material3:1.2.0-alpha06")
-    implementation ("io.coil-kt:coil-compose:2.2.2")
+    implementation ("io.coil-kt:coil-compose:2.3.0")
 
 
     testImplementation(libs.junit)

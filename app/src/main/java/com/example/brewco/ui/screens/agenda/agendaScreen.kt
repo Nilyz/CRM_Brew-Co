@@ -25,16 +25,33 @@ import java.time.Instant
 import java.time.ZoneId
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgendaScreen(navHostController: NavHostController) {
     val datePickerState = rememberDatePickerState()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
 
     Scaffold(
-        topBar = { TopBar(title = "Agenda") },
+        topBar = {
+            TopBar(title = "Agenda", onMenuClick = {
+                scope.launch {
+                    if (drawerState.isClosed) {
+                        drawerState.open()
+                    } else {
+                        drawerState.close()
+                    }
+                }
+
+            })
+        },
         bottomBar = { CustomBottomNavBar(navHostController) },
         content = { paddingValues ->
             Box(

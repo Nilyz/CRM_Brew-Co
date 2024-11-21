@@ -34,7 +34,7 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
     var stockMinimo by remember { mutableStateOf(0) }
     var precio by remember { mutableStateOf(0) }
 
-    // Cargar el producto desde la base de datos
+    // Cargar el producto desde la base de datos por el id
     LaunchedEffect(productId) {
         viewModel.getProductById(productId) { fetchedProduct ->
             fetchedProduct?.let {
@@ -93,7 +93,7 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    ImagePicker() // Asumo que esta función permite seleccionar una imagen
+                    ImagePicker()
                     CustomTextField(
                         value = nombre,
                         labelText = "Producto",

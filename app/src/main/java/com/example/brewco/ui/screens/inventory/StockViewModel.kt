@@ -14,24 +14,27 @@ class StockViewModel : ViewModel() {
     private val productRepository = ProductRepository()
 
     private val _products = MutableStateFlow<List<Product>>(emptyList())
-    val products: StateFlow<List<Product>> = _products //versión pública y de sólo lectura del _products
+    val products: StateFlow<List<Product>> = _products //versión pública y de sólo lectura del _products para mostrar en UI
 
-    //método de ViewModel que se ejecuta al crear una instancia de StockViewModel
+    //método de ViewModel que se ejecuta al crear una instancia de StockViewModel(tipo para que se cargue los productos)
     init {
         loadProducts()
     }
 
     fun loadProducts() {
+        //usar una corutina para que getProducts haga petición asíncrona sin molestar
         viewModelScope.launch {
             val productsFromRepo = productRepository.getProducts()
             _products.value = productsFromRepo
         }
     }
 
+    /*---------------CREAR NUEVO PRODUCTO PULSADO-----------------------*/
     fun addProduct(product: Product, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             val isAdded = productRepository.addProduct(product)
             if (isAdded) {
+                loadProducts()
                 onSuccess() // Añadir correctamente
             } else {
                 onError("Error al añadir el producto")
@@ -39,10 +42,11 @@ class StockViewModel : ViewModel() {
         }
     }
 
+    /*---------------OBTENER PRODUCTO-----------------------*/
     fun getProductById(productId: String, onProductFetched: (Product?) -> Unit) {
         viewModelScope.launch {
             try {
-                // Aquí realizas la llamada suspendida al repositorio
+                // Aquí realizar llamada suspendida al repositorio
                 val fetchedProduct = productRepository.getProductById(productId)
                 onProductFetched(fetchedProduct)
             } catch (e: Exception) {
@@ -51,12 +55,13 @@ class StockViewModel : ViewModel() {
         }
     }
 
-
+    /*---------------EDITAR PRODUCTO-----------------------*/
     fun updateProduct(product: Product, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             try {
                 val isUpdated = productRepository.updateProduct(product)
                 if (isUpdated) {
+                    loadProducts()
                     onSuccess()
                 } else {
                     onError("Error al actualizar el producto")
@@ -67,12 +72,13 @@ class StockViewModel : ViewModel() {
         }
     }
 
-    // En el ViewModel
+    /*---------------ELIMINAR PRODUCTO-----------------------*/
     fun deleteProduct(productId: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             try {
                 val isDeleted = productRepository.deleteProduct(productId)
                 if (isDeleted) {
+                    loadProducts()
                     onSuccess() // Acción al eliminar el producto correctamente
                 } else {
                     onError("Error al eliminar el producto")
