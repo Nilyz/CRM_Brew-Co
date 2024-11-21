@@ -40,7 +40,7 @@ import com.example.brewco.ui.theme.Beige
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(title: String) {
+fun TopBar(title: String, onMenuClick: () -> Unit) {
     TopAppBar(
         title = {
             Row(
@@ -56,7 +56,7 @@ fun TopBar(title: String) {
             }
         },
         navigationIcon = {
-            IconButton(onClick = { /* Acción del botón de menú */ }) {
+            IconButton(onClick = onMenuClick) {
                 Icon(
                     imageVector = Icons.Default.Menu,
                     contentDescription = "Perfil",
