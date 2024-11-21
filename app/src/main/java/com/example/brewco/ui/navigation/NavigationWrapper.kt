@@ -3,7 +3,9 @@ package com.example.brewco.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.brewco.ui.screens.agenda.AgendaScreen
 import com.example.brewco.ui.screens.agenda.AgendaAddEvent
 import com.example.brewco.ui.screens.customer.CustomerScreen
@@ -25,8 +27,15 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         /*---------------------------PANTALLAS DE INVENTARIO-----------------*/
         composable ("inventoryScreen") { InventoryScreen(navHostController) }
         composable ("addProductscreen") { AddProductScreen(navHostController) }
-        composable ("editProductcreen") { EditProductScreen(navHostController) }
-
+        composable(
+            "editProductScreen/{productId}",
+            arguments = listOf(navArgument("productId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val productId = backStackEntry.arguments?.getString("productId")
+            productId?.let {
+                EditProductScreen(navHostController, productId = it)
+            }
+        }
         /*----------------------------PANTALLAS DE HOME---------------------*/
         composable ("homeScreen") { HomeScreen(navHostController) }
 

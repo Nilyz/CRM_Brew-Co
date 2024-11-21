@@ -38,4 +38,50 @@ class StockViewModel : ViewModel() {
             }
         }
     }
+
+    fun getProductById(productId: String, onProductFetched: (Product?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                // Aquí realizas la llamada suspendida al repositorio
+                val fetchedProduct = productRepository.getProductById(productId)
+                onProductFetched(fetchedProduct)
+            } catch (e: Exception) {
+                onProductFetched(null)
+            }
+        }
+    }
+
+
+    fun updateProduct(product: Product, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val isUpdated = productRepository.updateProduct(product)
+                if (isUpdated) {
+                    onSuccess()
+                } else {
+                    onError("Error al actualizar el producto")
+                }
+            } catch (e: Exception) {
+                onError("Error al actualizar el producto: ${e.message}")
+            }
+        }
+    }
+
+    // En el ViewModel
+    fun deleteProduct(productId: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val isDeleted = productRepository.deleteProduct(productId)
+                if (isDeleted) {
+                    onSuccess() // Acción al eliminar el producto correctamente
+                } else {
+                    onError("Error al eliminar el producto")
+                }
+            } catch (e: Exception) {
+                onError("Error al eliminar el producto: ${e.message}")
+            }
+        }
+    }
+
+
 }

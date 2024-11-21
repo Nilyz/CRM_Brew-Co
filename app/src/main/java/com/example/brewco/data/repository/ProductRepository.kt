@@ -29,6 +29,24 @@ class ProductRepository {
         }
     }
 
+    suspend fun getProductById(productId: String): Product? {
+        return try {
+            val documentSnapshot = db.collection("productos")
+                .document(productId)
+                .get()
+                .await()
+
+            if (documentSnapshot.exists()) {
+                documentSnapshot.toObject(Product::class.java)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+
     suspend fun updateProduct(producto: Product): Boolean {
         return try {
             productsCollection.document(producto.id).set(producto).await()

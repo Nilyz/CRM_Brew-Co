@@ -151,7 +151,7 @@ fun ProductItem(product: Product,navHostController: NavHostController) {
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    EditButton(navHostController, onClick = { navHostController.navigate("addProductscreen")})
+                    EditButton(navHostController, onClick = { navHostController.navigate("editProductscreen/${product.id}")})
                 }
             }
         }

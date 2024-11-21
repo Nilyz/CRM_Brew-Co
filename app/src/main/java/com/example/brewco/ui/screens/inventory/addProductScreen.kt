@@ -22,7 +22,10 @@ import com.example.brewco.ui.components.*
 
 
 @Composable
-fun AddProductScreen(navHostController: NavHostController,viewModel: StockViewModel = viewModel()) {
+fun AddProductScreen(
+    navHostController: NavHostController,
+    viewModel: StockViewModel = viewModel()
+) {
     var nombre by remember { mutableStateOf("") }
     var categoria by remember { mutableStateOf("") }
     var stockDisponible by remember { mutableStateOf(0) }
@@ -45,15 +48,17 @@ fun AddProductScreen(navHostController: NavHostController,viewModel: StockViewMo
                     )
                     if (newProduct.nombre.isBlank() || newProduct.categoria.isBlank() ||
                         newProduct.inventario <= 0 || newProduct.inventario_minimo <= 0 ||
-                        newProduct.precio <= 0.0) {
-                        println("Todos los campos deben estar completos y ser válidos")
+                        newProduct.precio <= 0.0
+                    ) {
+                        //Recurda añadir mensaje que diga que rellenes todos los campos
                     } else {
                         viewModel.addProduct(
                             product = newProduct,
                             onSuccess = { navHostController.popBackStack() },
-                            onError = {  }
+                            onError = { }
                         )
-                }})
+                    }
+                })
         },
 
         content = { paddingValues ->
@@ -68,13 +73,13 @@ fun AddProductScreen(navHostController: NavHostController,viewModel: StockViewMo
                         .padding(16.dp)
                 ) {
                     ImagePicker()
-                    TextField(
+                    CustomTextField(
                         value = nombre,
                         labelText = "Producto",
                         onValueChange = { nombre = it }
                     )
                     Spacer(modifier = Modifier.height(18.dp))
-                    TextField(
+                    CustomTextField(
                         value = categoria,
                         labelText = "Categoría",
                         onValueChange = { categoria = it }

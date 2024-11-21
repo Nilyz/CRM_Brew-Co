@@ -115,13 +115,13 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
             verticalArrangement = Arrangement.Center
         ) {
             Column() {
-                TextField(
+                CustomTextField(
                     value = email,
                     labelText = "Email",
                     onValueChange = { email = it }
                 )
                 Spacer(modifier = Modifier.height(18.dp))
-                TextField(
+                CustomTextField(
                     value = password,
                     labelText = "Contraseña" ,
                     onValueChange = { password = it }
