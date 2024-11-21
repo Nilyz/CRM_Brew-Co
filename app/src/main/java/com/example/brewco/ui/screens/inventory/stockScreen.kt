@@ -20,11 +20,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,16 +43,40 @@ import com.example.brewco.data.model.Product
 import com.example.brewco.ui.components.*
 import com.example.brewco.ui.theme.*
 import androidx.lifecycle.viewmodel.compose.viewModel
-
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewModel = viewModel()) {
     // Observa la lista de productos
     val productList by viewModel.products.collectAsState()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
+        drawerContent = {
+            CustomDrawer(
+                navHostController = navHostController,
+                onLogoutClick = {
+                    navHostController.navigate("splashScreen") {
+                        popUpTo(0) // Limpia la pila de navegación
+                    }
+                }
+            )
+        }
+    ) { }
 
     Scaffold(
-        topBar = { TopBar(title = "Inventario") },
+        topBar = { TopBar(title = "Inventario", onMenuClick = {
+            scope.launch{
+                if (drawerState.isClosed) {
+                    drawerState.open()
+                } else {
+                    drawerState.close()
+                }
+            }
+        }) },
         bottomBar = { CustomBottomNavBar(navHostController) },
         floatingActionButton = {
             PlusButton(navHostController, onClick = { navHostController.navigate("addProductScreen")})
@@ -75,6 +103,8 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
 
 @Composable
 fun ProductItem(product: Product,navHostController: NavHostController) {
+    val drawerValue = rememberDrawerState(DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
     Card(
         modifier = Modifier
             .fillMaxWidth()
