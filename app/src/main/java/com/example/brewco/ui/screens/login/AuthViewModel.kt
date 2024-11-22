@@ -1,4 +1,4 @@
-package com.example.brewco.ui.viewmodel
+package com.example.brewco.ui.screens.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

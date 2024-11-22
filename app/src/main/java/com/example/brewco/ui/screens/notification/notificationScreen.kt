@@ -1,4 +1,4 @@
-package com.example.brewco.ui.screens
+package com.example.brewco.ui.screens.notification
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
@@ -15,17 +16,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.brewco.ui.components.CustomBottomNavBar
+import com.example.brewco.ui.components.CustomDrawer
 import com.example.brewco.ui.components.TopBar
 import kotlinx.coroutines.launch
 
 @Composable
-fun InventoryScreen(navHostController: NavHostController) {
+fun NotificationtScreen(navHostController: NavHostController) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            CustomDrawer(
+                navHostController = navHostController,
+                onLogoutClick = {
+                    navHostController.navigate("splashScreen") {
+                        popUpTo(0) // Limpia la pila de navegación
+                    }
+                } )
+        },
+    ) { }
     Scaffold(
-        topBar = { TopBar(title = "Inventario", onMenuClick ={
+        topBar = { TopBar(title = "Notificaciones", onMenuClick = {
             scope.launch {
-                drawerState.open()
+                if (drawerState.isClosed) {
+                    drawerState.open()
+                } else {
+                    drawerState.close()
+                }
             }
         }) },
         bottomBar = { CustomBottomNavBar(navHostController) },
