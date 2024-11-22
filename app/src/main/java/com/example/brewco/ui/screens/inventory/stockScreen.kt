@@ -23,12 +23,15 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,10 +50,14 @@ import com.example.brewco.data.model.Product
 import com.example.brewco.ui.components.*
 import com.example.brewco.ui.theme.*
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.currentBackStackEntryAsState
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import kotlinx.coroutines.launch
+
+
+
 
 
 @Composable
@@ -59,6 +66,33 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
     val productList by viewModel.products.collectAsState()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val addedMessage = navHostController.currentBackStackEntry?.arguments?.getString("added")
+    val deleteMessage = navHostController.currentBackStackEntry?.arguments?.getString("delete")
+    val editedMessage = navHostController.currentBackStackEntry?.arguments?.getString("edited")
+
+
+    LaunchedEffect(addedMessage, deleteMessage, editedMessage) {
+        when {
+            addedMessage == "true" -> {
+                scope.launch {
+                    snackbarHostState.showSnackbar("Producto añadido con éxito!")
+                }
+            }
+            deleteMessage == "true" -> {
+                scope.launch {
+                    snackbarHostState.showSnackbar("Producto eliminado con éxito!")
+                }
+            }
+            editedMessage == "true" -> {
+                scope.launch {
+                    snackbarHostState.showSnackbar("Producto editado con éxito!")
+                }
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.loadProducts()  //recargar productos cada vez que se entra a la pantalla
@@ -78,6 +112,11 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
     ) { }
 
     Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState,modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp))
+        },
         topBar = {
             TopBar(title = "Inventario", onMenuClick = {
                 scope.launch {
@@ -128,8 +167,8 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
 fun ProductItem(product: Product, navHostController: NavHostController) {
     val categoryImageRes = when (product.categoria) {
         "Leche" -> R.drawable.leche
-        "Café" -> R.drawable.cafe
-        "Té" -> R.drawable.te
+        "Cafe" -> R.drawable.cafe
+        "Te" -> R.drawable.te
         "Horneados" -> R.drawable.bolleria
         else -> R.drawable.logobrewco
     }
@@ -154,8 +193,8 @@ fun ProductItem(product: Product, navHostController: NavHostController) {
             Column(
                 modifier = Modifier
                     .weight(0.40f)
-                    .fillMaxHeight()
-                    .border(width = 2.dp, color = Brown),
+                    //.border(width = 2.dp, color = Brown)
+                    .fillMaxHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
@@ -168,7 +207,7 @@ fun ProductItem(product: Product, navHostController: NavHostController) {
                         .fillMaxHeight(0.80f)
                         .padding(bottom = 8.dp)
                         .clip(RoundedCornerShape(16.dp))
-                        .border(width = 2.dp, color = Beige)
+                        //.border(width = 2.dp, color = Beige)
                         .background(Brown),
                     contentScale = ContentScale.Crop
                 )
@@ -190,14 +229,14 @@ fun ProductItem(product: Product, navHostController: NavHostController) {
                 modifier = Modifier
                     .weight(0.60f)
                     .fillMaxHeight()
-                    .border(width = 2.dp, color = Brown)
+                //.border(width = 2.dp, color = Brown)
 
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.75f)
-                        .border(width = 2.dp, color = Brown)
+                        //.border(width = 2.dp, color = Brown)
                         .padding(10.dp),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {

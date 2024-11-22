@@ -72,8 +72,9 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
                         viewModel.updateProduct(
                             product = updatedProduct,
                             onSuccess = {
-                                // Volver a la pantalla anterior (pantalla de inventario)
-                                navHostController.popBackStack()
+                                navHostController.navigate("inventoryScreen?edited=true") {
+                                    popUpTo("editProductScreen") { inclusive = true }
+                                }
                             },
                             onError = {
                             }
@@ -126,8 +127,9 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
                             viewModel.deleteProduct(
                                 productId = productId,
                                 onSuccess = {
-                                    // Redirigir al usuario a la pantalla anterior después de eliminar
-                                    navHostController.popBackStack()
+                                    navHostController.navigate("inventoryScreen?delete=true") {
+                                        popUpTo("editProductScreen") { inclusive = true }
+                                    }
                                 },
                                 onError = { errorMessage ->
                                 }

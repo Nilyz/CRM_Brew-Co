@@ -54,7 +54,13 @@ fun AddProductScreen(
                     } else {
                         viewModel.addProduct(
                             product = newProduct,
-                            onSuccess = { navHostController.popBackStack() },
+                            onSuccess = {
+                                // Cuando el producto se agrega correctamente, navega y pasa un argumento
+                                navHostController.navigate("inventoryScreen?added=true") {
+                                    popUpTo("addProductScreen") { inclusive = true }
+                                }
+
+                            },
                             onError = { }
                         )
                     }

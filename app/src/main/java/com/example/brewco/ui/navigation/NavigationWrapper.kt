@@ -21,12 +21,21 @@ import com.example.brewco.ui.screens.splashScreen.StartSplashScreen
 fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthViewModel) {
     NavHost(navController = navHostController, startDestination = "homeScreen") {
 
-        composable ("startSplashScreen") { StartSplashScreen(navHostController) }
-        composable ("loginScreen") { LoginScreen(navHostController, authViewModel) }
+        composable("startSplashScreen") { StartSplashScreen(navHostController) }
+        composable("loginScreen") { LoginScreen(navHostController, authViewModel) }
 
         /*---------------------------PANTALLAS DE INVENTARIO-----------------*/
-        composable ("inventoryScreen") { InventoryScreen(navHostController) }
-        composable ("addProductscreen") { AddProductScreen(navHostController) }
+        composable(
+            route = "inventoryScreen?added={added}&delete={delete}&edited={edited}",
+            arguments = listOf(
+                navArgument("added") { defaultValue = "false" },
+                navArgument("delete") { defaultValue = "false" },
+                navArgument("edited") { defaultValue = "false" }
+            )
+        ) {
+            InventoryScreen(navHostController)
+        }
+        composable("addProductscreen") { AddProductScreen(navHostController) }
         composable(
             "editProductScreen/{productId}",
             arguments = listOf(navArgument("productId") { type = NavType.StringType })
@@ -37,16 +46,16 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
             }
         }
         /*----------------------------PANTALLAS DE HOME---------------------*/
-        composable ("homeScreen") { HomeScreen(navHostController) }
+        composable("homeScreen") { HomeScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE CLIENTE----------------------*/
-        composable ("customerScreen") { CustomerScreen(navHostController) }
+        composable("customerScreen") { CustomerScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/
-        composable ("notificationScreen") { NotificationtScreen(navHostController) }
+        composable("notificationScreen") { NotificationtScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE AGENDA-----------------------------*/
-        composable ("agendaScreen") { AgendaScreen(navHostController) }
+        composable("agendaScreen") { AgendaScreen(navHostController) }
         composable("agendaAddEvent/{selectedDate}") { backStackEntry ->
             val selectedDate = backStackEntry.arguments?.getString("selectedDate")
             if (selectedDate != null) {

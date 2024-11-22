@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation("androidx.compose.material3:material3:1.2.0-alpha06")
     implementation ("io.coil-kt:coil-compose:2.3.0")
+    implementation(libs.androidx.compose.material3)
 
 
     testImplementation(libs.junit)
