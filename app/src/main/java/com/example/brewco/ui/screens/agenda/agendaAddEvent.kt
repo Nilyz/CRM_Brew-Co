@@ -88,7 +88,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                     .padding(
                         start = 16.dp,
                         end = 16.dp,
-                        top = 32.dp,
+                        top = 26.dp,
                         bottom = 16.dp
                     ),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -105,7 +105,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             onValueChange = { titulo = it }
                         )
 
-                        Spacer(modifier = Modifier.height(32.dp))
+                        Spacer(modifier = Modifier.height(26.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -117,7 +117,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             ToggleSwitch()
                         }
 
-                        Spacer(modifier = Modifier.height(32.dp))
+                        Spacer(modifier = Modifier.height(26.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -202,7 +202,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(32.dp))
+                        Spacer(modifier = Modifier.height(26.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -287,7 +287,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(32.dp))
+                        Spacer(modifier = Modifier.height(26.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -342,7 +342,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
 
                         }
 
-                        Spacer(modifier = Modifier.height(32.dp))
+                        Spacer(modifier = Modifier.height(26.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -404,7 +404,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(32.dp))
+                        Spacer(modifier = Modifier.height(26.dp))
 
                         Column(
                             modifier = Modifier
