@@ -95,6 +95,7 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
                         .padding(16.dp)
                 ) {
                     ImagePicker()
+                    Spacer(modifier = Modifier.height(24.dp))
                     CustomTextField(
                         value = nombre,
                         labelText = "Producto",
@@ -106,6 +107,7 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
                         labelText = "Categoría",
                         onValueChange = { categoria = it }
                     )
+                    Spacer(modifier = Modifier.height(26.dp))
                     StockInputField(
                         "Stock disponible",
                         value = stockDisponible,
@@ -121,6 +123,7 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
                         value = precio,
                         onValueChange = { newValue -> precio = newValue }
                     )
+                    Spacer(modifier = Modifier.height(18.dp))
                     CustomButton(
                         text = "Eliminar producto",
                         onClick = {

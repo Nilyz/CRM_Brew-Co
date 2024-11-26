@@ -57,9 +57,6 @@ import coil.request.ImageRequest
 import kotlinx.coroutines.launch
 
 
-
-
-
 @Composable
 fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewModel = viewModel()) {
     // Observa la lista de productos
@@ -81,11 +78,13 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
                     snackbarHostState.showSnackbar("Producto añadido con éxito!")
                 }
             }
+
             deleteMessage == "true" -> {
                 scope.launch {
                     snackbarHostState.showSnackbar("Producto eliminado con éxito!")
                 }
             }
+
             editedMessage == "true" -> {
                 scope.launch {
                     snackbarHostState.showSnackbar("Producto editado con éxito!")
@@ -113,9 +112,11 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
 
     Scaffold(
         snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState,modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp))
+            SnackbarHost(
+                hostState = snackbarHostState, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            )
         },
         topBar = {
             TopBar(title = "Inventario", onMenuClick = {
@@ -163,111 +164,3 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
     )
 }
 
-@Composable
-fun ProductItem(product: Product, navHostController: NavHostController) {
-    val categoryImageRes = when (product.categoria) {
-        "Leche" -> R.drawable.leche
-        "Cafe" -> R.drawable.cafe
-        "Te" -> R.drawable.te
-        "Horneados" -> R.drawable.bolleria
-        else -> R.drawable.logobrewco
-    }
-
-    val painter = painterResource(id = categoryImageRes)
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(160.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Beige
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Column(
-                modifier = Modifier
-                    .weight(0.40f)
-                    //.border(width = 2.dp, color = Brown)
-                    .fillMaxHeight(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
-            ) {
-
-                Image(
-                    painter = painter,
-                    contentDescription = "Producto",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.80f)
-                        .padding(bottom = 8.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        //.border(width = 2.dp, color = Beige)
-                        .background(Brown),
-                    contentScale = ContentScale.Crop
-                )
-                Text(
-                    "${product.nombre}",
-                    color = DarkBrown,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Center
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Column(
-                modifier = Modifier
-                    .weight(0.60f)
-                    .fillMaxHeight()
-                //.border(width = 2.dp, color = Brown)
-
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.75f)
-                        //.border(width = 2.dp, color = Brown)
-                        .padding(10.dp),
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row() {
-                        Text("Categoría: ", color = DarkBrown, fontWeight = FontWeight.Bold)
-                        Text("${product.categoria}", color = DarkBrown)
-                    }
-                    Row() {
-                        Text("Stock disponible: ", color = DarkBrown, fontWeight = FontWeight.Bold)
-                        Text("${product.inventario}", color = DarkBrown)
-                    }
-                    Row() {
-                        Text("Stock mínimo: ", color = DarkBrown, fontWeight = FontWeight.Bold)
-                        Text("${product.inventario_minimo}", color = DarkBrown)
-                    }
-                    Row() {
-                        Text("Precio: ", color = DarkBrown, fontWeight = FontWeight.Bold)
-                        Text("${product.precio} €", color = DarkBrown)
-                    }
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    EditButton(
-                        navHostController,
-                        onClick = { navHostController.navigate("editProductscreen/${product.id}") })
-                }
-            }
-        }
-    }
-}
