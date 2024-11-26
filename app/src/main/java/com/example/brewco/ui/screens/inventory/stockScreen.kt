@@ -57,9 +57,6 @@ import coil.request.ImageRequest
 import kotlinx.coroutines.launch
 
 
-
-
-
 @Composable
 fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewModel = viewModel()) {
     // Observa la lista de productos
@@ -81,11 +78,13 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
                     snackbarHostState.showSnackbar("Producto añadido con éxito!")
                 }
             }
+
             deleteMessage == "true" -> {
                 scope.launch {
                     snackbarHostState.showSnackbar("Producto eliminado con éxito!")
                 }
             }
+
             editedMessage == "true" -> {
                 scope.launch {
                     snackbarHostState.showSnackbar("Producto editado con éxito!")
@@ -113,9 +112,11 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
 
     Scaffold(
         snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState,modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp))
+            SnackbarHost(
+                hostState = snackbarHostState, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+            )
         },
         topBar = {
             TopBar(title = "Inventario", onMenuClick = {
