@@ -137,7 +137,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                 Text(selectedDate, style = TextStyle(color = DarkBrown))
                             }
 
-                            Spacer(modifier = Modifier.width(8.dp))
+                            Spacer(modifier = Modifier.width(16.dp))
 
                             // Selector de hora
                             Column {
@@ -169,7 +169,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                 }
                             }
 
-                            Spacer(modifier = Modifier.width(32.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
 
                             // Selector de minutos
                             Column {
@@ -222,7 +222,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                 Text(selectedDate, style = TextStyle(color = DarkBrown))
                             }
 
-                            Spacer(modifier = Modifier.width(8.dp))
+                            Spacer(modifier = Modifier.width(16.dp))
 
                             // Selector de hora
                             Column {
@@ -254,7 +254,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                 }
                             }
 
-                            Spacer(modifier = Modifier.width(32.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
 
                             // Selector de minutos
                             Column {
