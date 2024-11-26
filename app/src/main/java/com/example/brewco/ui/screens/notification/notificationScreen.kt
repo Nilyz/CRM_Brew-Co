@@ -120,13 +120,13 @@ fun NotificationItem(index: Int) {
                     modifier = Modifier
                         .weight(0.3f)
                         .border(width = 2.dp, color = Color.Black),
-                    textAlign = TextAlign.End, color = DarkBrown
+                    textAlign = TextAlign.End, color = Brown
                 )
             }
             Row() {
-                Text("15:30", color = DarkBrown)
-                Text("-", color = DarkBrown)
-                Text("16:00", color = DarkBrown)
+                Text("15:30", color = Brown,fontSize = 14.sp,)
+                Text("-", color = Brown,fontSize = 14.sp,)
+                Text("16:00", color = Brown,fontSize = 14.sp,)
             }
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
@@ -134,7 +134,8 @@ fun NotificationItem(index: Int) {
                     color = DarkBrown,
                     modifier = Modifier
                         .weight(0.3f)
-                        .border(width = 2.dp, color = Color.Black),
+                        .border(width = 2.dp, color = Color.Black)
+                        .padding(bottom = 8.dp),
 
                     )
             }
