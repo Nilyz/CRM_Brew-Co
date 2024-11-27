@@ -1,5 +1,6 @@
 package com.example.brewco.ui.screens.agenda
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -26,23 +27,35 @@ import com.example.brewco.ui.components.CustomBottomNavBar
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import com.example.brewco.R
+import com.example.brewco.R.*
 import com.example.brewco.ui.components.CustomTextField
 import com.example.brewco.ui.components.TopBarWithText
 import com.example.brewco.ui.theme.Brown
+import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.components.*
 import com.example.brewco.ui.theme.DarkBrown
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
     var titulo by remember { mutableStateOf("") }
@@ -50,9 +63,9 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
     var expandedMinute by remember { mutableStateOf(false) }
     var selectedHour by remember { mutableStateOf("00") }
     var selectedMinute by remember { mutableStateOf("00") }
-    var selectedOption by remember { mutableStateOf("Sí") }
+    var selectedOption by remember { mutableStateOf("No") }
     var expandedOption by remember { mutableStateOf(false) }
-    var selectedEmployee by remember { mutableStateOf("Empleado 1") }
+    var selectedEmployee by remember { mutableStateOf("Juan") }
     var expandedEmployee by remember { mutableStateOf(false) }
     var notes by remember { mutableStateOf("") }
 
@@ -67,11 +80,17 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
         },
         bottomBar = { CustomBottomNavBar(navHostController) },
         content = { paddingValues ->
+
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(16.dp),
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = 32.dp,
+                        bottom = 16.dp
+                    ),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 item {
@@ -86,19 +105,33 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             onValueChange = { titulo = it }
                         )
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Empieza", style = TextStyle(color = Brown))
+                            Text("Todo el día", style = TextStyle(color = DarkBrown))
+
+                            ToggleSwitch()
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("Empieza", style = TextStyle(color = DarkBrown))
+
+                            Spacer(modifier = Modifier.width(8.dp))
 
                             // Selector de fecha
                             Box(
                                 modifier = Modifier
-                                    .background(color = Brown, shape = RoundedCornerShape(8.dp))
+                                    .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                     .padding(8.dp)
                             ) {
                                 Text(selectedDate, style = TextStyle(color = DarkBrown))
@@ -110,7 +143,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Brown, shape = RoundedCornerShape(8.dp))
+                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                         .padding(8.dp)
                                         .clickable { expandedHour = true }
                                 ) {
@@ -136,13 +169,13 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                 }
                             }
 
-                            Spacer(modifier = Modifier.width(16.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
 
                             // Selector de minutos
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Brown, shape = RoundedCornerShape(8.dp))
+                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                         .padding(8.dp)
                                         .clickable { expandedMinute = true }
                                 ) {
@@ -169,19 +202,21 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Termina", style = TextStyle(color = Brown))
+                            Text("Termina", style = TextStyle(color = DarkBrown))
+
+                            Spacer(modifier = Modifier.width(8.dp))
 
                             // Selector de fecha
                             Box(
                                 modifier = Modifier
-                                    .background(color = Brown, shape = RoundedCornerShape(8.dp))
+                                    .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                     .padding(8.dp)
                             ) {
                                 Text(selectedDate, style = TextStyle(color = DarkBrown))
@@ -193,7 +228,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Brown, shape = RoundedCornerShape(8.dp))
+                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                         .padding(8.dp)
                                         .clickable { expandedHour = true }
                                 ) {
@@ -219,13 +254,13 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                 }
                             }
 
-                            Spacer(modifier = Modifier.width(16.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
 
                             // Selector de minutos
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Brown, shape = RoundedCornerShape(8.dp))
+                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                         .padding(8.dp)
                                         .clickable { expandedMinute = true }
                                 ) {
@@ -252,28 +287,40 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Aviso", style = TextStyle(color = Brown))
-
-
+                            Text("Aviso", style = TextStyle(color = DarkBrown))
+                            
                             // Selector de aviso
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Brown, shape = RoundedCornerShape(8.dp))
+                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                         .padding(8.dp)
-                                        .clickable { expandedOption = true }
+                                        .clickable {
+                                            expandedOption = !expandedOption
+                                        } // Alterna la expansión al hacer clic
                                 ) {
-                                    Text(
-                                        "Aviso: $selectedOption",
-                                        style = TextStyle(color = DarkBrown)
-                                    )
+                                    Row(
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp), // Espacio entre texto e icono
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text(
+                                            text = "$selectedOption",
+                                            style = TextStyle(color = DarkBrown)
+                                        )
+                                        Image(
+                                            painter = painterResource(id = R.drawable.mynauichevronupdownsolid), // Usa el ID correcto
+                                            contentDescription = "Flecha arriba/abajo",
+                                            contentScale = ContentScale.Fit,
+                                            modifier = Modifier.size(20.dp) // Ajusta el tamaño del icono
+                                        )
+                                    }
                                 }
 
                                 DropdownMenu(
@@ -295,27 +342,40 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
 
                         }
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Empleado", style = TextStyle(color = Brown))
+                            Text("Empleado", style = TextStyle(color = DarkBrown))
 
 
                             Column {
+
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Brown, shape = RoundedCornerShape(8.dp))
+                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                         .padding(8.dp)
-                                        .clickable { expandedEmployee = true }
+                                        .clickable { expandedEmployee = !expandedEmployee }
                                 ) {
-                                    Text(
-                                        "Empleado: $selectedEmployee",
-                                        style = TextStyle(color = DarkBrown)
-                                    )
+                                    Row(
+                                        horizontalArrangement = Arrangement.SpaceBetween, // Texto e icono separados
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text(
+                                            text = "$selectedEmployee",
+                                            style = TextStyle(color = DarkBrown)
+                                        )
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Image(
+                                            painter = painterResource(id = drawable.mynauichevronupdownsolid), // Reemplaza con el nombre correcto
+                                            contentDescription = "Flecha arriba/abajo",
+                                            contentScale = ContentScale.Fit,
+                                            modifier = Modifier.size(20.dp) // Ajusta el tamaño del icono según sea necesario
+                                        )
+                                    }
                                 }
 
                                 DropdownMenu(
@@ -323,7 +383,13 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                     onDismissRequest = { expandedEmployee = false },
                                     modifier = Modifier.heightIn(max = 200.dp) // Altura máxima del menú
                                 ) {
-                                    listOf("Pedro", "Juan", "María", "Jesús", "Mohamed").forEach { employee ->
+                                    listOf(
+                                        "Pedro",
+                                        "Juan",
+                                        "María",
+                                        "Jesús",
+                                        "Mohamed"
+                                    ).forEach { employee ->
                                         DropdownMenuItem(
                                             text = { Text(employee) },
                                             onClick = {
@@ -333,13 +399,16 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                         )
                                     }
                                 }
+
+
                             }
                         }
+
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
                         ) {
                             Text(
                                 text = "Notas",
@@ -352,11 +421,21 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(150.dp) // Altura para simular un TextArea
-                                    .background(Brown, shape = RoundedCornerShape(8.dp))
-                                    .border(1.dp, Color.Gray, shape = RoundedCornerShape(8.dp)),
+                                    .border(
+                                        1.dp,
+                                        Beige,
+                                        shape = RoundedCornerShape(8.dp)
+                                    ), // Borde beige
                                 placeholder = { Text("Escribe tus notas aquí...") },
-                                textStyle = TextStyle(color = Color.Black)
+                                textStyle = TextStyle(color = DarkBrown), // Color del texto
+                                colors = TextFieldDefaults.textFieldColors(
+                                    containerColor = Beige, // Fondo beige
+                                    focusedIndicatorColor = Color.Transparent, // Sin línea de foco
+                                    unfocusedIndicatorColor = Color.Transparent // Sin línea sin foco
+                                )
                             )
+
+
                         }
                     }
                 }

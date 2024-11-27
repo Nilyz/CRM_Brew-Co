@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.brewco.R
 import com.example.brewco.ui.theme.Brown
+import com.example.brewco.ui.theme.DarkBrown
 import com.example.brewco.ui.theme.Beige
 
 
@@ -137,7 +138,7 @@ fun CustomBottomNavBar(navController: NavController) {
     BottomAppBar(
         modifier = Modifier
             .fillMaxWidth(),
-        containerColor = Beige, // Fondo personalizado
+        containerColor = Brown, // Fondo personalizado
     ) {
         Spacer(modifier = Modifier.weight(1f))
 
@@ -147,7 +148,7 @@ fun CustomBottomNavBar(navController: NavController) {
                 Icons.Default.DateRange,
                 contentDescription = "Agenda",
                 modifier = Modifier.size(50.dp), // Tamaño del icono
-                tint = if (pantallaActual == "agendaScreen") Brown else Color.White // Cambia el color si es la pantalla activa
+                tint = if (pantallaActual == "agendaScreen") DarkBrown else Color.White // Cambia el color si es la pantalla activa
             )
         }
 
@@ -159,7 +160,7 @@ fun CustomBottomNavBar(navController: NavController) {
                 Icons.Default.AccountCircle,
                 contentDescription = "Clientes",
                 modifier = Modifier.size(50.dp), // Tamaño del icono
-                tint = if (pantallaActual == "customerScreen") Brown else Color.White
+                tint = if (pantallaActual == "customerScreen") DarkBrown else Color.White
             )
         }
 
@@ -171,7 +172,7 @@ fun CustomBottomNavBar(navController: NavController) {
                 Icons.Default.Home,
                 contentDescription = "Home",
                 modifier = Modifier.size(50.dp), // Tamaño del icono
-                tint = if (pantallaActual == "homeScreen") Brown else Color.White
+                tint = if (pantallaActual == "homeScreen") DarkBrown else Color.White
             )
         }
 
@@ -195,7 +196,7 @@ fun CustomBottomNavBar(navController: NavController) {
                 Icons.Default.Notifications,
                 contentDescription = "Notificaciones",
                 modifier = Modifier.size(50.dp), // Tamaño del icono
-                tint = if (pantallaActual == "notificationScreen") Brown else Color.White
+                tint = if (pantallaActual == "notificationScreen") DarkBrown else Color.White
             )
         }
 
