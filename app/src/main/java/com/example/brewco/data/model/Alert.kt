@@ -4,8 +4,11 @@ import java.time.LocalDate
 
 data class Alert(
 
-    var tipo: String = "",
-    var fecha: LocalDate? = null,
-    var descripcion: String = "",
-    var hora: String = ""
+    val titulo: String = "",
+    val fecha: String = "",
+    val inicio: String = "",
+    val fin: String = "",
+    val aviso: Boolean = false,
+    val empleado: String = "",
+    val descripcion: String = "",
 )
