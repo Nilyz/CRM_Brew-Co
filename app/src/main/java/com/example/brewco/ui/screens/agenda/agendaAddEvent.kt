@@ -52,7 +52,8 @@ import androidx.compose.runtime.*
 import java.util.Calendar
 import com.example.brewco.data.model.Alert
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.brewco.ui.screens.inventory.StockViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,7 +65,13 @@ fun AgendaAddEvent(
     isAllDay: Boolean
 ) {
 
-    var selectedFinalDate by remember { mutableStateOf(selectedDate) }
+    // Convertir selectedDate a formato dd/MM/yyyy
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val date = inputFormat.parse(selectedDate) // Convertir la fecha de String a Date
+    val formattedDate = if (date != null) outputFormat.format(date) else selectedDate // Formatear a dd/MM/yyyy
+
+    var selectedFinalDate by remember { mutableStateOf(formattedDate) }
     var titulo by remember { mutableStateOf("") }
     var expandedInicialHour by remember { mutableStateOf(false) }
     var expandedInicialMinute by remember { mutableStateOf(false) }
@@ -84,7 +91,7 @@ fun AgendaAddEvent(
     var isAllDayState by remember { mutableStateOf(isAllDay) }
 
 
-    // Mostrar DatePickerDialog cuando `showDatePicker` sea true
+// Mostrar DatePickerDialog cuando `showDatePicker` sea true
     if (showDatePicker) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -94,13 +101,19 @@ fun AgendaAddEvent(
         DatePickerDialog(
             LocalContext.current,
             { _, selectedYear, selectedMonth, selectedDay ->
+                // Si el usuario selecciona una fecha
                 selectedFinalDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
                 showDatePicker = false // Ocultar el DatePicker
             },
             year,
             month,
             day
-        ).show()
+        ).apply {
+            setOnDismissListener {
+                // Se ejecuta cuando el DatePickerDialog se cierra (sea por cancelación o selección)
+                showDatePicker = false
+            }
+        }.show()
     }
 
     Scaffold(
@@ -113,7 +126,7 @@ fun AgendaAddEvent(
                     // Crear el objeto Alerta con los datos del formulario
 
                     if (isAllDayState) {
-                        selectedFinalDate = selectedDate
+                        selectedFinalDate = formattedDate
                         selectedInicicalHour = "00"
                         selectedInicicalMinute = "00"
                         selectedFinalHour = "23"
@@ -122,7 +135,7 @@ fun AgendaAddEvent(
 
                     val newAlert = Alert(
                         titulo = titulo,
-                        fechaInicio = selectedDate,
+                        fechaInicio = formattedDate,
                         horaInicio = selectedInicicalHour,
                         minutosInicio = selectedInicicalMinute,
                         fechaFin = selectedFinalDate,
@@ -202,10 +215,10 @@ fun AgendaAddEvent(
 
                                 // Si isAllDayState es true, asignamos los valores a selectedFinalMinute y selectedFinalHour
                                 if (isAllDayState) {
+                                    showDatePicker = false
                                     selectedFinalMinute = "59"
                                     selectedFinalHour = "23"
                                 } else {
-                                    // Si no es todo el día, puedes asignar otros valores predeterminados si es necesario
                                     selectedFinalMinute = "00"
                                     selectedFinalHour = "00"
                                 }
@@ -219,7 +232,15 @@ fun AgendaAddEvent(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Empieza", style = TextStyle(color = DarkBrown))
+                            Row(
+                                modifier = Modifier.width(80.dp) // Define el ancho fijo del Row
+                            ) {
+                                Text(
+                                    "Empieza",
+                                    style = TextStyle(color = DarkBrown),
+                                    modifier = Modifier.fillMaxWidth() // Hace que el texto ocupe todo el ancho disponible
+                                )
+                            }
 
                             Spacer(modifier = Modifier.width(8.dp))
 
@@ -229,7 +250,7 @@ fun AgendaAddEvent(
                                     .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                     .padding(8.dp)
                             ) {
-                                Text(selectedDate, style = TextStyle(color = DarkBrown))
+                                Text(formattedDate, style = TextStyle(color = DarkBrown))
                             }
 
                             Spacer(modifier = Modifier.width(16.dp))
@@ -238,7 +259,10 @@ fun AgendaAddEvent(
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
                                         .clickable { expandedInicialHour = true }
                                 ) {
@@ -271,7 +295,10 @@ fun AgendaAddEvent(
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
                                         .clickable { expandedInicialMinute = true }
                                 ) {
@@ -306,7 +333,15 @@ fun AgendaAddEvent(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Termina", style = TextStyle(color = DarkBrown))
+                            Row(
+                                modifier = Modifier.width(80.dp) // Define el ancho fijo del Row
+                            ) {
+                                Text(
+                                    "Termina",
+                                    style = TextStyle(color = DarkBrown),
+                                    modifier = Modifier.fillMaxWidth() // Hace que el texto ocupe todo el ancho disponible
+                                )
+                            }
 
                             Spacer(modifier = Modifier.width(8.dp))
 
@@ -315,7 +350,7 @@ fun AgendaAddEvent(
                                 modifier = Modifier
                                     .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                     .padding(8.dp)
-                                    .clickable(enabled = !isAllDayState) {
+                                    .clickable (enabled = !isAllDayState) {
                                         showDatePicker = true
                                     } // Muestra el selector de fecha
                             ) {
@@ -328,7 +363,10 @@ fun AgendaAddEvent(
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
                                         .clickable(enabled = !isAllDayState) {  // Solo habilitado si no es 'todo el día'
                                             expandedFinalHour = true
@@ -348,7 +386,8 @@ fun AgendaAddEvent(
                                         DropdownMenuItem(
                                             text = { Text(hour.toString().padStart(2, '0')) },
                                             onClick = {
-                                                selectedFinalHour = hour.toString().padStart(2, '0')
+                                                selectedFinalHour =
+                                                    hour.toString().padStart(2, '0')
                                                 expandedFinalHour = false
                                             }
                                         )
@@ -362,7 +401,10 @@ fun AgendaAddEvent(
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
                                         .clickable(enabled = !isAllDayState) {  // Solo habilitado si no es 'todo el día'
                                             expandedFinalMinute = true
@@ -405,7 +447,10 @@ fun AgendaAddEvent(
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
                                         .clickable {
                                             expandedOption = !expandedOption
@@ -463,7 +508,10 @@ fun AgendaAddEvent(
 
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
                                         .clickable { expandedEmployee = !expandedEmployee }
                                 ) {
@@ -550,6 +598,7 @@ fun AgendaAddEvent(
         }
     )
 }
+
 
 
 
