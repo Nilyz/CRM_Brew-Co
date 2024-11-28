@@ -127,7 +127,7 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
             .fillMaxSize()
     ){
         Text(
-            text = "Nombre Apellido Apellidos",
+            text = "${client.nombre} ${client.apellido}",
             fontWeight = FontWeight.Bold,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
@@ -147,7 +147,7 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
 
             )
             Text(
-                text = "1",
+                text = "${client.puntos}",
                 modifier = Modifier
             )
             Icon(
@@ -169,7 +169,7 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 modifier = Modifier
             )
             Text(
-                text = "Variable",
+                text = "${client.telefono}",
                 modifier = Modifier
             )
         }
@@ -186,7 +186,7 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 modifier = Modifier
             )
             Text(
-                text = "20/12/2020",
+                text = "${client.ultCompra}",
                 modifier = Modifier
             )
         }
