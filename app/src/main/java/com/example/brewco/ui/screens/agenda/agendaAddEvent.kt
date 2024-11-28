@@ -122,6 +122,7 @@ fun AgendaAddEvent(
                 title = "Nuevo Evento",
                 text1 = "Cancelar",
                 text2 = "Añadir",
+                navController = navHostController, // Aquí se pasa el navHostController
                 onActionClick = {
                     // Crear el objeto Alerta con los datos del formulario
 
