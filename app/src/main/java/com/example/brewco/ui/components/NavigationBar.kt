@@ -177,11 +177,12 @@ fun CustomBottomNavBar(navController: NavController) {
 
         // Botón de Inicio
         IconButton(onClick = { navController.navigate("homeScreen") }) {
-            Icon(
-                Icons.Default.Home,
+
+            Image(
+                painter = painterResource(id = R.drawable.house), // Recurso de drawable
                 contentDescription = "Home",
-                modifier = Modifier.size(50.dp), // Tamaño del icono
-                tint = if (pantallaActual == "homeScreen") DarkBrown else Color.White
+                modifier = Modifier.size(38.dp), // Tamaño del icono
+                colorFilter = ColorFilter.tint(if (pantallaActual == "homeScreen") DarkBrown else Color.White)
             )
         }
 
@@ -194,7 +195,7 @@ fun CustomBottomNavBar(navController: NavController) {
                 painter = painterResource(id = R.drawable.bxsbox), // Recurso de drawable
                 contentDescription = "Inventario",
                 modifier = Modifier.size(50.dp), // Tamaño del icono
-                colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen?added={added}&delete={delete}&edited={edited}") Brown else Color.White)
+                colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen?added={added}&delete={delete}&edited={edited}") DarkBrown else Color.White)
             )
         }
 
