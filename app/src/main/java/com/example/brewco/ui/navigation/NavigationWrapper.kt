@@ -53,8 +53,14 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         composable("customerScreen") {
             CustomerScreen(navHostController)
         }
-        composable("customerDetailsScreen/{clientId}") {
-            CustomerDetailsScreen(navHostController)
+        composable(
+            "customerDetailsScreen/{clientId}",
+            arguments = listOf(navArgument("clientId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val clientId = backStackEntry.arguments?.getString("clientId")
+            clientId?.let {
+                CustomerDetailsScreen(navHostController, clientId = it)
+            }
         }
 
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/

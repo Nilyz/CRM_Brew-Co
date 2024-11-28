@@ -1,6 +1,7 @@
 package com.example.brewco.ui.screens.customer
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,7 +49,10 @@ import com.example.brewco.data.model.Client
 import com.example.brewco.ui.screens.inventory.StockViewModel
 
 @Composable
-fun CustomerScreen(navHostController: NavHostController, viewModel: CustomerViewModel = viewModel()) {
+fun CustomerScreen(
+    navHostController: NavHostController,
+    viewModel: CustomerViewModel = viewModel()
+) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val clientList by viewModel.customers.collectAsState()
@@ -107,94 +111,94 @@ fun CustomerScreen(navHostController: NavHostController, viewModel: CustomerView
 }
 
 
-
 @Composable
 fun CustomerItem(client: Client, navHostController: NavHostController) {
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp).height(150.dp),
-
+            .padding(8.dp)
+            .height(150.dp)
+            .clickable {
+                navHostController.navigate("customerDetailsScreen/${client.id}")
+            },
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0))
 
     ) {
-        Button(onClick = {
-            navHostController.navigate("customerDetailsScreen/${client.id}")
-        }){
-    Column(
-        modifier = Modifier
-            .border(
-                width = 2.dp, color = Brown
-            )
-            .fillMaxSize()
-    ){
-        Text(
-            text = "${client.nombre} ${client.apellido}",
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
-        Row(
-            modifier = Modifier
-                .border(
-                    width = 2.dp, color = Brown
-                )
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Puntos: ",
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
 
-            )
-            Text(
-                text = "${client.puntos}",
+            Column(
                 modifier = Modifier
-            )
-            Icon(
-                Icons.Default.Star, contentDescription = "Agregar",
-                modifier = Modifier.size(20.dp),
-                Color.Yellow
-            )
-        }
-        Row(
-            modifier = Modifier
-                .border(
-                    width = 2.dp, color = Brown
+                    .border(
+                        width = 2.dp, color = Brown
+                    )
+                    .fillMaxSize()
+            ) {
+                Text(
+                    text = "${client.nombre} ${client.apellido}",
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
                 )
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = "Tel: ",
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-            )
-            Text(
-                text = "${client.telefono}",
-                modifier = Modifier
-            )
+                Row(
+                    modifier = Modifier
+                        .border(
+                            width = 2.dp, color = Brown
+                        )
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Puntos: ",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+
+                    )
+                    Text(
+                        text = "${client.puntos}",
+                        modifier = Modifier
+                    )
+                    Icon(
+                        Icons.Default.Star, contentDescription = "Agregar",
+                        modifier = Modifier.size(20.dp),
+                        Color.Yellow
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .border(
+                            width = 2.dp, color = Brown
+                        )
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Tel: ",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                    )
+                    Text(
+                        text = "${client.telefono}",
+                        modifier = Modifier
+                    )
+                }
+                Column(
+                    modifier = Modifier
+                        .border(
+                            width = 2.dp, color = Brown
+                        )
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Últ Compra: ",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                    )
+                    Text(
+                        text = "${client.ultCompra}",
+                        modifier = Modifier
+                    )
+                }
+
         }
-        Column(
-            modifier = Modifier
-                .border(
-                    width = 2.dp, color = Brown
-                )
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = "Últ Compra: ",
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-            )
-            Text(
-                text = "${client.ultCompra}",
-                modifier = Modifier
-            )
-        }
-    }
-    }
     }
 }
