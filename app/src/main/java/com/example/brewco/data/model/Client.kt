@@ -2,6 +2,7 @@ package com.example.brewco.data.model
 
 data class Client(
 
+    var id: String = "",
     var nombre: String = "",
     var apellido: String = "",
     var telefono: String = "",
