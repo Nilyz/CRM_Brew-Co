@@ -43,6 +43,7 @@ import com.example.brewco.ui.components.TopBar
 import com.example.brewco.ui.theme.*
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.wear.compose.material3.Button
 import com.example.brewco.data.model.Client
 import com.example.brewco.ui.screens.inventory.StockViewModel
 
@@ -119,6 +120,9 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
         colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0))
 
     ) {
+        Button(onClick = {
+            navHostController.navigate("customerDetailsScreen/${client.id}")
+        }){
     Column(
         modifier = Modifier
             .border(
@@ -191,6 +195,6 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
             )
         }
     }
-
+    }
     }
 }

@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.brewco.ui.screens.agenda.AgendaScreen
 import com.example.brewco.ui.screens.agenda.AgendaAddEvent
+import com.example.brewco.ui.screens.customer.CustomerDetailsScreen
 import com.example.brewco.ui.screens.customer.CustomerScreen
 import com.example.brewco.ui.screens.home.HomeScreen
 import com.example.brewco.ui.screens.inventory.*
@@ -49,7 +50,12 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         composable("homeScreen") { HomeScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE CLIENTE----------------------*/
-        composable("customerScreen") { CustomerScreen(navHostController) }
+        composable("customerScreen") {
+            CustomerScreen(navHostController)
+        }
+        composable("customerDetailsScreen/{clientId}") {
+            CustomerDetailsScreen(navHostController)
+        }
 
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/
         composable("notificationScreen") { NotificationtScreen(navHostController) }
