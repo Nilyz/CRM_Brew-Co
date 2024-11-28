@@ -26,8 +26,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.example.brewco.R
 import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.theme.Brown
 
@@ -69,13 +71,15 @@ fun ImagePicker() {
             onClick = { pickImage.launch("image/*") },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
+                .padding(5.dp)
 
         ) {
-            Icon(
-                Icons.Default.Add, contentDescription = "Añadir Img",
-                modifier = Modifier.size(36.dp),
-                tint = Brown
-            )
+            Image(
+                painter = painterResource(id = R.drawable.image_plus_svgrepo_com),
+                contentDescription = "Home",
+                modifier = Modifier.size(34.dp),
+
+                )
         }
     }
 }

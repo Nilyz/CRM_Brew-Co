@@ -13,7 +13,7 @@ import com.example.brewco.ui.screens.home.HomeScreen
 import com.example.brewco.ui.screens.inventory.*
 import com.example.brewco.ui.screens.login.AuthViewModel
 import com.example.brewco.ui.screens.login.LoginScreen
-import com.example.brewco.ui.screens.notification.NotificationtScreen
+import com.example.brewco.ui.screens.notification.NotificationScreen
 import com.example.brewco.ui.screens.splashScreen.StartSplashScreen
 
 
@@ -52,7 +52,7 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         composable("customerScreen") { CustomerScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/
-        composable("notificationScreen") { NotificationtScreen(navHostController) }
+        composable("notificationScreen") { NotificationScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE AGENDA-----------------------------*/
         composable(
