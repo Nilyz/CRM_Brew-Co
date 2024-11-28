@@ -53,6 +53,7 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
                 title = "Editar Producto",
                 text1 = "Cancelar",
                 text2 = "Guardar",
+                navController = navHostController, // Aquí se pasa el navHostController
                 onActionClick = {
                     // Verificar que los campos no estén vacíos o con valores inválidos
                     if (nombre.isBlank() || categoria.isBlank() ||

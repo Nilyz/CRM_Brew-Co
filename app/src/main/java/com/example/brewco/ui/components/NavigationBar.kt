@@ -85,7 +85,13 @@ fun TopBar(title: String, onMenuClick: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarWithText(title: String, text1: String, text2: String, onActionClick: () -> Unit) {
+fun TopBarWithText(
+    title: String,
+    text1: String,
+    text2: String,
+    onActionClick: () -> Unit,
+    navController: NavController // Agrega el NavController como parámetro
+) {
     TopAppBar(
         title = {
             Row(
@@ -105,7 +111,9 @@ fun TopBarWithText(title: String, text1: String, text2: String, onActionClick: (
                 text = text1,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
-                    .clickable { /* Acción del texto de navegación */ },
+                    .clickable {
+                        navController.popBackStack() // Esto navegará hacia la pantalla anterior
+                    },
                 fontSize = 16.sp,
                 color = Brown
             )
@@ -128,6 +136,7 @@ fun TopBarWithText(title: String, text1: String, text2: String, onActionClick: (
         )
     )
 }
+
 
 
 @Composable
