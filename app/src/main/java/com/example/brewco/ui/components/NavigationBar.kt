@@ -194,7 +194,7 @@ fun CustomBottomNavBar(navController: NavController) {
                 painter = painterResource(id = R.drawable.bxsbox), // Recurso de drawable
                 contentDescription = "Inventario",
                 modifier = Modifier.size(50.dp), // Tamaño del icono
-                colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen?added={added}&delete={delete}&edited={edited}") Brown else Color.White)
+                colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen") Brown else Color.White)
             )
         }
 
