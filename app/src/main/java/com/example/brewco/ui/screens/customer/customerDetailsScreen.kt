@@ -44,6 +44,7 @@ fun CustomerDetailsScreen(
             Text(text = "Teléfono: ${cliente.telefono}")
             Text(text = "Puntos: ${cliente.puntos}")
             Text(text = "Última Compra: ${cliente.ultCompra}")
+            Text(text = "Notas: ${cliente.notas}")
         }
     }
 
