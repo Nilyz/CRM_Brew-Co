@@ -2,16 +2,14 @@ package com.example.brewco.data.repository
 
 import com.example.brewco.data.model.Client
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
 
-class DaoClient {
+class CostumerRepository {
 
     private val db = FirebaseFirestore.getInstance()
     private val clientsCollection = db.collection("clientes") // Nombre de la colección en Firestore
 
     // Create
-    fun addClient(client: Client, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        clientsCollection.add(client)
+   /*  clientsCollection.add(client)
             .addOnSuccessListener {
                 onSuccess()
             }
@@ -93,5 +91,5 @@ class DaoClient {
             .addOnFailureListener { exception ->
                 onFailure(exception)
             }
-    }
+    }*/
 }
