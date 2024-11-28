@@ -155,7 +155,7 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                     style = TextStyle(
                         color= DarkBrown
                     ),)
-                ToggleSwitch()
+                ToggleSwitch( onCheckedChange = {  })
             }
 
         }
