@@ -9,9 +9,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Star
@@ -49,22 +52,24 @@ fun CustomerScreen(navHostController: NavHostController) {
                 navHostController = navHostController,
                 onLogoutClick = {
                     navHostController.navigate("splashScreen") {
-                        popUpTo(0) // Limpia la pila de navegación
+                        popUpTo(0) 
                     }
-                } )
+                }
+            )
         },
     ) { }
     Scaffold(
-        topBar = { TopBar(title = "Clientes", onMenuClick ={
-            scope.launch {
-                if (drawerState.isClosed) {
-                    drawerState.open()
-                } else {
-                    drawerState.close()
+        topBar = {
+            TopBar(title = "Clientes", onMenuClick = {
+                scope.launch {
+                    if (drawerState.isClosed) {
+                        drawerState.open()
+                    } else {
+                        drawerState.close()
+                    }
                 }
-            }
-        }
-        ) },
+            })
+        },
         bottomBar = { CustomBottomNavBar(navHostController) },
         floatingActionButton = {
             CustomFloatingActionButton(navHostController)
@@ -75,13 +80,14 @@ fun CustomerScreen(navHostController: NavHostController) {
                     .fillMaxSize()
                     .padding(paddingValues)
             ) {
-                LazyColumn(
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(2.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Simulamos contenido
-                    items(5) { index ->
+                    items(10) { index ->
                         CustomerItem(index)
                     }
                 }
@@ -91,13 +97,15 @@ fun CustomerScreen(navHostController: NavHostController) {
 }
 
 
+
 @Composable
 fun CustomerItem(index: Int) {
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp).height(150.dp),
+
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0))
 
