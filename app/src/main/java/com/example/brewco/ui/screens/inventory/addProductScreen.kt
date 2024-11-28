@@ -38,6 +38,7 @@ fun AddProductScreen(
                 title = "Nuevo Producto",
                 text1 = "Cancelar",
                 text2 = "Añadir",
+                navController = navHostController, // Aquí se pasa el navHostController
                 onActionClick = {
                     val newProduct = Product(
                         nombre = nombre,
