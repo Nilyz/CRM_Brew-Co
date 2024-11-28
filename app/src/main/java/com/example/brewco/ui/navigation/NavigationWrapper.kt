@@ -55,11 +55,25 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         composable("notificationScreen") { NotificationtScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE AGENDA-----------------------------*/
-        composable("agendaScreen") { AgendaScreen(navHostController) }
+        composable(
+            route = "agendaScreen?added={added}&delete={delete}&edited={edited}",
+            arguments = listOf(
+                navArgument("added") { defaultValue = "false" },
+                navArgument("delete") { defaultValue = "false" },
+                navArgument("edited") { defaultValue = "false" }
+            )
+        ) {
+            AgendaScreen(navHostController)
+        }
         composable("agendaAddEvent/{selectedDate}") { backStackEntry ->
             val selectedDate = backStackEntry.arguments?.getString("selectedDate")
             if (selectedDate != null) {
-                AgendaAddEvent(navHostController, selectedDate)
+                AgendaAddEvent(
+                    navHostController = navHostController,
+                    selectedDate = selectedDate,
+                    isAllDay = false // O cualquier valor booleano que desees
+                )
+
             }
         }
 
