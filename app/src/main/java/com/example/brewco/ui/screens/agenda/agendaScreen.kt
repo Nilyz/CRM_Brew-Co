@@ -50,13 +50,6 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
     // Observa la lista de productos
     val eventList by viewModel.alerts.collectAsState()
 
-    val barColors = listOf(
-        Color(0xFF4CAF50), // Verde
-        Color(0xFF2196F3), // Azul
-        Color(0xFFFFC107), // Amarillo
-        Color(0xFFF44336)  // Rojo
-    )
-
     val datePickerState = rememberDatePickerState()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -160,11 +153,8 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
                     )
                 }
 
-                // Elementos dinámicos: EventCard
-                itemsIndexed(eventList) { index, alert ->
-                    // Selecciona el color basándote en el índice
-                    val color = barColors[index % barColors.size]
-                    EventCard(alert = alert, navHostController = navHostController, barColor = color)
+                items(eventList) { alert ->
+                    EventCard(alert = alert, navHostController = navHostController)
                 }
 
                 // Espaciador al final

@@ -23,7 +23,7 @@ import com.example.brewco.ui.theme.DarkBrown
 
 
 @Composable
-fun EventCard(alert: Alert, navHostController: NavHostController, barColor: Color) {
+fun EventCard(alert: Alert, navHostController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +40,7 @@ fun EventCard(alert: Alert, navHostController: NavHostController, barColor: Colo
                 .width(8.dp) // Ancho fijo para la barra
                 .fillMaxHeight() // Altura fija para pruebas; ajusta según sea necesario
                 .clip(RoundedCornerShape(4.dp)) // Redondea las esquinas con un radio de 4.dp (ajústalo según sea necesario)
-                .background(color = barColor) // Color verde de la barra lateral
+                .background(Brown) // Color verde de la barra lateral
         )
 
         Spacer(modifier = Modifier.width(20.dp))
