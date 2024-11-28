@@ -29,8 +29,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.brewco.ui.components.CustomBottomNavBar
@@ -52,7 +55,7 @@ fun CustomerScreen(navHostController: NavHostController) {
                 navHostController = navHostController,
                 onLogoutClick = {
                     navHostController.navigate("splashScreen") {
-                        popUpTo(0) 
+                        popUpTo(0)
                     }
                 }
             )
@@ -84,7 +87,7 @@ fun CustomerScreen(navHostController: NavHostController) {
                     columns = GridCells.Fixed(2),
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                    horizontalArrangement = Arrangement.spacedBy(1.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(10) { index ->
@@ -118,31 +121,33 @@ fun CustomerItem(index: Int) {
             .fillMaxSize()
     ){
         Text(
-            text = "Nombre $index",
-            modifier = Modifier
-                .padding(16.dp),
-            )
+            text = "Nombre Apellido Apellidos",
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
         Row(
             modifier = Modifier
                 .border(
                     width = 2.dp, color = Brown
                 )
-                .fillMaxSize()
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = "Puntos: ",
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .padding(16.dp),
+
             )
             Text(
-                text = "Variable",
+                text = "1",
                 modifier = Modifier
-                    .padding(16.dp),
             )
             Icon(
                 Icons.Default.Star, contentDescription = "Agregar",
-                modifier = Modifier.size(36.dp),
-                Color.White
+                modifier = Modifier.size(20.dp),
+                Color.Yellow
             )
         }
         Row(
@@ -150,35 +155,33 @@ fun CustomerItem(index: Int) {
                 .border(
                     width = 2.dp, color = Brown
                 )
-                .fillMaxSize()
+                .fillMaxWidth()
         ) {
             Text(
                 text = "Tel: ",
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .padding(16.dp),
             )
             Text(
                 text = "Variable",
                 modifier = Modifier
-                    .padding(16.dp),
             )
         }
-        Row(
+        Column(
             modifier = Modifier
                 .border(
                     width = 2.dp, color = Brown
                 )
-                .fillMaxSize()
+                .fillMaxWidth()
         ) {
             Text(
                 text = "Últ Compra: ",
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .padding(16.dp),
             )
             Text(
-                text = "Variable",
+                text = "20/12/2020",
                 modifier = Modifier
-                    .padding(16.dp),
             )
         }
     }
