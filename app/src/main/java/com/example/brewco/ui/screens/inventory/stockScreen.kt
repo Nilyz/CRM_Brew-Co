@@ -1,5 +1,6 @@
 package com.example.brewco.ui.screens.inventory
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -69,6 +70,12 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
     val addedMessage = navHostController.currentBackStackEntry?.arguments?.getString("added")
     val deleteMessage = navHostController.currentBackStackEntry?.arguments?.getString("delete")
     val editedMessage = navHostController.currentBackStackEntry?.arguments?.getString("edited")
+
+    val currentBackStackEntry by navHostController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry?.destination?.route
+
+    Log.i("NavDebug", "Ruta actual: $currentRoute")
+
 
 
     LaunchedEffect(addedMessage, deleteMessage, editedMessage) {

@@ -14,7 +14,7 @@ class StockViewModel : ViewModel() {
     private val productRepository = ProductRepository()
 
     private val _products = MutableStateFlow<List<Product>>(emptyList())
-    val products: StateFlow<List<Product>> = _products //versión pública y de sólo lectura del _products para mostrar en UI
+        val products: StateFlow<List<Product>> = _products //versión pública y de sólo lectura del _products para mostrar en UI
 
     //método de ViewModel que se ejecuta al crear una instancia de StockViewModel(tipo para que se cargue los productos)
     init {

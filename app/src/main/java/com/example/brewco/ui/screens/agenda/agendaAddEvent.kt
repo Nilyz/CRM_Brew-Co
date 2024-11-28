@@ -30,44 +30,91 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import com.example.brewco.R
 import com.example.brewco.R.*
 import com.example.brewco.ui.components.CustomTextField
 import com.example.brewco.ui.components.TopBarWithText
-import com.example.brewco.ui.theme.Brown
 import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.components.*
 import com.example.brewco.ui.theme.DarkBrown
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
+import android.app.DatePickerDialog
+import androidx.compose.runtime.*
+import java.util.Calendar
+import com.example.brewco.data.model.Alert
+import androidx.lifecycle.viewmodel.compose.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
+fun AgendaAddEvent(
+    navHostController: NavHostController,
+    selectedDate: String,
+    viewModel: AlertViewModel = viewModel(),
+    isAllDay: Boolean
+) {
+
+    // Convertir selectedDate a formato dd/MM/yyyy
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val date = inputFormat.parse(selectedDate) // Convertir la fecha de String a Date
+    val formattedDate = if (date != null) outputFormat.format(date) else selectedDate // Formatear a dd/MM/yyyy
+
+    var selectedFinalDate by remember { mutableStateOf(formattedDate) }
     var titulo by remember { mutableStateOf("") }
-    var expandedHour by remember { mutableStateOf(false) }
-    var expandedMinute by remember { mutableStateOf(false) }
-    var selectedHour by remember { mutableStateOf("00") }
-    var selectedMinute by remember { mutableStateOf("00") }
+    var expandedInicialHour by remember { mutableStateOf(false) }
+    var expandedInicialMinute by remember { mutableStateOf(false) }
+    var expandedFinalHour by remember { mutableStateOf(false) }
+    var expandedFinalMinute by remember { mutableStateOf(false) }
+    var selectedInicicalHour by remember { mutableStateOf("00") }
+    var selectedInicicalMinute by remember { mutableStateOf("00") }
+    var selectedFinalMinute by remember { mutableStateOf("00") }
+    var selectedFinalHour by remember { mutableStateOf("00") }
     var selectedOption by remember { mutableStateOf("No") }
     var expandedOption by remember { mutableStateOf(false) }
     var selectedEmployee by remember { mutableStateOf("Juan") }
     var expandedEmployee by remember { mutableStateOf(false) }
     var notes by remember { mutableStateOf("") }
+    var showDatePicker by remember { mutableStateOf(false) }
+    // Usamos la variable isAllDay para determinar si es todo el día
+    var isAllDayState by remember { mutableStateOf(isAllDay) }
+
+
+// Mostrar DatePickerDialog cuando `showDatePicker` sea true
+    if (showDatePicker) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        DatePickerDialog(
+            LocalContext.current,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                // Si el usuario selecciona una fecha
+                selectedFinalDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                showDatePicker = false // Ocultar el DatePicker
+            },
+            year,
+            month,
+            day
+        ).apply {
+            setOnDismissListener {
+                // Se ejecuta cuando el DatePickerDialog se cierra (sea por cancelación o selección)
+                showDatePicker = false
+            }
+        }.show()
+    }
 
     Scaffold(
         topBar = {
@@ -75,7 +122,54 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                 title = "Nuevo Evento",
                 text1 = "Cancelar",
                 text2 = "Añadir",
-                onActionClick = { /* Lógica para añadir un evento */ }
+                navController = navHostController, // Aquí se pasa el navHostController
+                onActionClick = {
+                    // Crear el objeto Alerta con los datos del formulario
+
+                    if (isAllDayState) {
+                        selectedFinalDate = formattedDate
+                        selectedInicicalHour = "00"
+                        selectedInicicalMinute = "00"
+                        selectedFinalHour = "23"
+                        selectedFinalMinute = "59"
+                    }
+
+                    val newAlert = Alert(
+                        titulo = titulo,
+                        fechaInicio = formattedDate,
+                        horaInicio = selectedInicicalHour,
+                        minutosInicio = selectedInicicalMinute,
+                        fechaFin = selectedFinalDate,
+                        horaFin = selectedFinalHour,
+                        minutosFin = selectedFinalMinute,
+                        aviso = selectedOption == "Si", // Convierte el String a Boolean
+                        empleado = selectedEmployee,
+                        descripcion = notes
+                    )
+
+                    if (newAlert.titulo.isBlank() || newAlert.fechaInicio.isBlank() || newAlert.horaInicio.isBlank() ||
+                        newAlert.minutosInicio.isBlank() || newAlert.fechaFin.isBlank() || newAlert.horaFin.isBlank() ||
+                        newAlert.minutosFin.isBlank() || newAlert.empleado.isBlank() || newAlert.descripcion.isBlank()
+                    ) {
+                        // Todo añadir mensaje que diga que rellenes todos los campos
+
+                    } else {
+
+                        viewModel.addAlert(
+                            alert = newAlert,
+                            onSuccess = {
+                                // Cuando alert se agrega correctamente, navega y pasa un argumento
+                                navHostController.navigate("agendaScreen?added=true") {
+                                    popUpTo("agendaScreen") { inclusive = true }
+                                }
+
+                            },
+                            onError = { }
+                        )
+
+                    }
+
+                }
             )
         },
         bottomBar = { CustomBottomNavBar(navHostController) },
@@ -114,7 +208,22 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                         ) {
                             Text("Todo el día", style = TextStyle(color = DarkBrown))
 
-                            ToggleSwitch()
+                            // Aquí se cambia el valor de `isAllDayState` cuando se interactúa con el ToggleSwitch
+                            ToggleSwitch { isChecked ->
+                                isAllDayState = isChecked // Actualiza el valor de isAllDayState
+                                // imprimir por consola el valor de isAllDayState
+                                println("isAllDayState: $isAllDayState")
+
+                                // Si isAllDayState es true, asignamos los valores a selectedFinalMinute y selectedFinalHour
+                                if (isAllDayState) {
+                                    showDatePicker = false
+                                    selectedFinalMinute = "59"
+                                    selectedFinalHour = "23"
+                                } else {
+                                    selectedFinalMinute = "00"
+                                    selectedFinalHour = "00"
+                                }
+                            }
                         }
 
                         Spacer(modifier = Modifier.height(20.dp))
@@ -124,7 +233,15 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Empieza", style = TextStyle(color = DarkBrown))
+                            Row(
+                                modifier = Modifier.width(80.dp) // Define el ancho fijo del Row
+                            ) {
+                                Text(
+                                    "Empieza",
+                                    style = TextStyle(color = DarkBrown),
+                                    modifier = Modifier.fillMaxWidth() // Hace que el texto ocupe todo el ancho disponible
+                                )
+                            }
 
                             Spacer(modifier = Modifier.width(8.dp))
 
@@ -134,7 +251,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                     .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                     .padding(8.dp)
                             ) {
-                                Text(selectedDate, style = TextStyle(color = DarkBrown))
+                                Text(formattedDate, style = TextStyle(color = DarkBrown))
                             }
 
                             Spacer(modifier = Modifier.width(16.dp))
@@ -143,26 +260,30 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
-                                        .clickable { expandedHour = true }
+                                        .clickable { expandedInicialHour = true }
                                 ) {
                                     Text(
-                                        "Hora: $selectedHour",
+                                        "Hora: $selectedInicicalHour",
                                         style = TextStyle(color = DarkBrown)
                                     )
                                 }
                                 DropdownMenu(
-                                    expanded = expandedHour,
-                                    onDismissRequest = { expandedHour = false },
+                                    expanded = expandedInicialHour,
+                                    onDismissRequest = { expandedInicialHour = false },
                                     modifier = Modifier.heightIn(max = 200.dp) // Altura máxima del menú
                                 ) {
                                     (0..23).forEach { hour ->
                                         DropdownMenuItem(
                                             text = { Text(hour.toString().padStart(2, '0')) },
                                             onClick = {
-                                                selectedHour = hour.toString().padStart(2, '0')
-                                                expandedHour = false
+                                                selectedInicicalHour =
+                                                    hour.toString().padStart(2, '0')
+                                                expandedInicialHour = false
                                             }
                                         )
                                     }
@@ -175,26 +296,30 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
-                                        .clickable { expandedMinute = true }
+                                        .clickable { expandedInicialMinute = true }
                                 ) {
                                     Text(
-                                        "Minuto: $selectedMinute",
+                                        "Minuto: $selectedInicicalMinute",
                                         style = TextStyle(color = DarkBrown)
                                     )
                                 }
                                 DropdownMenu(
-                                    expanded = expandedMinute,
-                                    onDismissRequest = { expandedMinute = false },
+                                    expanded = expandedInicialMinute,
+                                    onDismissRequest = { expandedInicialMinute = false },
                                     modifier = Modifier.heightIn(max = 200.dp) // Altura máxima del menú
                                 ) {
                                     (0..59).forEach { minute ->
                                         DropdownMenuItem(
                                             text = { Text(minute.toString().padStart(2, '0')) },
                                             onClick = {
-                                                selectedMinute = minute.toString().padStart(2, '0')
-                                                expandedMinute = false
+                                                selectedInicicalMinute =
+                                                    minute.toString().padStart(2, '0')
+                                                expandedInicialMinute = false
                                             }
                                         )
                                     }
@@ -209,7 +334,15 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Termina", style = TextStyle(color = DarkBrown))
+                            Row(
+                                modifier = Modifier.width(80.dp) // Define el ancho fijo del Row
+                            ) {
+                                Text(
+                                    "Termina",
+                                    style = TextStyle(color = DarkBrown),
+                                    modifier = Modifier.fillMaxWidth() // Hace que el texto ocupe todo el ancho disponible
+                                )
+                            }
 
                             Spacer(modifier = Modifier.width(8.dp))
 
@@ -218,8 +351,11 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                 modifier = Modifier
                                     .background(color = Beige, shape = RoundedCornerShape(8.dp))
                                     .padding(8.dp)
+                                    .clickable (enabled = !isAllDayState) {
+                                        showDatePicker = true
+                                    } // Muestra el selector de fecha
                             ) {
-                                Text(selectedDate, style = TextStyle(color = DarkBrown))
+                                Text(selectedFinalDate, style = TextStyle(color = DarkBrown))
                             }
 
                             Spacer(modifier = Modifier.width(16.dp))
@@ -228,26 +364,32 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
-                                        .clickable { expandedHour = true }
+                                        .clickable(enabled = !isAllDayState) {  // Solo habilitado si no es 'todo el día'
+                                            expandedFinalHour = true
+                                        }
                                 ) {
                                     Text(
-                                        "Hora: $selectedHour",
+                                        "Hora: $selectedFinalHour",
                                         style = TextStyle(color = DarkBrown)
                                     )
                                 }
                                 DropdownMenu(
-                                    expanded = expandedHour,
-                                    onDismissRequest = { expandedHour = false },
+                                    expanded = expandedFinalHour,
+                                    onDismissRequest = { expandedFinalHour = false },
                                     modifier = Modifier.heightIn(max = 200.dp) // Altura máxima del menú
                                 ) {
                                     (0..23).forEach { hour ->
                                         DropdownMenuItem(
                                             text = { Text(hour.toString().padStart(2, '0')) },
                                             onClick = {
-                                                selectedHour = hour.toString().padStart(2, '0')
-                                                expandedHour = false
+                                                selectedFinalHour =
+                                                    hour.toString().padStart(2, '0')
+                                                expandedFinalHour = false
                                             }
                                         )
                                     }
@@ -260,26 +402,32 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
-                                        .clickable { expandedMinute = true }
+                                        .clickable(enabled = !isAllDayState) {  // Solo habilitado si no es 'todo el día'
+                                            expandedFinalMinute = true
+                                        }
                                 ) {
                                     Text(
-                                        "Minuto: $selectedMinute",
+                                        "Minuto: $selectedFinalMinute",
                                         style = TextStyle(color = DarkBrown)
                                     )
                                 }
                                 DropdownMenu(
-                                    expanded = expandedMinute,
-                                    onDismissRequest = { expandedMinute = false },
+                                    expanded = expandedFinalMinute,
+                                    onDismissRequest = { expandedFinalMinute = false },
                                     modifier = Modifier.heightIn(max = 200.dp) // Altura máxima del menú
                                 ) {
                                     (0..59).forEach { minute ->
                                         DropdownMenuItem(
                                             text = { Text(minute.toString().padStart(2, '0')) },
                                             onClick = {
-                                                selectedMinute = minute.toString().padStart(2, '0')
-                                                expandedMinute = false
+                                                selectedFinalMinute =
+                                                    minute.toString().padStart(2, '0')
+                                                expandedFinalMinute = false
                                             }
                                         )
                                     }
@@ -295,12 +443,15 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text("Aviso", style = TextStyle(color = DarkBrown))
-                            
+
                             // Selector de aviso
                             Column {
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
                                         .clickable {
                                             expandedOption = !expandedOption
@@ -332,12 +483,14 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
                                         DropdownMenuItem(
                                             text = { Text(option) },
                                             onClick = {
-                                                selectedOption = option
+                                                selectedOption =
+                                                    option // Actualiza la opción seleccionada
                                                 expandedOption = false
                                             }
                                         )
                                     }
                                 }
+
                             }
 
                         }
@@ -356,7 +509,10 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
 
                                 Box(
                                     modifier = Modifier
-                                        .background(color = Beige, shape = RoundedCornerShape(8.dp))
+                                        .background(
+                                            color = Beige,
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
                                         .padding(8.dp)
                                         .clickable { expandedEmployee = !expandedEmployee }
                                 ) {
@@ -443,6 +599,7 @@ fun AgendaAddEvent(navHostController: NavHostController, selectedDate: String) {
         }
     )
 }
+
 
 
 

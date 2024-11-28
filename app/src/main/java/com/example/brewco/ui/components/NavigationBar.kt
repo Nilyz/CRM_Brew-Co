@@ -85,7 +85,13 @@ fun TopBar(title: String, onMenuClick: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarWithText(title: String, text1: String, text2: String, onActionClick: () -> Unit) {
+fun TopBarWithText(
+    title: String,
+    text1: String,
+    text2: String,
+    onActionClick: () -> Unit,
+    navController: NavController // Agrega el NavController como parámetro
+) {
     TopAppBar(
         title = {
             Row(
@@ -105,7 +111,9 @@ fun TopBarWithText(title: String, text1: String, text2: String, onActionClick: (
                 text = text1,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
-                    .clickable { /* Acción del texto de navegación */ },
+                    .clickable {
+                        navController.popBackStack() // Esto navegará hacia la pantalla anterior
+                    },
                 fontSize = 16.sp,
                 color = Brown
             )
@@ -130,6 +138,7 @@ fun TopBarWithText(title: String, text1: String, text2: String, onActionClick: (
 }
 
 
+
 @Composable
 fun CustomBottomNavBar(navController: NavController) {
     // Obtener la ruta actual para determinar el icono activo
@@ -148,7 +157,7 @@ fun CustomBottomNavBar(navController: NavController) {
                 Icons.Default.DateRange,
                 contentDescription = "Agenda",
                 modifier = Modifier.size(50.dp), // Tamaño del icono
-                tint = if (pantallaActual == "agendaScreen") DarkBrown else Color.White // Cambia el color si es la pantalla activa
+                tint = if (pantallaActual == "agendaScreen?added={added}&delete={delete}&edited={edited}") DarkBrown else Color.White // Cambia el color si es la pantalla activa
             )
         }
 
@@ -179,14 +188,16 @@ fun CustomBottomNavBar(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
 
         // Botón de Inventario
-        IconButton(onClick = { navController.navigate("inventoryScreen") }) {
+        IconButton(onClick = { navController.navigate("inventoryScreen?added={added}&delete={delete}&edited={edited}") }) {
+
             Image(
                 painter = painterResource(id = R.drawable.bxsbox), // Recurso de drawable
                 contentDescription = "Inventario",
                 modifier = Modifier.size(50.dp), // Tamaño del icono
-                colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen") Brown else Color.White)
+                colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen?added={added}&delete={delete}&edited={edited}") Brown else Color.White)
             )
         }
+
 
         Spacer(modifier = Modifier.weight(1f))
 
