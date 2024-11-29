@@ -1,5 +1,6 @@
 package com.example.brewco.ui.screens.customer
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -118,32 +119,34 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .height(150.dp)
+            .height(180.dp)
             .clickable {
                 navHostController.navigate("customerDetailsScreen/${client.id}")
             },
         elevation = CardDefaults.cardElevation(4.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0))
+        colors = CardDefaults.cardColors(containerColor = Beige)
 
     ) {
 
             Column(
                 modifier = Modifier
                     .border(
-                        width = 2.dp, color = Brown
+                        width = 2.dp, color = Color.Transparent
                     )
                     .fillMaxSize()
+                    .padding(horizontal = 12.dp)
             ) {
                 Text(
                     text = "${client.nombre} ${client.apellido}",
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
-                )
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp))
                 Row(
                     modifier = Modifier
                         .border(
-                            width = 2.dp, color = Brown
+                            width = 2.dp, Color.Transparent
                         )
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -167,12 +170,18 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 Row(
                     modifier = Modifier
                         .border(
-                            width = 2.dp, color = Brown
+                            width = 2.dp, Color.Transparent
                         )
                         .fillMaxWidth()
                 ) {
+                    Column(
+                        modifier = Modifier
+                            .border(
+                                width = 2.dp, Color.Transparent
+                            )
+                            .fillMaxWidth()) {
                     Text(
-                        text = "Tel: ",
+                        text = "Tel:",
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
                     )
@@ -180,11 +189,12 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                         text = "${client.telefono}",
                         modifier = Modifier
                     )
+                    }
                 }
                 Column(
                     modifier = Modifier
                         .border(
-                            width = 2.dp, color = Brown
+                            width = 2.dp, Color.Transparent
                         )
                         .fillMaxWidth()
                 ) {

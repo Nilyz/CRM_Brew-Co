@@ -92,8 +92,11 @@ fun CustomerDetailsScreen(
                         fontSize = 32.sp,
                         fontWeight = FontWeight.Bold,
                         color = DarkBrown,
+                        lineHeight = 40.sp,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier.padding(16.dp)
                     )
+
 
                     // Teléfono
                     Row(
@@ -157,7 +160,7 @@ fun CustomerDetailsScreen(
                             Icons.Default.Star,
                             contentDescription = "Agregar",
                             modifier = Modifier.size(20.dp),
-                            tint = Color.Yellow
+                            tint = Color(0xFFEEE7AE)
                         )
                     }
                 }
