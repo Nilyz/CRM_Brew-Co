@@ -26,8 +26,11 @@ import java.time.ZoneId
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 
@@ -38,6 +41,34 @@ fun AgendaScreen(navHostController: NavHostController) {
     val datePickerState = rememberDatePickerState()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val addedMessage = navHostController.currentBackStackEntry?.arguments?.getString("added")
+    val deleteMessage = navHostController.currentBackStackEntry?.arguments?.getString("delete")
+    val editedMessage = navHostController.currentBackStackEntry?.arguments?.getString("edited")
+
+    LaunchedEffect(addedMessage, deleteMessage, editedMessage) {
+        when {
+            addedMessage == "true" -> {
+                scope.launch {
+                    snackbarHostState.showSnackbar("Evento añadido con éxito!")
+                }
+            }
+
+            deleteMessage == "true" -> {
+                scope.launch {
+                    snackbarHostState.showSnackbar("Evento eliminado con éxito!")
+                }
+            }
+
+            editedMessage == "true" -> {
+                scope.launch {
+                    snackbarHostState.showSnackbar("Evento editado con éxito!")
+                }
+            }
+        }
+    }
 
     Scaffold(
         topBar = {

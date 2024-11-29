@@ -38,6 +38,7 @@ fun AddProductScreen(
                 title = "Nuevo Producto",
                 text1 = "Cancelar",
                 text2 = "Añadir",
+                navController = navHostController, // Aquí se pasa el navHostController
                 onActionClick = {
                     val newProduct = Product(
                         nombre = nombre,
@@ -79,6 +80,7 @@ fun AddProductScreen(
                         .padding(16.dp)
                 ) {
                     ImagePicker()
+                    Spacer(modifier = Modifier.height(24.dp))
                     CustomTextField(
                         value = nombre,
                         labelText = "Producto",
@@ -90,6 +92,7 @@ fun AddProductScreen(
                         labelText = "Categoría",
                         onValueChange = { categoria = it }
                     )
+                    Spacer(modifier = Modifier.height(26.dp))
                     StockInputField(
                         "Stock disponible",
                         value = stockDisponible,
