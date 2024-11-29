@@ -1,6 +1,7 @@
 package com.example.brewco.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -33,6 +34,10 @@ fun EventCard(alert: Alert, navHostController: NavHostController) {
                 shape = RoundedCornerShape(16.dp) // Esquinas redondeadas
             )
             .padding(15.dp) // Padding interno de la tarjeta
+            .clickable {
+                // Navegar a la pantalla de detalles y pasar el objeto 'alert' como argumento
+                navHostController.navigate("agendaViewEvent/${alert.id}")
+            }
     ) {
         // Barra lateral de color
         Box(

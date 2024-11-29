@@ -1,5 +1,6 @@
 package com.example.brewco.ui.screens.agenda
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,6 +42,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.brewco.ui.components.EventCard
 import com.example.brewco.ui.theme.DarkBrown
+import com.example.brewco.ui.theme.Beige
+import com.example.brewco.ui.theme.Brown
 import kotlinx.coroutines.launch
 
 
@@ -104,6 +108,7 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(Color.White)
                     .padding(paddingValues),
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -135,9 +140,13 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
                                 navHostController.navigate("agendaAddEvent/${selectedDate}")
                             }
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Brown // Color de fondo del botón
+                        )
                     ) {
-                        Text("Continuar")
+                        Text("Agregar evento")
                     }
                 }
 

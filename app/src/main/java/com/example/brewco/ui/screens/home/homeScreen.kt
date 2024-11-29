@@ -1,5 +1,6 @@
 package com.example.brewco.ui.screens.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,6 +14,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.brewco.ui.components.CustomBottomNavBar
@@ -56,8 +58,11 @@ fun HomeScreen(navHostController: NavHostController) {
                     .padding(paddingValues)
             ) {
                 LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .background(Color.White)
+                        .fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
+
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
 
