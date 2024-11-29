@@ -1,5 +1,6 @@
 package com.example.brewco.ui.screens.customer
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,8 +14,11 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,14 +28,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.brewco.R
 import com.example.brewco.data.model.Client
-import com.example.brewco.ui.theme.Brown
 import com.example.brewco.ui.theme.*
+import com.example.brewco.ui.components.TopBarWithText
 
 @Composable
 fun CustomerDetailsScreen(
@@ -48,111 +55,130 @@ fun CustomerDetailsScreen(
         }
     }
 
-    client?.let { cliente ->
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp), // Padding general para toda la pantalla
-            verticalArrangement = Arrangement.spacedBy(24.dp) // Espaciado entre la información principal y las notas
-        ) {
-            // Contenedor principal de la información del cliente
+    Scaffold(
+        topBar = {
+            TopBarWithText(
+                title = "Info.",
+                text1 = "Atrás",
+                text2 = "Editar",
+                navController = navHostController, // Aquí se pasa el navHostController
+                onActionClick = {})
+        }
+    ) { paddingValues ->
+        client?.let { cliente ->
             Column(
                 modifier = Modifier
+                    .background(Cream)
                     .fillMaxWidth()
-                    .padding(16.dp) // Padding interno para centrar visualmente el contenido
-                    .align(Alignment.CenterHorizontally), // Centrar horizontalmente
-                verticalArrangement = Arrangement.spacedBy(12.dp), // Espaciado entre filas
-                horizontalAlignment = Alignment.CenterHorizontally // Asegura que todo el contenido quede centrado horizontalmente
+                    .padding(paddingValues), // Asegurarse de respetar el padding del Scaffold
+                verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                // Nombre del cliente
-                Text(
-                    text = "${cliente.nombre} ${cliente.apellido}",
-                    fontWeight = FontWeight.Bold,
-                    color = Brown
-                )
-
-                // Teléfono
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
+                // Contenedor principal de la información del cliente
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(32.dp) // Padding interno para centrar visualmente el contenido
+                        .align(Alignment.CenterHorizontally), // Centrar horizontalmente
+                    verticalArrangement = Arrangement.spacedBy(12.dp), // Espaciado entre filas
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Icon(Icons.Default.Phone, contentDescription = "Teléfono", tint = Brown)
-                    Spacer(modifier = Modifier.size(8.dp))
+                    // Nombre del cliente
                     Text(
-                        text = cliente.telefono,
-                        fontWeight = FontWeight.Normal,
-                        color = Brown
-                    )
-                }
-
-                // Última compra
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Icon(Icons.Default.DateRange, contentDescription = "Última compra", tint = Brown)
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Text(
-                        text = "Última compra: ${cliente.ultCompra}",
-                        fontWeight = FontWeight.Normal,
-                        color = Brown
-                    )
-                }
-
-                // Correo electrónico
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Icon(Icons.Default.Email, contentDescription = "Correo", tint = Brown)
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Text(
-                        text = "Correo: ${cliente.correo}",
-                        fontWeight = FontWeight.Normal,
-                        color = Brown
-                    )
-                }
-
-                // Puntos
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Icon(
-                        Icons.Default.CheckCircle, contentDescription = "Agregar",
-                        modifier = Modifier.size(20.dp),
-                        tint = Brown
-                    )
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Text(
-                        text = "Puntos: ${cliente.puntos}",
+                        text = "${cliente.nombre} ${cliente.apellido}",
                         fontWeight = FontWeight.Bold,
-                        color = Brown
+                        color = DarkBrown
                     )
-                    Icon(
-                        Icons.Default.Star, contentDescription = "Agregar",
-                        modifier = Modifier.size(20.dp),
-                        tint = Color.Yellow
+
+                    // Teléfono
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(Icons.Default.Phone, contentDescription = "Teléfono", tint = Brown)
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Text(
+                            text = cliente.telefono,
+                            fontWeight = FontWeight.Normal,
+                            color = DarkBrown
+                        )
+                    }
+
+                    // Última compra
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(Icons.Default.DateRange, contentDescription = "Última compra", tint = Brown)
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Text(
+                            text = "Última compra: ${cliente.ultCompra}",
+                            fontWeight = FontWeight.Normal,
+                            color = DarkBrown
+                        )
+                    }
+
+                    // Correo electrónico
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(Icons.Default.Email, contentDescription = "Correo", tint = Brown)
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Text(
+                            text = "Correo: ${cliente.correo}",
+                            fontWeight = FontWeight.Normal,
+                            color = DarkBrown
+                        )
+                    }
+
+                    // Puntos
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.makigift), contentDescription = "Agregar",
+                            modifier = Modifier.size(22.dp),
+                            tint = Brown
+                        )
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Text(
+                            text = "Puntos: ${cliente.puntos}",
+                            fontWeight = FontWeight.Bold,
+                            color = DarkBrown
+                        )
+                        Icon(
+                            Icons.Default.Star, contentDescription = "Agregar",
+                            modifier = Modifier.size(20.dp),
+                            tint = Color.Yellow
+                        )
+                    }
+                }
+
+                // -------------Sección de notas----------------
+                Column(
+
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Beige)
+                        .padding(16.dp) // Padding interno para las notas
+
+                ) {
+                    Text(
+                        text = "Notas:",
+                        fontWeight = FontWeight.Bold,
+                        color = DarkBrown,
+                        fontSize = 16.sp
+                    )
+                    Text(
+                        text = cliente.notas,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Start,
+                        color = Color.Black,
+                        fontSize = 14.sp
                     )
                 }
-            }
-
-            // Sección de notas
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = "Notas:",
-                    fontWeight = FontWeight.Bold,
-                    color = Brown
-                )
-                Text(
-                    text = "${cliente.notas}",
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Start,
-                    color = Color.Black
-                )
             }
         }
-    }
+    } // Aquí cierra el Scaffold correctamente
 }
