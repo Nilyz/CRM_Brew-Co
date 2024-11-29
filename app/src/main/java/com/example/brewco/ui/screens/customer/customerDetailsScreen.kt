@@ -40,6 +40,7 @@ import com.example.brewco.data.model.Client
 import com.example.brewco.ui.theme.*
 import com.example.brewco.ui.components.TopBarWithText
 
+
 @Composable
 fun CustomerDetailsScreen(
     navHostController: NavHostController,
@@ -61,8 +62,9 @@ fun CustomerDetailsScreen(
                 title = "Info.",
                 text1 = "Atrás",
                 text2 = "Editar",
-                navController = navHostController, // Aquí se pasa el navHostController
-                onActionClick = {})
+                navController = navHostController,
+                onActionClick = {}
+            )
         }
     ) { paddingValues ->
         client?.let { cliente ->
@@ -70,16 +72,15 @@ fun CustomerDetailsScreen(
                 modifier = Modifier
                     .background(Cream)
                     .fillMaxWidth()
-                    .padding(paddingValues), // Asegurarse de respetar el padding del Scaffold
-                verticalArrangement = Arrangement.spacedBy(24.dp)
+                    .padding(paddingValues)
             ) {
-                // Contenedor principal de la información del cliente
+                // Contenido principal con peso para ocupar el espacio restante
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(32.dp) // Padding interno para centrar visualmente el contenido
-                        .align(Alignment.CenterHorizontally), // Centrar horizontalmente
-                    verticalArrangement = Arrangement.spacedBy(12.dp), // Espaciado entre filas
+                        .padding(32.dp)
+                        .weight(1f), // Ocupa el espacio restante
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     // Nombre del cliente
@@ -137,7 +138,8 @@ fun CustomerDetailsScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Icon(
-                            painter = painterResource(id = R.drawable.makigift), contentDescription = "Agregar",
+                            painter = painterResource(id = R.drawable.makigift),
+                            contentDescription = "Agregar",
                             modifier = Modifier.size(22.dp),
                             tint = Brown
                         )
@@ -148,21 +150,20 @@ fun CustomerDetailsScreen(
                             color = DarkBrown
                         )
                         Icon(
-                            Icons.Default.Star, contentDescription = "Agregar",
+                            Icons.Default.Star,
+                            contentDescription = "Agregar",
                             modifier = Modifier.size(20.dp),
                             tint = Color.Yellow
                         )
                     }
                 }
 
-                // -------------Sección de notas----------------
+                // Sección de notas fija al final
                 Column(
-
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Beige)
-                        .padding(16.dp) // Padding interno para las notas
-
+                        .padding(16.dp)
                 ) {
                     Text(
                         text = "Notas:",
@@ -180,5 +181,6 @@ fun CustomerDetailsScreen(
                 }
             }
         }
-    } // Aquí cierra el Scaffold correctamente
+    }
 }
+
