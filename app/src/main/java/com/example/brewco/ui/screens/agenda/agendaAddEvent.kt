@@ -172,7 +172,6 @@ fun AgendaAddEvent(
                 }
             )
         },
-        bottomBar = { CustomBottomNavBar(navHostController) },
         content = { paddingValues ->
 
             LazyColumn(
