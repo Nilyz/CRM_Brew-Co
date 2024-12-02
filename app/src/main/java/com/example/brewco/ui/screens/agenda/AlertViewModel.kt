@@ -67,18 +67,19 @@ class AlertViewModel : ViewModel() {
     fun updateAlert(alert: Alert, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             try {
-                val isUpdated = alertRepository.updateAlert(alert)
+                val isUpdated = alertRepository.updateAlert(alert)  // Llamada al repositorio
                 if (isUpdated) {
-                    loadAlerts()
-                    onSuccess() // Acción en caso de éxito
+                    loadAlerts()  // Recarga las alertas
+                    onSuccess()  // Acción en caso de éxito
                 } else {
-                    onError("Error al actualizar la alerta")
+                    onError("Error al actualizar la alerta")  // Si no se pudo actualizar
                 }
             } catch (e: Exception) {
-                onError("Error al actualizar la alerta: ${e.message}")
+                onError("Error al actualizar la alerta: ${e.message}")  // Manejo de excepciones
             }
         }
     }
+
 
     /*---------------ELIMINAR ALERTA-----------------------*/
     fun deleteAlert(alertId: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
