@@ -90,7 +90,7 @@ fun CustomerScreen(
         floatingActionButton = {
             PlusButton(
                 navHostController,
-                onClick = { navHostController.navigate("addProductScreen") })
+                onClick = { navHostController.navigate("addCustomerScreen") })
         },
         content = { paddingValues ->
             Box(
