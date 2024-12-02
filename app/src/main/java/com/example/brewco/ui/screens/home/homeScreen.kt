@@ -38,38 +38,36 @@ fun HomeScreen(navHostController: NavHostController) {
                   }
               } )
         },
-    ) {
-        Scaffold(
-            topBar = { TopBar(title = "Inicio", onMenuClick = {
-                scope.launch{
-                    if (drawerState.isClosed) {
-                        drawerState.open()
-                    } else {
-                        drawerState.close()
-                    }
-                }
-            }) },
-            bottomBar = { CustomBottomNavBar(navHostController) },
-            content = { paddingValues ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
-                ) {
-                    LazyColumn(
-                        modifier = Modifier
-                            .background(Color.White)
-                            .fillMaxSize(),
-                        contentPadding = PaddingValues(16.dp),
+    ) { }
 
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-
-                    }
+    Scaffold(
+        topBar = { TopBar(title = "Inicio", onMenuClick = {
+            scope.launch{
+                if (drawerState.isClosed) {
+                    drawerState.open()
+                } else {
+                    drawerState.close()
                 }
             }
-        )
-    }
+        }) },
+        bottomBar = { CustomBottomNavBar(navHostController) },
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                LazyColumn(
+                    modifier = Modifier
+                        .background(Color.White)
+                        .fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
 
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
 
+                }
+            }
+        }
+    )
 }

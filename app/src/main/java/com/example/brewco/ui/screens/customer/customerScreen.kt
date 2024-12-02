@@ -47,7 +47,8 @@ fun CustomerScreen(navHostController: NavHostController) {
                     }
                 } )
         },
-    ) { Scaffold(
+    ) { }
+    Scaffold(
         topBar = { TopBar(title = "Clientes", onMenuClick ={
             scope.launch {
                 if (drawerState.isClosed) {
@@ -80,8 +81,7 @@ fun CustomerScreen(navHostController: NavHostController) {
                 }
             }
         }
-    )}
-
+    )
 }
 
 
