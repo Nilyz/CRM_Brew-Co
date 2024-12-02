@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.brewco.data.model.Alert
 import com.example.brewco.ui.screens.agenda.AgendaScreen
 import com.example.brewco.ui.screens.agenda.AgendaAddEvent
 import com.example.brewco.ui.screens.customer.CustomerDetailsScreen

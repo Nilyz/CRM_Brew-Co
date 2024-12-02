@@ -65,4 +65,20 @@ class ProductRepository {
             false
         }
     }
+
+    suspend fun getTop5ProductsByInventory(): List<Product> {
+        return try {
+            // Realiza la consulta ordenada por el campo "inventario" de mayor a menor
+            val snapshot = productsCollection
+                .orderBy("inventario", com.google.firebase.firestore.Query.Direction.DESCENDING)
+                .limit(5) // Limita a los 5 primeros productos
+                .get()
+                .await()
+
+            // Mapea los resultados de Firestore a objetos Product
+            snapshot.documents.mapNotNull { it.toObject<Product>()?.copy(id = it.id) }
+        } catch (e: Exception) {
+            emptyList() // En caso de error, devuelve una lista vacía
+        }
+    }
 }
