@@ -10,14 +10,10 @@ import androidx.compose.runtime.setValue
 import com.example.brewco.ui.theme.*
 
 @Composable
-fun ToggleSwitch(onCheckedChange: (Boolean) -> Unit) {
-    var checked by remember { mutableStateOf(false) }
+fun ToggleSwitch(checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Switch(
-        checked = checked,
-        onCheckedChange = {
-            checked = it
-            onCheckedChange(it)
-        },
+        checked = checked, // Estado externo
+        onCheckedChange = { onCheckedChange(it) }, // Sincronización del estado externo
         colors = SwitchDefaults.colors(
             checkedThumbColor = Cream,
             uncheckedThumbColor = Brown,

@@ -96,7 +96,7 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         ) { backStackEntry ->
             val alertId = backStackEntry.arguments?.getString("alertId")
             alertId?.let {
-                AgendaEditEvent(navHostController, alertId = it)
+                AgendaEditEvent(navHostController, alertId = it, isAllDay = false)
             }
         }
 
