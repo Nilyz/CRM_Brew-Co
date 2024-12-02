@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -140,13 +141,16 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                     modifier = Modifier.fillMaxWidth()
                 )
             }
+            Spacer(modifier = Modifier.height(16.dp))
 
             CustomButton(
-                text = "Iniciar Sesión",
+                text = "Iniciar Sesión",contColor= Brown,textColor=Cream,fontSize = 18.sp,contentPadding = PaddingValues(16.dp),
                 onClick = {
                     authViewModel.login(email, password)
                 },
             )
+            Spacer(modifier = Modifier.height(16.dp))
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -157,8 +161,10 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                         color= DarkBrown
                     ),)
                 ToggleSwitch(
-                    checked = isChecked,  // Estado inicial (desactivado por defecto)
-                    onCheckedChange = {} // No hacemos nada cuando cambia el estado
+                    checked = isChecked,
+                    onCheckedChange = { newState ->
+                        isChecked = newState
+                    }
                 )
             }
 

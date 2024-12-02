@@ -2,6 +2,7 @@ package com.example.brewco.ui.screens.inventory
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.brewco.data.model.Product
@@ -25,9 +27,14 @@ import com.example.brewco.ui.components.CustomTextField
 import com.example.brewco.ui.components.ImagePicker
 import com.example.brewco.ui.components.StockInputField
 import com.example.brewco.ui.components.TopBarWithText
+import com.example.brewco.ui.theme.Beige
 
 @Composable
-fun EditProductScreen(navHostController: NavHostController, productId: String, viewModel: StockViewModel = viewModel()) {
+fun EditProductScreen(
+    navHostController: NavHostController,
+    productId: String,
+    viewModel: StockViewModel = viewModel()
+) {
     // Estado mutable para los campos de texto
     var nombre by remember { mutableStateOf("") }
     var categoria by remember { mutableStateOf("") }
@@ -58,7 +65,8 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
                 onActionClick = {
                     // Verificar que los campos no estén vacíos o con valores inválidos
                     if (nombre.isBlank() || categoria.isBlank() ||
-                        stockDisponible < 0 || stockMinimo < 0 || precio <= 0.0) {
+                        stockDisponible < 0 || stockMinimo < 0 || precio <= 0.0
+                    ) {
                         //Recuerda agregar un Texto de aviso
                     } else {
                         val updatedProduct = Product(
@@ -128,7 +136,7 @@ fun EditProductScreen(navHostController: NavHostController, productId: String, v
                     )
                     Spacer(modifier = Modifier.height(18.dp))
                     CustomButton(
-                        text = "Eliminar producto",
+                        text = "Eliminar producto", textColor = Color.Red, contColor = Color.White,fontSize = 16.sp,contentPadding = PaddingValues(0.dp),
                         onClick = {
                             viewModel.deleteProduct(
                                 productId = productId,
