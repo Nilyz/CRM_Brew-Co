@@ -145,9 +145,11 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 text = "${client.nombre} ${client.apellido}",
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
+                color = DarkBrown,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp)
+
             )
             Row(
                 modifier = Modifier
@@ -159,12 +161,16 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
             ) {
                 Text(
                     text = "Puntos: ",
+                    color = DarkBrown,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
 
+
                 )
                 Text(
+
                     text = "${client.puntos}",
+                    color = DarkBrown,
                     modifier = Modifier
                 )
                 Icon(
@@ -189,11 +195,13 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 ) {
                     Text(
                         text = "Tel:",
+                        color = DarkBrown,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
                     )
                     Text(
                         text = "${client.telefono}",
+                        color = DarkBrown,
                         modifier = Modifier
                     )
                 }
@@ -207,11 +215,13 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
             ) {
                 Text(
                     text = "Últ Compra: ",
+                    color = DarkBrown,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                 )
                 Text(
                     text = "${client.ultCompra}",
+                    color = DarkBrown,
                     modifier = Modifier
                 )
             }
