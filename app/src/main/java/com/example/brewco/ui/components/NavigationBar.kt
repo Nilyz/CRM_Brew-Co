@@ -159,7 +159,7 @@ fun CustomBottomNavBar(navController: NavController) {
             Icon(
                 Icons.Default.DateRange,
                 contentDescription = "Agenda",
-                modifier = Modifier.size(45.dp), // Tamaño del icono
+                modifier = Modifier.size(40.dp), // Tamaño del icono
                 tint = if (pantallaActual == "agendaScreen?added={added}&delete={delete}&edited={edited}") DarkBrown else Color.White // Cambia el color si es la pantalla activa
             )
         }
@@ -175,7 +175,7 @@ fun CustomBottomNavBar(navController: NavController) {
             Image(
                 painter = painterResource(id = R.drawable.fa6solidusergroup), // Recurso de drawable
                 contentDescription = "Clientes",
-                modifier = Modifier.size(45.dp), // Tamaño del icono
+                modifier = Modifier.size(40.dp), // Tamaño del icono
                 colorFilter = ColorFilter.tint(
                     if (pantallaActual == "customerScreen") DarkBrown else Color.White
                 )
@@ -192,7 +192,7 @@ fun CustomBottomNavBar(navController: NavController) {
             Image(
                 painter = painterResource(id = R.drawable.house), // Recurso de drawable
                 contentDescription = "Home",
-                modifier = Modifier.size(38.dp), // Tamaño del icono
+                modifier = Modifier.size(33.dp), // Tamaño del icono
                 colorFilter = ColorFilter.tint(if (pantallaActual == "homeScreen") DarkBrown else Color.White)
             )
         }
@@ -205,15 +205,13 @@ fun CustomBottomNavBar(navController: NavController) {
             modifier = Modifier
                 .size(60.dp)
         ) {
-
             Image(
                 painter = painterResource(id = R.drawable.bxsbox), // Recurso de drawable
                 contentDescription = "Inventario",
-                modifier = Modifier.size(45.dp), // Tamaño del icono
+                modifier = Modifier.size(40.dp), // Tamaño del icono
                 colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen?added={added}&delete={delete}&edited={edited}") DarkBrown else Color.White)
             )
         }
-
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -225,7 +223,7 @@ fun CustomBottomNavBar(navController: NavController) {
             Icon(
                 Icons.Default.Notifications,
                 contentDescription = "Notificaciones",
-                modifier = Modifier.size(50.dp), // Tamaño del icono
+                modifier = Modifier.size(45.dp), // Tamaño del icono
                 tint = if (pantallaActual == "notificationScreen") DarkBrown else Color.White
             )
         }

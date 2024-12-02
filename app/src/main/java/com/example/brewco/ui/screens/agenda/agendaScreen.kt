@@ -119,10 +119,18 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
                         modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        DatePicker(
-                            state = datePickerState,
-                            showModeToggle = false // Oculta la opción para cambiar a modo texto
-                        )
+                        MaterialTheme(
+                            colorScheme = MaterialTheme.colorScheme.copy(
+                                primary = Brown, // Color para el día seleccionado
+                                onPrimary = DarkBrown // Color del texto del día seleccionado
+                            )
+                        ) {
+                            DatePicker(
+                                state = datePickerState,
+                                showModeToggle = false
+                            )
+                        }
+
                     }
                 }
 
