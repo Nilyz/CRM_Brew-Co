@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.brewco.ui.screens.agenda.AgendaScreen
 import com.example.brewco.ui.screens.agenda.AgendaAddEvent
-import com.example.brewco.ui.screens.customer.CustomerDetailsScreen
+import com.example.brewco.ui.screens.customer.*
 import com.example.brewco.ui.screens.agenda.AgendaViewEvent
 import com.example.brewco.ui.screens.agenda.AgendaEditEvent
 import com.example.brewco.ui.screens.customer.CustomerScreen
@@ -64,7 +64,12 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
                 CustomerDetailsScreen(navHostController, clientId = it)
             }
         }
-
+        composable("addCustomerScreen") {
+            AddCustomerScreen(navHostController)
+        }
+        composable("editCustomerScreen") {
+            EditCustomerScreen(navHostController)
+        }
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/
         composable("notificationScreen") { NotificationScreen(navHostController) }
 
@@ -114,5 +119,14 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
 
     }
 }
+
+
+
+
+
+
+
+
+
 
 

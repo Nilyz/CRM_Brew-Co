@@ -66,7 +66,7 @@ fun CustomerDetailsScreen(
                 text1 = "Atrás",
                 text2 = "Editar",
                 navController = navHostController,
-                onActionClick = {}
+                onActionClick = {navHostController.navigate("editCustomerScreen")}
             )
         }
     ) { paddingValues ->
