@@ -6,15 +6,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.brewco.data.model.Alert
 import com.example.brewco.ui.screens.agenda.AgendaScreen
 import com.example.brewco.ui.screens.agenda.AgendaAddEvent
 import com.example.brewco.ui.screens.customer.CustomerDetailsScreen
+import com.example.brewco.ui.screens.agenda.AgendaViewEvent
+import com.example.brewco.ui.screens.agenda.AgendaEditEvent
 import com.example.brewco.ui.screens.customer.CustomerScreen
 import com.example.brewco.ui.screens.home.HomeScreen
 import com.example.brewco.ui.screens.inventory.*
 import com.example.brewco.ui.screens.login.AuthViewModel
 import com.example.brewco.ui.screens.login.LoginScreen
-import com.example.brewco.ui.screens.notification.NotificationtScreen
+import com.example.brewco.ui.screens.notification.NotificationScreen
 import com.example.brewco.ui.screens.splashScreen.StartSplashScreen
 
 
@@ -64,7 +67,7 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         }
 
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/
-        composable("notificationScreen") { NotificationtScreen(navHostController) }
+        composable("notificationScreen") { NotificationScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE AGENDA-----------------------------*/
         composable(
@@ -86,6 +89,26 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
                     isAllDay = false // O cualquier valor booleano que desees
                 )
 
+            }
+        }
+
+        composable(
+            "agendaViewEvent/{alertId}",
+            arguments = listOf(navArgument("alertId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val alertId = backStackEntry.arguments?.getString("alertId")
+            alertId?.let {
+                AgendaViewEvent(navHostController, alertId = it)
+            }
+        }
+
+        composable(
+            "agendaEditEvent/{alertId}",
+            arguments = listOf(navArgument("alertId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val alertId = backStackEntry.arguments?.getString("alertId")
+            alertId?.let {
+                AgendaEditEvent(navHostController, alertId = it, isAllDay = false)
             }
         }
 

@@ -54,12 +54,14 @@ class AlertRepository {
 
     suspend fun updateAlert(alert: Alert): Boolean {
         return try {
-            alertsCollection.document(alert.id).set(alert).await()
-            true
+            // Usamos el id del evento para actualizar el documento correspondiente
+            alertsCollection.document(alert.id).set(alert).await()  // Actualiza el documento
+            true  // Retornamos true si la actualización fue exitosa
         } catch (e: Exception) {
-            false
+            false  // Retornamos false si ocurre un error
         }
     }
+
 
     suspend fun deleteAlert(alertId: String): Boolean {
         return try {

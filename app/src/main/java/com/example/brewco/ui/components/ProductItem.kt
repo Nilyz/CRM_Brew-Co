@@ -104,7 +104,7 @@ fun ProductItem(product: Product, navHostController: NavHostController) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.75f)
+                        .fillMaxHeight(0.80f)
                         //.border(width = 2.dp, color = Brown)
                         .padding(10.dp),
                     verticalArrangement = Arrangement.SpaceBetween

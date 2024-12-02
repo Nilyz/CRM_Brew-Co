@@ -44,6 +44,7 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
     var password by remember { mutableStateOf("") }
     val authState by authViewModel.authState.observeAsState()
     val context = LocalContext.current
+    var isChecked by remember { mutableStateOf(false) } // Desactivado por defecto
 
     LaunchedEffect(authState) {
         when (authState) {
@@ -155,7 +156,10 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                     style = TextStyle(
                         color= DarkBrown
                     ),)
-                ToggleSwitch( onCheckedChange = {  })
+                ToggleSwitch(
+                    checked = isChecked,  // Estado inicial (desactivado por defecto)
+                    onCheckedChange = {} // No hacemos nada cuando cambia el estado
+                )
             }
 
         }
