@@ -208,22 +208,25 @@ fun AgendaAddEvent(
                             Text("Todo el día", style = TextStyle(color = DarkBrown))
 
                             // Aquí se cambia el valor de `isAllDayState` cuando se interactúa con el ToggleSwitch
-                            ToggleSwitch { isChecked ->
-                                isAllDayState = isChecked // Actualiza el valor de isAllDayState
-                                // imprimir por consola el valor de isAllDayState
-                                println("isAllDayState: $isAllDayState")
+                            ToggleSwitch(
+                                checked = isAllDayState,
+                                onCheckedChange = { isChecked ->
+                                    isAllDayState = isChecked
 
-                                // Si isAllDayState es true, asignamos los valores a selectedFinalMinute y selectedFinalHour
-                                if (isAllDayState) {
-                                    showDatePicker = false
-                                    selectedFinalMinute = "59"
-                                    selectedFinalHour = "23"
-                                } else {
-                                    selectedFinalMinute = "00"
-                                    selectedFinalHour = "00"
+                                    println("isAllDayState: $isAllDayState")
+
+                                    if (isAllDayState) {
+                                        showDatePicker = false
+                                        selectedFinalMinute = "59"
+                                        selectedFinalHour = "23"
+                                    } else {
+                                        selectedFinalMinute = "00"
+                                        selectedFinalHour = "00"
+                                    }
                                 }
-                            }
+                            )
                         }
+
 
                         Spacer(modifier = Modifier.height(20.dp))
 

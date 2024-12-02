@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.example.brewco.data.model.Alert
 import com.example.brewco.ui.screens.agenda.AgendaScreen
 import com.example.brewco.ui.screens.agenda.AgendaAddEvent
+import com.example.brewco.ui.screens.customer.CustomerDetailsScreen
 import com.example.brewco.ui.screens.agenda.AgendaViewEvent
 import com.example.brewco.ui.screens.agenda.AgendaEditEvent
 import com.example.brewco.ui.screens.customer.CustomerScreen
@@ -52,7 +53,18 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         composable("homeScreen") { HomeScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE CLIENTE----------------------*/
-        composable("customerScreen") { CustomerScreen(navHostController) }
+        composable("customerScreen") {
+            CustomerScreen(navHostController)
+        }
+        composable(
+            "customerDetailsScreen/{clientId}",
+            arguments = listOf(navArgument("clientId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val clientId = backStackEntry.arguments?.getString("clientId")
+            clientId?.let {
+                CustomerDetailsScreen(navHostController, clientId = it)
+            }
+        }
 
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/
         composable("notificationScreen") { NotificationScreen(navHostController) }
@@ -96,7 +108,7 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         ) { backStackEntry ->
             val alertId = backStackEntry.arguments?.getString("alertId")
             alertId?.let {
-                AgendaEditEvent(navHostController, alertId = it)
+                AgendaEditEvent(navHostController, alertId = it, isAllDay = false)
             }
         }
 

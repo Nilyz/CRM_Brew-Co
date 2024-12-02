@@ -69,6 +69,7 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.2.0-alpha06")
     implementation ("io.coil-kt:coil-compose:2.3.0")
     implementation(libs.androidx.compose.material3)
+    implementation ("androidx.gridlayout:gridlayout:1.0.0")
 
 
     testImplementation(libs.junit)
