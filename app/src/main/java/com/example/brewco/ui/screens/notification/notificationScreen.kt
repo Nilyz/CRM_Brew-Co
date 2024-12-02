@@ -102,7 +102,7 @@ fun NotificationScreen(
                 ) {
                     // Mostrar las alertas filtradas
                     items(filteredAlerts) { alert ->
-                        NotificationItem(alert)
+                        NotificationItem(alert,navHostController)
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 

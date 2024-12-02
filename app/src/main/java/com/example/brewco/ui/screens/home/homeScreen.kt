@@ -35,6 +35,7 @@ import androidx.navigation.NavHostController
 import com.example.brewco.data.model.Product
 import com.example.brewco.ui.components.CustomBottomNavBar
 import com.example.brewco.ui.components.CustomDrawer
+import com.example.brewco.ui.components.HomeNotificationBox
 import com.example.brewco.ui.components.TopBar
 import com.example.brewco.ui.screens.inventory.StockViewModel
 import kotlinx.coroutines.launch
@@ -89,7 +90,9 @@ fun HomeScreen(navHostController: NavHostController, viewModel: StockViewModel =
                         IncomeExpenseChart()  // Llama a la función de la nueva gráfica
                     }
                     // Mostrar los productos en la lista
-
+                    item{
+                        HomeNotificationBox(navHostController)
+                    }
                 }
 
             }

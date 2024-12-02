@@ -70,6 +70,8 @@ dependencies {
     implementation ("io.coil-kt:coil-compose:2.3.0")
     implementation(libs.androidx.compose.material3)
     implementation ("androidx.gridlayout:gridlayout:1.0.0")
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.foundation.layout.android)
 
 
 
