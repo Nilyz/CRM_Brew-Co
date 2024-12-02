@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -90,7 +91,7 @@ fun TopBarWithText(
     text1: String,
     text2: String,
     onActionClick: () -> Unit,
-    navController: NavController // Agrega el NavController como parámetro
+    navController: NavController, // Agrega el NavController como parámetro
 ) {
     TopAppBar(
         title = {
@@ -138,7 +139,6 @@ fun TopBarWithText(
 }
 
 
-
 @Composable
 fun CustomBottomNavBar(navController: NavController) {
     // Obtener la ruta actual para determinar el icono activo
@@ -152,11 +152,14 @@ fun CustomBottomNavBar(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
 
         // Botón de calendario
-        IconButton(onClick = { navController.navigate("agendaScreen") }) {
+        IconButton(
+            onClick = { navController.navigate("agendaScreen") }, modifier = Modifier
+                .size(60.dp)
+        ) {
             Icon(
                 Icons.Default.DateRange,
                 contentDescription = "Agenda",
-                modifier = Modifier.size(50.dp), // Tamaño del icono
+                modifier = Modifier.size(45.dp), // Tamaño del icono
                 tint = if (pantallaActual == "agendaScreen?added={added}&delete={delete}&edited={edited}") DarkBrown else Color.White // Cambia el color si es la pantalla activa
             )
         }
@@ -164,20 +167,28 @@ fun CustomBottomNavBar(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
 
         // Botón de Clientes
-        IconButton(onClick = { navController.navigate("customerScreen") }) {
-            Icon(
-                Icons.Default.AccountCircle,
+        IconButton(
+            onClick = { navController.navigate("customerScreen") },
+            modifier = Modifier
+                .size(60.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.fa6solidusergroup), // Recurso de drawable
                 contentDescription = "Clientes",
-                modifier = Modifier.size(50.dp), // Tamaño del icono
-                tint = if (pantallaActual == "customerScreen") DarkBrown else Color.White
+                modifier = Modifier.size(45.dp), // Tamaño del icono
+                colorFilter = ColorFilter.tint(
+                    if (pantallaActual == "customerScreen") DarkBrown else Color.White
+                )
             )
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
         // Botón de Inicio
-        IconButton(onClick = { navController.navigate("homeScreen") }) {
-
+        IconButton(
+            onClick = { navController.navigate("homeScreen") }, modifier = Modifier
+                .size(60.dp)
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.house), // Recurso de drawable
                 contentDescription = "Home",
@@ -189,12 +200,16 @@ fun CustomBottomNavBar(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
 
         // Botón de Inventario
-        IconButton(onClick = { navController.navigate("inventoryScreen?added={added}&delete={delete}&edited={edited}") }) {
+        IconButton(
+            onClick = { navController.navigate("inventoryScreen?added={added}&delete={delete}&edited={edited}") },
+            modifier = Modifier
+                .size(60.dp)
+        ) {
 
             Image(
                 painter = painterResource(id = R.drawable.bxsbox), // Recurso de drawable
                 contentDescription = "Inventario",
-                modifier = Modifier.size(50.dp), // Tamaño del icono
+                modifier = Modifier.size(45.dp), // Tamaño del icono
                 colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen?added={added}&delete={delete}&edited={edited}") DarkBrown else Color.White)
             )
         }
@@ -203,7 +218,10 @@ fun CustomBottomNavBar(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
 
         // Botón de notificaciones
-        IconButton(onClick = { navController.navigate("notificationScreen") }) {
+        IconButton(
+            onClick = { navController.navigate("notificationScreen") }, modifier = Modifier
+                .size(60.dp)
+        ) {
             Icon(
                 Icons.Default.Notifications,
                 contentDescription = "Notificaciones",
