@@ -48,6 +48,7 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material3.Button
 import com.example.brewco.data.model.Client
+import com.example.brewco.ui.components.PlusButton
 import com.example.brewco.ui.screens.inventory.StockViewModel
 
 @Composable
@@ -87,7 +88,9 @@ fun CustomerScreen(
         containerColor = Color.White,
         bottomBar = { CustomBottomNavBar(navHostController) },
         floatingActionButton = {
-            CustomFloatingActionButton(navHostController)
+            PlusButton(
+                navHostController,
+                onClick = { navHostController.navigate("addProductScreen") })
         },
         content = { paddingValues ->
             Box(
