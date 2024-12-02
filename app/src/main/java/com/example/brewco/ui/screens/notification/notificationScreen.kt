@@ -87,6 +87,7 @@ fun NotificationScreen(
                 }
             })
         },
+        containerColor = Color.White,
         bottomBar = { CustomBottomNavBar(navHostController) },
         content = { paddingValues ->
             Box(

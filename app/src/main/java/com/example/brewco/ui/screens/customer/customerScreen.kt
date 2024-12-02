@@ -84,6 +84,7 @@ fun CustomerScreen(
                 }
             })
         },
+        containerColor = Color.White,
         bottomBar = { CustomBottomNavBar(navHostController) },
         floatingActionButton = {
             CustomFloatingActionButton(navHostController)
@@ -129,58 +130,60 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
 
     ) {
 
-            Column(
+        Column(
+            modifier = Modifier
+                .border(
+                    width = 2.dp, color = Color.Transparent
+                )
+                .fillMaxSize()
+                .padding(horizontal = 12.dp)
+        ) {
+            Text(
+                text = "${client.nombre} ${client.apellido}",
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
+            Row(
                 modifier = Modifier
                     .border(
-                        width = 2.dp, color = Color.Transparent
+                        width = 2.dp, Color.Transparent
                     )
-                    .fillMaxSize()
-                    .padding(horizontal = 12.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "${client.nombre} ${client.apellido}",
+                    text = "Puntos: ",
                     fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp))
-                Row(
-                    modifier = Modifier
-                        .border(
-                            width = 2.dp, Color.Transparent
-                        )
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Puntos: ",
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
 
+                )
+                Text(
+                    text = "${client.puntos}",
+                    modifier = Modifier
+                )
+                Icon(
+                    Icons.Default.Star, contentDescription = "Agregar",
+                    modifier = Modifier.size(20.dp),
+                    Color.Yellow
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .border(
+                        width = 2.dp, Color.Transparent
                     )
-                    Text(
-                        text = "${client.puntos}",
-                        modifier = Modifier
-                    )
-                    Icon(
-                        Icons.Default.Star, contentDescription = "Agregar",
-                        modifier = Modifier.size(20.dp),
-                        Color.Yellow
-                    )
-                }
-                Row(
+                    .fillMaxWidth()
+            ) {
+                Column(
                     modifier = Modifier
                         .border(
                             width = 2.dp, Color.Transparent
                         )
                         .fillMaxWidth()
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .border(
-                                width = 2.dp, Color.Transparent
-                            )
-                            .fillMaxWidth()) {
                     Text(
                         text = "Tel:",
                         fontWeight = FontWeight.Bold,
@@ -190,118 +193,27 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                         text = "${client.telefono}",
                         modifier = Modifier
                     )
-                    }
                 }
-                Column(
-                    modifier = Modifier
-                        .border(
-                            width = 2.dp, Color.Transparent
-                        )
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Últ Compra: ",
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                    )
-                    Text(
-                        text = "${client.ultCompra}",
-                        modifier = Modifier
-                    )
-                }
-
-        }
-    }
-
-fun CustomerItem(index: Int) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            //horizontalArrangement = Arrangement.Center
-        ) {
-            Column (
-                modifier = Modifier
-                    .fillMaxWidth(0.50f)
-                    .height(300.dp)
-                    .padding(8.dp)
-            ){
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth(0.35f)
-                        .height(300.dp)
-                        .padding(8.dp),
-                    elevation = CardDefaults.cardElevation(4.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0))
-                ) {
-                    Text(
-                        text = "Evento $index",
-                        fontSize = 18.sp,
-                        modifier = Modifier
-                            .padding(16.dp),
-                    )
-                    Text(
-                        text = "Puntos: 250",
-                        fontSize = 12.sp,
-                        modifier = Modifier
-                            .padding(8.dp),
-                    )
-                    Text(
-                        text = "Teléfono: 123456789",
-                        fontSize = 12.sp,
-                        modifier = Modifier
-                            .padding(8.dp),
-                    )
-                    Text(
-                        text = "Última compra: 12/12/2021",
-                        fontSize = 12.sp,
-                        modifier = Modifier
-                            .padding(8.dp),
-                    )
-                }
-
             }
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(0.50f)
-                    .height(300.dp)
-                    .padding(8.dp)
+                    .border(
+                        width = 2.dp, Color.Transparent
+                    )
+                    .fillMaxWidth()
             ) {
-                Card(
+                Text(
+                    text = "Últ Compra: ",
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .fillMaxWidth(0.35f)
-                        .height(300.dp)
-                        .padding(8.dp),
-                    elevation = CardDefaults.cardElevation(4.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F0F0))
-                ) {
-                    Text(
-                        text = "Evento $index",
-                        fontSize = 18.sp,
-                        modifier = Modifier
-                            .padding(16.dp),
-                    )
-                    Text(
-                        text = "Puntos: 250",
-                        fontSize = 12.sp,
-                        modifier = Modifier
-                            .padding(8.dp),
-                    )
-                    Text(
-                        text = "Teléfono: 123456789",
-                        fontSize = 12.sp,
-                        modifier = Modifier
-                            .padding(8.dp),
-                    )
-                    Text(
-                        text = "Última compra: 12/12/2021",
-                        fontSize = 12.sp,
-                        modifier = Modifier
-                            .padding(8.dp),
-                    )
-                }
-
+                )
+                Text(
+                    text = "${client.ultCompra}",
+                    modifier = Modifier
+                )
             }
+
         }
+    }
 
 }
