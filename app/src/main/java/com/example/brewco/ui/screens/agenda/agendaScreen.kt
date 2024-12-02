@@ -31,6 +31,7 @@ import java.time.ZoneId
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.LaunchedEffect
@@ -40,6 +41,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.brewco.ui.components.CustomDrawer
 import com.example.brewco.ui.components.EventCard
 import com.example.brewco.ui.theme.DarkBrown
 import com.example.brewco.ui.theme.Beige
@@ -90,6 +92,18 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
         viewModel.loadTodayAlerts()  //recargar productos cada vez que se entra a la pantalla
     }
 
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            CustomDrawer(
+                navHostController = navHostController,
+                onLogoutClick = {
+                    navHostController.navigate("splashScreen") {
+                        popUpTo(0) // Limpia la pila de navegación
+                    }
+                })
+        },
+    ) {
     Scaffold(
         topBar = {
             TopBar(title = "Agenda", onMenuClick = {
@@ -173,6 +187,7 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
             }
         }
     )
+    }
 }
 
 

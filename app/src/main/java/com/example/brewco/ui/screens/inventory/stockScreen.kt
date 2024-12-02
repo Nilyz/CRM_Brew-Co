@@ -105,7 +105,7 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
         viewModel.loadProducts()  //recargar productos cada vez que se entra a la pantalla
     }
     ModalNavigationDrawer(
-        drawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
+        drawerState = drawerState,
         drawerContent = {
             CustomDrawer(
                 navHostController = navHostController,
@@ -116,60 +116,62 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
                 }
             )
         }
-    ) { }
+    ) {
+        Scaffold(
+            snackbarHost = {
+                SnackbarHost(
+                    hostState = snackbarHostState, modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp)
+                )
+            },
+            topBar = {
+                TopBar(title = "Inventario", onMenuClick = {
+                    scope.launch {
 
-    Scaffold(
-        snackbarHost = {
-            SnackbarHost(
-                hostState = snackbarHostState, modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp)
-            )
-        },
-        topBar = {
-            TopBar(title = "Inventario", onMenuClick = {
-                scope.launch {
+                        if (drawerState.isClosed) {
+                            drawerState.open()
+                        } else {
+                            drawerState.close()
+                        }
 
-                    if (drawerState.isClosed) {
-                        drawerState.open()
-                    } else {
-                        drawerState.close()
+
                     }
-
-
-                }
-            })
-        },
-        containerColor = Color.White,
-        bottomBar = { CustomBottomNavBar(navHostController) },
-        floatingActionButton = {
-            PlusButton(
-                navHostController,
-                onClick = { navHostController.navigate("addProductScreen") })
-        },
-        content = { paddingValues ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-            ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-
+                })
+            },
+            containerColor = Color.White,
+            bottomBar = { CustomBottomNavBar(navHostController) },
+            floatingActionButton = {
+                PlusButton(
+                    navHostController,
+                    onClick = { navHostController.navigate("addProductScreen") })
+            },
+            content = { paddingValues ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
                 ) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
 
-                    items(productList) { product ->
-                        ProductItem(product = product, navHostController = navHostController)
-                        Spacer(modifier = Modifier.height(16.dp))
-                    }
-                    item {
-                        Spacer(modifier = Modifier.height(30.dp))
+                    ) {
+
+                        items(productList) { product ->
+                            ProductItem(product = product, navHostController = navHostController)
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(30.dp))
+                        }
                     }
                 }
             }
-        }
-    )
+        )
+    }
+
+
 }
 
