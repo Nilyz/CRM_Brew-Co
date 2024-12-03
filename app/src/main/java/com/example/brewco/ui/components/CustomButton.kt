@@ -21,10 +21,10 @@ import com.example.brewco.ui.theme.*
 @Composable
 fun CustomButton(
     text: String,
-    textColor:Color,
-    contColor:Color,
+    textColor: Color,
+    contColor: Color,
     fontSize: TextUnit,
-    contentPadding:PaddingValues,
+    contentPadding: PaddingValues,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 
@@ -32,13 +32,12 @@ fun CustomButton(
     Button(
         onClick = onClick,
         modifier = modifier
-            .fillMaxWidth()
-        ,
+            .fillMaxWidth(),
         contentPadding = contentPadding,
         colors = ButtonDefaults.buttonColors(
             containerColor = contColor
         ),
-                shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp)
 
     ) {
         Text(
