@@ -16,6 +16,10 @@ class StockViewModel : ViewModel() {
     private val _products = MutableStateFlow<List<Product>>(emptyList())
         val products: StateFlow<List<Product>> = _products //versión pública y de sólo lectura del _products para mostrar en UI
 
+
+    private val _topProducts = MutableStateFlow<List<Product>>(emptyList()) // Para los 5 productos con más inventario
+    val topProducts: StateFlow<List<Product>> = _topProducts
+
     //método de ViewModel que se ejecuta al crear una instancia de StockViewModel(tipo para que se cargue los productos)
     init {
         loadProducts()
@@ -26,6 +30,14 @@ class StockViewModel : ViewModel() {
         viewModelScope.launch {
             val productsFromRepo = productRepository.getProducts()
             _products.value = productsFromRepo
+        }
+    }
+
+    // Cargar los 5 productos con más inventario
+    fun loadTopProducts() {
+        viewModelScope.launch {
+            val topProductsFromRepo = productRepository.getTop5ProductsByInventory()
+            _topProducts.value = topProductsFromRepo
         }
     }
 
@@ -88,6 +100,8 @@ class StockViewModel : ViewModel() {
             }
         }
     }
+
+
 
 
 }

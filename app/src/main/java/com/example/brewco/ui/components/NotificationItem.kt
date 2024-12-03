@@ -1,6 +1,7 @@
 package com.example.brewco.ui.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,16 +19,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.brewco.data.model.Alert
 import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.theme.Brown
 import com.example.brewco.ui.theme.DarkBrown
 
 @Composable
-fun NotificationItem(alert: Alert) {
+fun NotificationItem(alert: Alert,navHostController: NavHostController) {
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable {
+                // Navegar a la pantalla de detalles y pasar el objeto 'alert' como argumento
+                navHostController.navigate("agendaViewEvent/${alert.id}")
+            },
         colors = CardDefaults.cardColors(
             containerColor = Beige
         )

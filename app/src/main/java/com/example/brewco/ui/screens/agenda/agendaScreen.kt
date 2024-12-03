@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -133,10 +134,18 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
                         modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        DatePicker(
-                            state = datePickerState,
-                            showModeToggle = false // Oculta la opción para cambiar a modo texto
-                        )
+                        MaterialTheme(
+                            colorScheme = MaterialTheme.colorScheme.copy(
+                                primary = Brown, // Color para el día seleccionado
+                                onPrimary = DarkBrown // Color del texto del día seleccionado
+                            )
+                        ) {
+                            DatePicker(
+                                state = datePickerState,
+                                showModeToggle = false
+                            )
+                        }
+
                     }
                 }
 
@@ -158,7 +167,8 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
                             .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Brown // Color de fondo del botón
-                        )
+                        ),
+                        shape = RoundedCornerShape(8.dp)
                     ) {
                         Text("Agregar evento")
                     }

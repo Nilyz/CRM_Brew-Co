@@ -48,7 +48,7 @@ import com.example.brewco.ui.components.TopBarWithText
 fun CustomerDetailsScreen(
     navHostController: NavHostController,
     clientId: String,
-    viewModel: CustomerViewModel = viewModel()
+    viewModel: CustomerViewModel = viewModel(),
 ) {
     var client by remember { mutableStateOf<Client?>(null) }
 
@@ -66,14 +66,14 @@ fun CustomerDetailsScreen(
                 text1 = "Atrás",
                 text2 = "Editar",
                 navController = navHostController,
-                onActionClick = {}
+                onActionClick = { navHostController.navigate("editCustomerScreen") }
             )
-        }
+        },
+        containerColor = Color.White,
     ) { paddingValues ->
         client?.let { cliente ->
             Column(
                 modifier = Modifier
-                    .background(Cream)
                     .fillMaxWidth()
                     .padding(paddingValues)
             ) {
@@ -117,7 +117,11 @@ fun CustomerDetailsScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Icon(Icons.Default.DateRange, contentDescription = "Última compra", tint = Brown)
+                        Icon(
+                            Icons.Default.DateRange,
+                            contentDescription = "Última compra",
+                            tint = Brown
+                        )
                         Spacer(modifier = Modifier.size(8.dp))
                         Text(
                             text = "Última compra: ${cliente.ultCompra}",
@@ -176,21 +180,22 @@ fun CustomerDetailsScreen(
                 ) {
                     Column(
                         modifier = Modifier
-                        .padding(32.dp)
+                            .padding(32.dp)
                     ) {
-                    Text(
-                        text = "Notas:",
-                        fontWeight = FontWeight.Bold,
-                        color = DarkBrown,
-                        fontSize = 16.sp
-                    )
-                    Text(
-                        text = cliente.notas,
-                        fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Start,
-                        color = Color.Black,
-                        fontSize = 14.sp,
-                        modifier = Modifier.padding(horizontal = 16.dp))
+                        Text(
+                            text = "Notas:",
+                            fontWeight = FontWeight.Bold,
+                            color = DarkBrown,
+                            fontSize = 16.sp
+                        )
+                        Text(
+                            text = cliente.notas,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Start,
+                            color = Color.Black,
+                            fontSize = 14.sp,
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
                     }
 
                 }

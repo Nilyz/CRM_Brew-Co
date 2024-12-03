@@ -48,6 +48,7 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material3.Button
 import com.example.brewco.data.model.Client
+import com.example.brewco.ui.components.PlusButton
 import com.example.brewco.ui.screens.inventory.StockViewModel
 
 @Composable
@@ -71,48 +72,48 @@ fun CustomerScreen(
                 }
             )
         },
-    ) {
-        Scaffold(
-            topBar = {
-                TopBar(title = "Clientes", onMenuClick = {
-                    scope.launch {
-                        if (drawerState.isClosed) {
-                            drawerState.open()
-                        } else {
-                            drawerState.close()
-                        }
+    ) { }
+    Scaffold(
+        topBar = {
+            TopBar(title = "Clientes", onMenuClick = {
+                scope.launch {
+                    if (drawerState.isClosed) {
+                        drawerState.open()
+                    } else {
+                        drawerState.close()
                     }
-                })
-            },
-            containerColor = Color.White,
-            bottomBar = { CustomBottomNavBar(navHostController) },
-            floatingActionButton = {
-                CustomFloatingActionButton(navHostController)
-            },
-            content = { paddingValues ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
+                }
+            })
+        },
+        containerColor = Color.White,
+        bottomBar = { CustomBottomNavBar(navHostController) },
+        floatingActionButton = {
+            PlusButton(
+                navHostController,
+                onClick = { navHostController.navigate("addCustomerScreen") })
+        },
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(1.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(1.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        items(clientList) { client ->
-                            CustomerItem(client = client, navHostController = navHostController)
-                            Spacer(modifier = Modifier.height(16.dp))
+                    items(clientList) { client ->
+                        CustomerItem(client = client, navHostController = navHostController)
+                        Spacer(modifier = Modifier.height(16.dp))
 
-                        }
                     }
                 }
             }
-        )
-    }
-
+        }
+    )
 }
 
 
@@ -144,9 +145,11 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 text = "${client.nombre} ${client.apellido}",
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
+                color = DarkBrown,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp)
+
             )
             Row(
                 modifier = Modifier
@@ -158,12 +161,16 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
             ) {
                 Text(
                     text = "Puntos: ",
+                    color = DarkBrown,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
 
+
                 )
                 Text(
+
                     text = "${client.puntos}",
+                    color = DarkBrown,
                     modifier = Modifier
                 )
                 Icon(
@@ -188,11 +195,13 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 ) {
                     Text(
                         text = "Tel:",
+                        color = DarkBrown,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
                     )
                     Text(
                         text = "${client.telefono}",
+                        color = DarkBrown,
                         modifier = Modifier
                     )
                 }
@@ -206,11 +215,13 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
             ) {
                 Text(
                     text = "Últ Compra: ",
+                    color = DarkBrown,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                 )
                 Text(
                     text = "${client.ultCompra}",
+                    color = DarkBrown,
                     modifier = Modifier
                 )
             }

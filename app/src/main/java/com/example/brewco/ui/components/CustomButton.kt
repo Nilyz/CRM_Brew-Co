@@ -1,6 +1,7 @@
 package com.example.brewco.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -10,29 +11,41 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.TextUnit
 import com.example.brewco.ui.theme.*
 
 @Composable
 fun CustomButton(
     text: String,
+    textColor: Color,
+    contColor: Color,
+    fontSize: TextUnit,
+    contentPadding: PaddingValues,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
+
 ) {
     Button(
         onClick = onClick,
         modifier = modifier
-            .fillMaxWidth()
-        ,
+            .fillMaxWidth(),
+        contentPadding = contentPadding,
         colors = ButtonDefaults.buttonColors(
-            containerColor = Beige
-        )
-
+            containerColor = contColor
+        ),
+        shape = RoundedCornerShape(8.dp)
 
     ) {
         Text(
             text = text,
-            color = Color.White
+            color = textColor,
+            style = TextStyle(
+                fontSize = fontSize
+            )
         )
     }
 }

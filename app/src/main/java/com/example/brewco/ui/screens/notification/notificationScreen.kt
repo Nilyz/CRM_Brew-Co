@@ -73,48 +73,46 @@ fun NotificationScreen(
                     }
                 })
         },
-    ) {
-        Scaffold(
-            topBar = {
-                TopBar(title = "Notificaciones", onMenuClick = {
-                    scope.launch {
-                        if (drawerState.isClosed) {
-                            drawerState.open()
-                        } else {
-                            drawerState.close()
-                        }
-                    }
-                })
-            },
-            containerColor = Color.White,
-            bottomBar = { CustomBottomNavBar(navHostController) },
-            content = { paddingValues ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
-                ) {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        // Mostrar las alertas filtradas
-                        items(filteredAlerts) { alert ->
-                            NotificationItem(alert)
-                            Spacer(modifier = Modifier.height(16.dp))
-                        }
+    ) {}
 
-                        // Espaciado adicional al final
-                        item {
-                            Spacer(modifier = Modifier.height(30.dp))
-                        }
+    Scaffold(
+        topBar = {
+            TopBar(title = "Notificaciones", onMenuClick = {
+                scope.launch {
+                    if (drawerState.isClosed) {
+                        drawerState.open()
+                    } else {
+                        drawerState.close()
+                    }
+                }
+            })
+        },
+        containerColor = Color.White,
+        bottomBar = { CustomBottomNavBar(navHostController) },
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    // Mostrar las alertas filtradas
+                    items(filteredAlerts) { alert ->
+                        NotificationItem(alert,navHostController)
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+
+                    // Espaciado adicional al final
+                    item {
+                        Spacer(modifier = Modifier.height(30.dp))
                     }
                 }
             }
-        )
-    }
-
-
+        }
+    )
 }
 
