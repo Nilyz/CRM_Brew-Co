@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.brewco.data.model.Client
 import com.example.brewco.ui.theme.Beige
@@ -34,11 +35,9 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .height(180.dp)
             .clickable {
                 navHostController.navigate("customerDetailsScreen/${client.id}")
             },
-        elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(containerColor = Beige)
 
     ) {
@@ -48,17 +47,16 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 .border(
                     width = 2.dp, color = Color.Transparent
                 )
-                .fillMaxSize()
-                .padding(horizontal = 12.dp)
+                .fillMaxSize().padding(12.dp)
         ) {
             Text(
                 text = "${client.nombre} ${client.apellido}",
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
+                fontSize = 18.sp,
                 color = DarkBrown,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 4.dp)
 
             )
             Row(
