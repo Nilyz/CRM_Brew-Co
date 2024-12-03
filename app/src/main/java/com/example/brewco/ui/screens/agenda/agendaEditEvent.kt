@@ -141,6 +141,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                 text2 = "OK",
                 navController = navHostController, // Aquí se pasa el navHostController
                 onActionClick = {
+
                     // Crear el objeto Alerta con los datos del formulario
 
                     if (isAllDayState) {
@@ -178,7 +179,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                             alert = newAlert,
                             onSuccess = {
                                 // Cuando la alerta se actualiza correctamente, navega y pasa un argumento
-                                navHostController.navigate("agendaScreen?updated=true") {
+                                navHostController.navigate("agendaScreen?edited=true") {
                                     popUpTo("agendaViewEvent") { inclusive = true }
                                 }
                             },
@@ -190,6 +191,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                     }
                 }
             )
+
         },
         containerColor = Color.White, // Fondo blanco para toda la pantalla
         content = { paddingValues ->
