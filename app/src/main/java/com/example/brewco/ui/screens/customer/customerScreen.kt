@@ -72,7 +72,7 @@ fun CustomerScreen(
                 }
             )
         },
-    ) { }
+    ) {
     Scaffold(
         topBar = {
             TopBar(title = "Clientes", onMenuClick = {
@@ -114,6 +114,7 @@ fun CustomerScreen(
             }
         }
     )
+    }
 }
 
 

@@ -73,7 +73,7 @@ fun NotificationScreen(
                     }
                 })
         },
-    ) {}
+    ) {
 
     Scaffold(
         topBar = {
@@ -114,5 +114,6 @@ fun NotificationScreen(
             }
         }
     )
+    }
 }
 
