@@ -62,7 +62,7 @@ fun HomeScreen(navHostController: NavHostController, viewModel: StockViewModel =
                     }
                 })
         },
-    ) { }
+    ) {
 
     Scaffold(
         topBar = {
@@ -98,6 +98,7 @@ fun HomeScreen(navHostController: NavHostController, viewModel: StockViewModel =
             }
         }
     )
+    }
 }
 
 @Composable

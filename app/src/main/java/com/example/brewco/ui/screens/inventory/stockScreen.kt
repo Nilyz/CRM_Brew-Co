@@ -83,7 +83,7 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
         viewModel.loadProducts()  //recargar productos cada vez que se entra a la pantalla
     }
     ModalNavigationDrawer(
-        drawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
+        drawerState = drawerState,
         drawerContent = {
             CustomDrawer(
                 navHostController = navHostController,
@@ -91,10 +91,9 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
                     navHostController.navigate("splashScreen") {
                         popUpTo(0) // Limpia la pila de navegación
                     }
-                }
-            )
-        }
-    ) { }
+                })
+        },
+    ){
 
     Scaffold(
         snackbarHost = {
@@ -159,5 +158,6 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
 
         }
     )
+}
 }
 
