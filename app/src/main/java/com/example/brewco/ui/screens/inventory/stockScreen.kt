@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,8 +33,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -68,44 +71,19 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
 
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val addedMessage = navHostController.currentBackStackEntry?.arguments?.getString("added")
-    val deleteMessage = navHostController.currentBackStackEntry?.arguments?.getString("delete")
-    val editedMessage = navHostController.currentBackStackEntry?.arguments?.getString("edited")
 
     val currentBackStackEntry by navHostController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry?.destination?.route
+    var isSnackBar by remember { mutableStateOf(false) }
 
     Log.i("NavDebug", "Ruta actual: $currentRoute")
 
-
-
-    LaunchedEffect(addedMessage, deleteMessage, editedMessage) {
-        when {
-            addedMessage == "true" -> {
-                scope.launch {
-                    snackbarHostState.showSnackbar("Producto añadido con éxito!")
-                }
-            }
-
-            deleteMessage == "true" -> {
-                scope.launch {
-                    snackbarHostState.showSnackbar("Producto eliminado con éxito!")
-                }
-            }
-
-            editedMessage == "true" -> {
-                scope.launch {
-                    snackbarHostState.showSnackbar("Producto editado con éxito!")
-                }
-            }
-        }
-    }
 
     LaunchedEffect(Unit) {
         viewModel.loadProducts()  //recargar productos cada vez que se entra a la pantalla
     }
     ModalNavigationDrawer(
-        drawerState = drawerState,
+        drawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
         drawerContent = {
             CustomDrawer(
                 navHostController = navHostController,
@@ -116,62 +94,70 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
                 }
             )
         }
-    ) {
-        Scaffold(
-            snackbarHost = {
-                SnackbarHost(
-                    hostState = snackbarHostState, modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp)
-                )
-            },
-            topBar = {
-                TopBar(title = "Inventario", onMenuClick = {
-                    scope.launch {
+    ) { }
 
-                        if (drawerState.isClosed) {
-                            drawerState.open()
-                        } else {
-                            drawerState.close()
-                        }
+    Scaffold(
+        snackbarHost = {
+            CustomSnackBar(snackbarHostState,)
 
+        },
+        topBar = {
+            TopBar(title = "Inventario", onMenuClick = {
+                scope.launch {
 
+                    if (drawerState.isClosed) {
+                        drawerState.open()
+                    } else {
+                        drawerState.close()
                     }
-                })
-            },
-            containerColor = Color.White,
-            bottomBar = { CustomBottomNavBar(navHostController) },
-            floatingActionButton = {
-                PlusButton(
-                    navHostController,
-                    onClick = { navHostController.navigate("addProductScreen") })
-            },
-            content = { paddingValues ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
+
+
+                }
+            })
+        },
+        containerColor = Color.White,
+        bottomBar = { CustomBottomNavBar(navHostController) },
+        floatingActionButton = {
+            PlusButton(
+                navHostController,
+                onClick = { navHostController.navigate("addProductScreen") })
+        },
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+
                 ) {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
 
-                    ) {
-
-                        items(productList) { product ->
-                            ProductItem(product = product, navHostController = navHostController)
-                            Spacer(modifier = Modifier.height(16.dp))
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(30.dp))
-                        }
+                    items(productList) { product ->
+                        ProductItem(product = product, navHostController = navHostController)
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(30.dp))
                     }
                 }
             }
-        )
-    }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                contentAlignment = Alignment.TopCenter
+            ) {
+                SnackbarMessageHandler(
+                    navHostController = navHostController,
+                    snackbarHostState = snackbarHostState,
+                    element = "Producto"
+                )
+            }
 
-
+        }
+    )
 }
 

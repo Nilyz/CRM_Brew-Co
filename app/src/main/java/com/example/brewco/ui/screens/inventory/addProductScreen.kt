@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,9 @@ fun AddProductScreen(
     var stockMinimo by remember { mutableStateOf(0) }
     var precio by remember { mutableStateOf(0) }
 
+    var isErrorVisible by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
+
     Scaffold(
         topBar = {
             TopBarWithText(
@@ -52,7 +56,8 @@ fun AddProductScreen(
                         newProduct.inventario <= 0 || newProduct.inventario_minimo <= 0 ||
                         newProduct.precio <= 0.0
                     ) {
-                        //Recurda añadir mensaje que diga que rellenes todos los campos
+                        errorMessage = "Por favor, rellena todos los campos."
+                        isErrorVisible = true
                     } else {
                         viewModel.addProduct(
                             product = newProduct,
@@ -109,7 +114,20 @@ fun AddProductScreen(
 
                 }
             }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.BottomCenter // Posiciona el Snackbar en la parte inferior
+            ) {
+                ErrorSnackbar(
+                    message = errorMessage,
+                    isVisible = isErrorVisible,
+                    onDismiss = { isErrorVisible = false }
+                )
+            }
         }
+
+
     )
 }
 

@@ -32,7 +32,7 @@ import java.time.ZoneId
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.LaunchedEffect
@@ -42,8 +42,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.brewco.ui.components.CustomDrawer
+import com.example.brewco.ui.components.CustomSnackBar
 import com.example.brewco.ui.components.EventCard
+import com.example.brewco.ui.components.SnackbarMessageHandler
 import com.example.brewco.ui.theme.DarkBrown
 import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.theme.Brown
@@ -67,45 +68,15 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
     val deleteMessage = navHostController.currentBackStackEntry?.arguments?.getString("delete")
     val editedMessage = navHostController.currentBackStackEntry?.arguments?.getString("edited")
 
-    LaunchedEffect(addedMessage, deleteMessage, editedMessage) {
-        when {
-            addedMessage == "true" -> {
-                scope.launch {
-                    snackbarHostState.showSnackbar("Evento añadido con éxito!")
-                }
-            }
 
-            deleteMessage == "true" -> {
-                scope.launch {
-                    snackbarHostState.showSnackbar("Evento eliminado con éxito!")
-                }
-            }
-
-            editedMessage == "true" -> {
-                scope.launch {
-                    snackbarHostState.showSnackbar("Evento editado con éxito!")
-                }
-            }
-        }
-    }
 
     LaunchedEffect(Unit) {
         viewModel.loadTodayAlerts()  //recargar productos cada vez que se entra a la pantalla
     }
 
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            CustomDrawer(
-                navHostController = navHostController,
-                onLogoutClick = {
-                    navHostController.navigate("splashScreen") {
-                        popUpTo(0) // Limpia la pila de navegación
-                    }
-                })
-        },
-    ) {
-    Scaffold(
+    Scaffold(snackbarHost = {
+        CustomSnackBar(snackbarHostState)
+    },
         topBar = {
             TopBar(title = "Agenda", onMenuClick = {
                 scope.launch {
@@ -195,9 +166,13 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
                     Spacer(modifier = Modifier.height(30.dp))
                 }
             }
+            SnackbarMessageHandler(
+                navHostController = navHostController,
+                snackbarHostState = snackbarHostState,
+                element = "Evento"
+            )
         }
     )
-    }
 }
 
 
