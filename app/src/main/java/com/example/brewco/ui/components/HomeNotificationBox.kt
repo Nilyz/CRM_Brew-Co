@@ -83,12 +83,12 @@ fun HomeNotificationBox(
             IconButton(onClick = {
                 navHostController.navigate("notificationScreen")
             }) {
-                Icon(
-                    Icons.Default.PlayArrow,
-                    contentDescription = "Ver notificaciones",
-                    tint = Cream,
-                    modifier = Modifier.size(35.dp)
-                )
+                Image(
+                    painter = painterResource(id = R.drawable.triangle_right_svgrepo_com),
+                    contentDescription = "Arrow",
+                    modifier = Modifier.size(30.dp),
+
+                    )
             }
         }
         Column(
