@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,6 +38,8 @@ import com.example.brewco.ui.components.CustomBottomNavBar
 import com.example.brewco.ui.components.CustomDrawer
 import com.example.brewco.ui.components.HomeNotificationBox
 import com.example.brewco.ui.components.TopBar
+import com.example.brewco.ui.components.TradeReportCard
+import com.example.brewco.ui.components.TradeReportCard2
 import com.example.brewco.ui.screens.inventory.StockViewModel
 import kotlinx.coroutines.launch
 
@@ -64,40 +67,73 @@ fun HomeScreen(navHostController: NavHostController, viewModel: StockViewModel =
         },
     ) {
 
-    Scaffold(
-        topBar = {
-            TopBar(title = "Inicio", onMenuClick = {
-                scope.launch {
-                    if (drawerState.isClosed) {
-                        drawerState.open()
-                    } else {
-                        drawerState.close()
+        Scaffold(
+            topBar = {
+                TopBar(title = "Inicio", onMenuClick = {
+                    scope.launch {
+                        if (drawerState.isClosed) {
+                            drawerState.open()
+                        } else {
+                            drawerState.close()
+                        }
                     }
-                }
-            })
-        },
-        containerColor = Color.White,
-        bottomBar = { CustomBottomNavBar(navHostController) },
-        content = { paddingValues ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-            ) {
-                LazyColumn {
-                    // Mostrar el gráfico de ingresos y gastos
-                    item {
-                        IncomeExpenseChart()  // Llama a la función de la nueva gráfica
-                    }
-                    // Mostrar los productos en la lista
-                    item{
-                        HomeNotificationBox(navHostController)
-                    }
-                }
+                })
+            },
+            containerColor = Color.White,
+            bottomBar = { CustomBottomNavBar(navHostController) },
+            content = { paddingValues ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
+                ) {
+                    LazyColumn {
+                        // Mostrar el gráfico de ingresos y gastos
+                        item {
+                            IncomeExpenseChart()  // Llama a la función de la nueva gráfica
+                        }
+                        //Mostrar tarjetas de ventas e ingresos
+                        item {
+                            TradeReportCard2(
+                                tradeType1 = "Ventas de hoy",
+                                tradeType2 = "Clientes",
+                                randomNum1 = 5974,
+                                randomNum2 = 6840,
+                                dinamic = true
+                            )
+                        }
+                        item {
+                            TradeReportCard(
+                                tradeType1 = "Ventas de hoy",
+                                tradeType2 = "Clientes",
+                                randomNum1 = 150,
+                                randomNum2 = 58,
+                                dinamic = true
+                            )
+                        }
+                        item {
+                            TradeReportCard(
+                                tradeType1 = "Ventas de hoy",
+                                tradeType2 = "Clientes",
+                                randomNum1 = 3,
+                                randomNum2 = 1,
+                                dinamic = false
+                            )
+                        }
 
+                        // Mostrar los productos en la lista
+                        item {
+                            HomeNotificationBox(navHostController)
+                        }
+
+                        item {
+                            Spacer(modifier = Modifier.height(30.dp))
+                        }
+                    }
+
+                }
             }
-        }
-    )
+        )
     }
 }
 
