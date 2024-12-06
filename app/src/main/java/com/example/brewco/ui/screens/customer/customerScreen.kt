@@ -49,7 +49,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material3.Button
 import com.example.brewco.data.model.Client
 import com.example.brewco.ui.components.CustomerItem
-import com.example.brewco.ui.components.PlusButton
 import com.example.brewco.ui.screens.inventory.StockViewModel
 
 @Composable
