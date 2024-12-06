@@ -117,7 +117,7 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
         containerColor = Color.White,
         bottomBar = { CustomBottomNavBar(navHostController) },
         floatingActionButton = {
-            PlusButton(
+            CustomFloatingActionButton(
                 navHostController,
                 onClick = { navHostController.navigate("addProductScreen") })
         },

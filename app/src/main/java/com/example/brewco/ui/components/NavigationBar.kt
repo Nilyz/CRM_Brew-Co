@@ -233,9 +233,9 @@ fun CustomBottomNavBar(navController: NavController) {
 }
 
 @Composable
-fun CustomFloatingActionButton(navController: NavController) {
+fun CustomFloatingActionButton(navController: NavController,onClick: () -> Unit) {
     FloatingActionButton(
-        onClick = { navController.navigate("") },
+        onClick = onClick,
         containerColor = Brown
     ) {
         Icon(

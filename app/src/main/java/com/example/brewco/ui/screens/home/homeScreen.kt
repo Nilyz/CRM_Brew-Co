@@ -95,8 +95,8 @@ fun HomeScreen(navHostController: NavHostController, viewModel: StockViewModel =
                         //Mostrar tarjetas de ventas e ingresos
                         item {
                             TradeReportCard2(
-                                tradeType1 = "Ventas de hoy",
-                                tradeType2 = "Clientes",
+                                tradeType1 = "Esta semana",
+                                tradeType2 = "Semana pasada",
                                 randomNum1 = 5974,
                                 randomNum2 = 6840,
                                 dinamic = true
@@ -113,8 +113,8 @@ fun HomeScreen(navHostController: NavHostController, viewModel: StockViewModel =
                         }
                         item {
                             TradeReportCard(
-                                tradeType1 = "Ventas de hoy",
-                                tradeType2 = "Clientes",
+                                tradeType1 = "Pedidos pendientes",
+                                tradeType2 = "Stock bajo",
                                 randomNum1 = 3,
                                 randomNum2 = 1,
                                 dinamic = false

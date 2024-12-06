@@ -89,7 +89,7 @@ fun CustomerScreen(
         containerColor = Color.White,
         bottomBar = { CustomBottomNavBar(navHostController) },
         floatingActionButton = {
-            PlusButton(
+            CustomFloatingActionButton(
                 navHostController,
                 onClick = { navHostController.navigate("addCustomerScreen") })
         },
