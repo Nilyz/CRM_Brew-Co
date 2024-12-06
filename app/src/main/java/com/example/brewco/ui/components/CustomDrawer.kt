@@ -55,7 +55,7 @@ fun CustomDrawer(
             Spacer(modifier = Modifier.weight(1f))
             TextButton(
                 onClick = {
-                    navHostController.navigate("splashScreen") {
+                    navHostController.navigate("startSplashScreen") {
                         popUpTo(0) // Limpia la pila de navegación
                     }
                     onLogoutClick()

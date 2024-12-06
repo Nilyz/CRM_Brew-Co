@@ -66,7 +66,7 @@ fun CustomerScreen(
             CustomDrawer(
                 navHostController = navHostController,
                 onLogoutClick = {
-                    navHostController.navigate("splashScreen") {
+                    navHostController.navigate("startSplashScreen") {
                         popUpTo(0)
                     }
                 }

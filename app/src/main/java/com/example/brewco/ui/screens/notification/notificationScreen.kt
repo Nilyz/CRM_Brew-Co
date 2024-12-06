@@ -68,7 +68,7 @@ fun NotificationScreen(
             CustomDrawer(
                 navHostController = navHostController,
                 onLogoutClick = {
-                    navHostController.navigate("splashScreen") {
+                    navHostController.navigate("startSplashScreen") {
                         popUpTo(0) // Limpia la pila de navegación
                     }
                 })
