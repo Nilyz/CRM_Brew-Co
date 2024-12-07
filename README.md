@@ -27,22 +27,32 @@ Brew & Co is built using the following technologies:
 
 ## Screens
 1. **Splash:** The app's launch screen, featuring the logo and a button to navigate to the login screen.  
-   ![Splash](./screenshots/dashboard.png "CafeCRM Dashboard")
 
-2. **Login:** Screen for user authentication to access the app.  
-   ![Login](./screenshots/login.png "Login Screen")  
+   <img src="https://github.com/Nilyz/CRM_Brew-Co/blob/main/app/src/main/res/drawable/splash_screen.png" alt="CafeCRM Dashboard" width="150">
 
-3. **Customer Management:** Displays a list of customers with some basic information.  
-   ![Customer Management](./screenshots/customers.png "Customer Management Screen")  
+2. **Login:** Screen for user authentication to access the app.
+   
+   <img src="https://github.com/Nilyz/CRM_Brew-Co/blob/main/app/src/main/res/drawable/login.png" alt="Login Screen" width="150">
 
-4. **Inventory Tracking:** Monitor stock levels and product details in real-time.  
-   ![Inventory Tracking](./screenshots/inventory.png "Inventory Tracking Screen")  
+3. **Home:** Displays an overview with a graph showing information about today's revenues, expenses, sales, pending orders, and pending notifications.
+   
+   <img src="https://github.com/Nilyz/CRM_Brew-Co/blob/main/app/src/main/res/drawable/home.png" alt="Home Screen" width="150">
 
-5. **Event Scheduling:** Displays a calendar to select dates for creating new events. The screen also shows a list of created events.  
-   ![Event Scheduling](./screenshots/events.png "Event Scheduling Screen")
+4. **Customers:** Displays a list of customers with some basic information.
+   
+   <img src="https://github.com/Nilyz/CRM_Brew-Co/blob/main/app/src/main/res/drawable/customers.png" alt="Customer Management Screen" width="150">
 
-6. **Notification Management:** View notifications related to events and customer interactions.  
-   ![Notification Management](./screenshots/notifications.png "Notification Management Screen") 
+5. **Inventory:** Monitor stock levels and product details in real-time.
+   
+   <img src="https://github.com/Nilyz/CRM_Brew-Co/blob/main/app/src/main/res/drawable/inventory.png" alt="Inventory Tracking Screen" width="150">
+
+6. **Agenda:** Displays a calendar to select dates for creating new events. The screen also shows a list of created events.
+    
+   <img src="https://github.com/Nilyz/CRM_Brew-Co/blob/main/app/src/main/res/drawable/agenda.png" alt="Event Scheduling Screen" width="150">
+
+7. **Notifications:** View notifications related to events and customer interactions.
+   
+   <img src="https://github.com/Nilyz/CRM_Brew-Co/blob/main/app/src/main/res/drawable/notifications.png" alt="Notification Management Screen" width="150">
 
 ---
 
