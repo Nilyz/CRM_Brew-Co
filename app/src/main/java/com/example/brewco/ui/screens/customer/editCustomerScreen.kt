@@ -34,7 +34,7 @@ import com.example.brewco.ui.screens.inventory.StockViewModel
 @Composable
 fun EditCustomerScreen(
     navHostController: NavHostController,
-    customerId: String,
+    clientId: String,
     viewModel: CustomerViewModel = viewModel()
 ) {
 
@@ -50,8 +50,8 @@ fun EditCustomerScreen(
     var errorMessage by remember { mutableStateOf("") }
 
     // Cargar el cliente desde la base de datos por el id
-    LaunchedEffect(customerId) {
-        viewModel.getClienteById(customerId) { fetchedClient ->
+    LaunchedEffect(clientId) {
+        viewModel.getClienteById(clientId) { fetchedClient ->
             fetchedClient?.let {
                 nombre = it.nombre
                 apellido = it.apellido
@@ -79,7 +79,7 @@ fun EditCustomerScreen(
 
                     } else {
                         val updatedClient = Client(
-                            id = customerId,
+                            id = clientId,
                             nombre = nombre,
                             apellido = apellido,
                             telefono = telefono,
@@ -132,7 +132,7 @@ fun EditCustomerScreen(
                     CustomTextField(
                         value = telefono,
                         labelText = "+34 ",
-                        onValueChange = { nombre = it }
+                        onValueChange = { telefono = it }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     CustomTextField(
@@ -167,7 +167,17 @@ fun EditCustomerScreen(
                         fontSize = 16.sp,
                         contentPadding = PaddingValues(0.dp),
                         onClick = {
-
+                            viewModel.deleteClient(
+                                clientId = clientId,
+                                onSuccess = {
+                                    navHostController.navigate("customerScreen?delete=true") {
+                                        popUpTo("customerDetailsScreen") { inclusive = true }
+                                    }
+                                },
+                                onError = { errorMessage ->
+                                    // Manejar el error, como mostrar un mensaje al usuario
+                                }
+                            )
                         }
                     )
 

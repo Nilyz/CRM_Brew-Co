@@ -71,9 +71,9 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
             "editCustomerScreen/{customerId}",
             arguments = listOf(navArgument("customerId") { type = NavType.StringType })
         ) { backStackEntry ->
-            val customerId = backStackEntry.arguments?.getString("customerId")
-            customerId?.let {
-                EditCustomerScreen(navHostController, customerId = it)
+            val clientId = backStackEntry.arguments?.getString("customerId")
+            clientId?.let {
+                EditCustomerScreen(navHostController, clientId = it)
             }
         }
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/

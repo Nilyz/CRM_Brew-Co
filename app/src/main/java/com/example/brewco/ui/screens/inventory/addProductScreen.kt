@@ -68,7 +68,10 @@ fun AddProductScreen(
                                 }
 
                             },
-                            onError = { }
+                            onError = {
+                                errorMessage = "Hubo un problema al agregar el producto."
+                                isErrorVisible = true
+                            }
                         )
                     }
                 })
