@@ -153,7 +153,7 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
             Spacer(modifier = Modifier.height(16.dp))
 
             CustomButton(
-                text = "Iniciar Sesión",contColor= Brown,textColor=Cream,fontSize = 16.sp,contentPadding = PaddingValues(16.dp),
+                text = "Iniciar Sesión",contColor= Brown,textColor=Cream,fontSize = 18.sp,contentPadding = PaddingValues(16.dp),
                 onClick = {
                     authViewModel.login(email, password)
                 },

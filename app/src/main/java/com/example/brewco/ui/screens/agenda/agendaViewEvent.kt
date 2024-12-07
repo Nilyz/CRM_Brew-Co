@@ -101,7 +101,7 @@ fun AgendaViewEvent(navHostController: NavHostController, alertId: String, viewM
                     item {
                         Text(
                             text = titulo,
-                            fontSize = 18.sp,        // Tamaño de fuente
+                            fontSize = 26.sp,        // Tamaño de fuente
                             fontWeight = FontWeight.Bold,
                             color = DarkBrown
                         )
@@ -111,14 +111,16 @@ fun AgendaViewEvent(navHostController: NavHostController, alertId: String, viewM
                         Column {
                             Text(
                                 text = "$fechaInicio - $fechaFin",
-                                color = DarkBrown
+                                color = DarkBrown,
+                                fontSize = 18.sp
                             )
 
                             Spacer(modifier = Modifier.height(20.dp))
 
                             Text(
-                                text = "de $horaInicio:$minutosInicio a $horaFin:$minutosFin",
-                                color = DarkBrown
+                                text = "De $horaInicio:$minutosInicio a $horaFin:$minutosFin",
+                                color = DarkBrown,
+                                fontSize = 18.sp
                             )
                         }
                     }
@@ -126,14 +128,16 @@ fun AgendaViewEvent(navHostController: NavHostController, alertId: String, viewM
                     item {
                         Text(
                             text = "Empleado: $empleado",
-                            color = DarkBrown
+                            color = DarkBrown,
+                            fontSize = 18.sp
                         )
                     }
                     // Aviso
                     item {
                         Text(
                             text = "Aviso: ${if (aviso) "Sí" else "No"}",
-                            color = DarkBrown
+                            color = DarkBrown,
+                            fontSize = 18.sp
                         )
                     }
                     // Notas / Descripción
@@ -141,7 +145,8 @@ fun AgendaViewEvent(navHostController: NavHostController, alertId: String, viewM
                         Column {
                             Text(
                                 text = "Notas",
-                                color = DarkBrown
+                                color = DarkBrown,
+                                fontSize = 18.sp
                             )
 
                             Spacer(modifier = Modifier.height(8.dp))
@@ -155,7 +160,8 @@ fun AgendaViewEvent(navHostController: NavHostController, alertId: String, viewM
                             ) {
                                 Text(
                                     text = descripcion,
-                                    color = DarkBrown // Color del texto
+                                    color = DarkBrown,
+                                    fontSize = 18.sp
                                 )
                             }
                         }
@@ -187,7 +193,8 @@ fun AgendaViewEvent(navHostController: NavHostController, alertId: String, viewM
                 ) {
                     Text(
                         text = "Eliminar evento",
-                        color = Color.Red // Texto en rojo
+                        color = Color.Red, // Texto en rojo
+                        fontSize = 16.sp
                     )
                 }
 

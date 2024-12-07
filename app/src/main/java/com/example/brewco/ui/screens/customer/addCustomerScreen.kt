@@ -13,11 +13,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,9 +45,11 @@ import com.example.brewco.ui.components.ErrorSnackbar
 import com.example.brewco.ui.components.ImagePicker
 import com.example.brewco.ui.components.StockInputField
 import com.example.brewco.ui.components.TopBarWithText
+import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.theme.Cream
 import com.example.brewco.ui.theme.DarkBrown
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddCustomerScreen(
     navHostController: NavHostController,
@@ -155,7 +162,7 @@ fun AddCustomerScreen(
                                 painter = painterResource(id = R.drawable.phone_svgrepo_com),
                                 contentDescription = "Phone",
                                 modifier = Modifier
-                                    .size(45.dp)
+                                    .size(35.dp)
                             )
 
                             CustomTextField(
@@ -165,27 +172,6 @@ fun AddCustomerScreen(
                                 modifier = Modifier.fillMaxWidth(0.95f)
                             )
 
-                        }
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.mail_svgrepo_com),
-                                contentDescription = "Mail",
-                                modifier = Modifier
-                                    .size(45.dp)
-
-                            )
-
-                            CustomTextField(
-                                value = correo,
-                                labelText = "Correo",
-                                onValueChange = { correo = it },
-                                modifier = Modifier.fillMaxWidth(0.95f) // Ancho proporcional consistente
-                            )
                         }
 
 
@@ -199,8 +185,7 @@ fun AddCustomerScreen(
                                 Icons.Default.DateRange,
                                 contentDescription = "Agenda",
                                 modifier = Modifier
-                                    .size(45.dp),
-
+                                    .size(35.dp),
                                 tint = DarkBrown
                             )
 
@@ -213,6 +198,28 @@ fun AddCustomerScreen(
 
                         }
 
+                        // Campo de texto para correo
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.mail_svgrepo_com),
+                                contentDescription = "Mail",
+                                modifier = Modifier
+                                    .size(35.dp)
+
+                            )
+
+                            CustomTextField(
+                                value = correo,
+                                labelText = "Correo",
+                                onValueChange = { correo = it },
+                                modifier = Modifier.fillMaxWidth(0.95f) // Ancho proporcional consistente
+                            )
+                        }
+
                         // Campo de texto para los puntos con icono
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -223,7 +230,7 @@ fun AddCustomerScreen(
                                 painter = painterResource(id = R.drawable.present_svgrepo_com),
                                 contentDescription = "Present",
                                 modifier = Modifier
-                                    .size(38.dp)
+                                    .size(30.dp)
                             )
 
                             StockInputField(
@@ -233,18 +240,46 @@ fun AddCustomerScreen(
                                 modifier = Modifier.fillMaxWidth(0.90f)
 
 
-                                )
+                            )
 
                         }
 
-                        // Campo de texto para las notas
-                        CustomTextField(
-                            value = notas,
-                            labelText = "Notas",
-                            onValueChange = { notas = it },
-                            modifier = Modifier.fillMaxWidth()
-                        )
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "Notas", fontSize = 16.sp,
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+
+                            TextField(
+                                value = notas,
+                                onValueChange = { notas = it },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(100.dp) // Altura para simular un TextArea
+                                    .border(
+                                        1.dp,
+                                        Beige,
+                                        shape = RoundedCornerShape(8.dp)
+                                    ), // Borde beige
+                                placeholder = { Text("Escribe tus notas aquí...") },
+                                textStyle = TextStyle(
+                                    color = DarkBrown,
+                                    fontSize = 16.sp
+                                ), // Color del texto
+                                colors = TextFieldDefaults.textFieldColors(
+                                    containerColor = Beige, // Fondo beige
+                                    focusedIndicatorColor = Color.Transparent, // Sin línea de foco
+                                    unfocusedIndicatorColor = Color.Transparent // Sin línea sin foco
+                                )
+                            )
+                        }
                     }
+
+
 
                     Box(
                         modifier = Modifier

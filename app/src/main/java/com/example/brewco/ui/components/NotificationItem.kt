@@ -66,9 +66,11 @@ fun NotificationItem(alert: Alert,navHostController: NavHostController) {
             }
             Spacer(modifier = Modifier.height(5.dp))
             Row() {
-                Text("${alert.horaInicio}:${alert.minutosInicio}", color = Brown, fontSize = 14.sp)
-                Text("-", color = Brown, fontSize = 14.sp)
-                Text("${alert.horaFin}:${alert.minutosFin}", color = Brown, fontSize = 14.sp)
+                Text(
+                    text = "${alert.horaInicio}:${alert.minutosInicio} - ${alert.horaFin}:${alert.minutosFin}",
+                    fontSize = 14.sp, // Consistencia en el tamaño del texto
+                    color = Brown
+                )
             }
             Spacer(modifier = Modifier.height(5.dp))
             Row(modifier = Modifier.fillMaxWidth()) {

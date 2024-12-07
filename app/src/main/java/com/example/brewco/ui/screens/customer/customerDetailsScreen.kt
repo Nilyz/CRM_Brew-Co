@@ -1,5 +1,6 @@
 package com.example.brewco.ui.screens.customer
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -81,9 +83,9 @@ fun CustomerDetailsScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(32.dp)
+                        .padding(16.dp)
                         .weight(1f), // Ocupa el espacio restante
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     // Nombre del cliente
@@ -101,70 +103,83 @@ fun CustomerDetailsScreen(
                     // Teléfono
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        Icon(Icons.Default.Phone, contentDescription = "Teléfono", tint = Brown)
-                        Spacer(modifier = Modifier.size(8.dp))
+                        Image(
+                            painter = painterResource(id = R.drawable.phone_svgrepo_com),
+                            contentDescription = "Phone",
+                            modifier = Modifier
+                                .size(35.dp)
+                        )
                         Text(
                             text = cliente.telefono,
                             fontWeight = FontWeight.Normal,
-                            color = DarkBrown
+                            color = DarkBrown,
+                            fontSize = 18.sp,
                         )
                     }
-
                     // Última compra
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Icon(
                             Icons.Default.DateRange,
-                            contentDescription = "Última compra",
-                            tint = Brown
+                            contentDescription = "Agenda",
+                            modifier = Modifier
+                                .size(35.dp),
+                            tint = DarkBrown
                         )
-                        Spacer(modifier = Modifier.size(8.dp))
                         Text(
                             text = "Última compra: ${cliente.ultCompra}",
                             fontWeight = FontWeight.Normal,
-                            color = DarkBrown
+                            color = DarkBrown,
+                            fontSize = 18.sp,
                         )
                     }
-
                     // Correo electrónico
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Icon(Icons.Default.Email, contentDescription = "Correo", tint = Brown)
-                        Spacer(modifier = Modifier.size(8.dp))
+                        Image(
+                            painter = painterResource(id = R.drawable.mail_svgrepo_com),
+                            contentDescription = "Mail",
+                            modifier = Modifier
+                                .size(35.dp)
+
+                        )
+
                         Text(
                             text = "Correo: ${cliente.correo}",
                             fontWeight = FontWeight.Normal,
-                            color = DarkBrown
+                            color = DarkBrown, fontSize = 18.sp,
                         )
                     }
-
                     // Puntos
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(15.dp),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.makigift),
-                            contentDescription = "Agregar",
-                            modifier = Modifier.size(22.dp),
-                            tint = Brown
+                        Image(
+                            painter = painterResource(id = R.drawable.present_svgrepo_com),
+                            contentDescription = "Present",
+                            modifier = Modifier
+                                .size(30.dp)
                         )
-                        Spacer(modifier = Modifier.size(8.dp))
                         Text(
                             text = "Puntos: ${cliente.puntos}",
-                            color = DarkBrown
+                            color = DarkBrown, fontSize = 18.sp,
                         )
                         Icon(
                             Icons.Default.Star,
                             contentDescription = "Agregar",
                             modifier = Modifier.size(20.dp),
-                            tint = Color(0xFFEEE7AE)
+                            tint = Color.Yellow
                         )
                     }
                 }
@@ -186,14 +201,16 @@ fun CustomerDetailsScreen(
                             text = "Notas:",
                             fontWeight = FontWeight.Bold,
                             color = DarkBrown,
-                            fontSize = 16.sp
+                            fontSize = 24.sp
                         )
+                        Spacer(modifier = Modifier.height(16.dp))
+
                         Text(
                             text = cliente.notas,
                             fontWeight = FontWeight.Normal,
                             textAlign = TextAlign.Start,
                             color = Color.Black,
-                            fontSize = 14.sp,
+                            fontSize = 18.sp,
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
                     }
