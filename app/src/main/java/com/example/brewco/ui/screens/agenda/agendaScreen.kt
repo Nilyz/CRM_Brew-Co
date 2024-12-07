@@ -39,6 +39,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
@@ -48,6 +49,7 @@ import com.example.brewco.ui.components.CustomDrawer
 import com.example.brewco.ui.components.CustomSnackBar
 import com.example.brewco.ui.components.EventCard
 import com.example.brewco.ui.components.SnackbarMessageHandler
+import com.example.brewco.ui.screens.login.AuthViewModel
 import com.example.brewco.ui.theme.DarkBrown
 import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.theme.Brown
@@ -57,7 +59,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel = viewModel()) {
-
+    val authViewModel: AuthViewModel = viewModel()
     // Observa la lista de productos
     val eventList by viewModel.alerts.collectAsState()
 
@@ -72,6 +74,16 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
     val editedMessage = navHostController.currentBackStackEntry?.arguments?.getString("edited")
 
 
+    val authState by authViewModel.authState.observeAsState()
+
+    LaunchedEffect(authState) {
+        if (authState is AuthViewModel.AuthState.Unauthenticated) {
+            navHostController.navigate("loginScreen") {
+                popUpTo("agendaScreen") { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.loadTodayAlerts()  //recargar productos cada vez que se entra a la pantalla
@@ -81,11 +93,11 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
         drawerContent = {
             CustomDrawer(
                 navHostController = navHostController,
+                authViewModel = authViewModel,
                 onLogoutClick = {
-                    navHostController.navigate("startSplashScreen") {
-                        popUpTo(0) // Limpia la pila de navegación
-                    }
-                })
+
+                }
+            )
         },
     ) {
 

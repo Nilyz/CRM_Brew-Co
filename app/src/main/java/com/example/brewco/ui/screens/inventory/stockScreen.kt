@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -59,11 +60,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
+import com.example.brewco.ui.screens.login.AuthViewModel
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewModel = viewModel()) {
+    val authViewModel: AuthViewModel = viewModel()
     // Observa la lista de productos
     val productList by viewModel.products.collectAsState()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -78,6 +81,17 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
 
     Log.i("NavDebug", "Ruta actual: $currentRoute")
 
+    val authState by authViewModel.authState.observeAsState()
+
+    LaunchedEffect(authState) {
+        if (authState is AuthViewModel.AuthState.Unauthenticated) {
+            navHostController.navigate("loginScreen") {
+                popUpTo("stockScreen") { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+    }
+
 
     LaunchedEffect(Unit) {
         viewModel.loadProducts()  //recargar productos cada vez que se entra a la pantalla
@@ -87,13 +101,13 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
         drawerContent = {
             CustomDrawer(
                 navHostController = navHostController,
+                authViewModel = authViewModel,
                 onLogoutClick = {
-                    navHostController.navigate("startSplashScreen") {
-                        popUpTo(0) // Limpia la pila de navegación
-                    }
-                })
+
+                }
+            )
         },
-    ) {
+    ){
 
         Scaffold(
             snackbarHost = {

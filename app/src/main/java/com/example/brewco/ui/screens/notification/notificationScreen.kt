@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,6 +42,7 @@ import com.example.brewco.ui.components.CustomDrawer
 import com.example.brewco.ui.components.NotificationItem
 import com.example.brewco.ui.components.ProductItem
 import com.example.brewco.ui.components.TopBar
+import com.example.brewco.ui.screens.login.AuthViewModel
 import com.example.brewco.ui.theme.*
 import kotlinx.coroutines.launch
 
@@ -49,11 +51,25 @@ fun NotificationScreen(
     navHostController: NavHostController,
     viewModel: NotificationViewModel = viewModel()
 ) {
+
+    val authViewModel: AuthViewModel = viewModel()
     // Recogemos las alertas desde el ViewModel
     val alertList by viewModel.alerts.collectAsState()
 
     // Filtrar las alertas con aviso = true
     val filteredAlerts = alertList.filter { it.aviso==true }
+
+    val authState by authViewModel.authState.observeAsState()
+
+    LaunchedEffect(authState) {
+        if (authState is AuthViewModel.AuthState.Unauthenticated) {
+            navHostController.navigate("loginScreen") {
+                popUpTo("notificationScreen") { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+    }
+
 
     LaunchedEffect(Unit) {
         viewModel.getAlertByPrompt() // Esto ejecuta la función que obtiene las alertas
@@ -67,11 +83,11 @@ fun NotificationScreen(
         drawerContent = {
             CustomDrawer(
                 navHostController = navHostController,
+                authViewModel = authViewModel,
                 onLogoutClick = {
-                    navHostController.navigate("startSplashScreen") {
-                        popUpTo(0) // Limpia la pila de navegación
-                    }
-                })
+
+                }
+            )
         },
     ) {
 

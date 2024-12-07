@@ -39,10 +39,18 @@ class AuthViewModel : ViewModel() {
         return email.matches(emailPattern.toRegex())
     }
 
+    fun logout() {
+        auth.signOut()
+        _authState.value = AuthState.Unauthenticated
+    }
+
+
     // Estados de autenticación
     sealed class AuthState {
         object Authenticated : AuthState()
+        object Unauthenticated : AuthState()  // Nuevo estado para no autenticado
         object Loading : AuthState()
         data class Error(val message: String) : AuthState()
     }
+
 }
