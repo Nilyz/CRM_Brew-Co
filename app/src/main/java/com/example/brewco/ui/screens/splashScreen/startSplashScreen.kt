@@ -37,19 +37,18 @@ fun StartSplashScreen(navHostController: NavHostController, modifier: Modifier =
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Brown),
+            .background(Beige),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.logobrewco),
+            painter = painterResource(id = R.drawable.logobrew_corecortado_transformed),
             contentDescription = "Logo",
             modifier = Modifier
-                .size(200.dp)
-                .padding(bottom = 8.dp)
+                .size(250.dp)
         )
-        Text("Brew & Co")
-        Spacer(modifier = Modifier.height(18.dp))
+
+        Spacer(modifier = Modifier.height(64.dp))
         Box(
             modifier = modifier
 
@@ -57,7 +56,7 @@ fun StartSplashScreen(navHostController: NavHostController, modifier: Modifier =
         ) {
 
             CustomButton(
-                text = "Ir a inicio de sesión", textColor = Cream, contColor = Beige, fontSize = 16.sp,  contentPadding = PaddingValues(16.dp),
+                text = "Ir a inicio de sesión", textColor = Cream, contColor = Brown, fontSize = 18.sp,  contentPadding = PaddingValues(16.dp),
                 onClick = {
                     navHostController.navigate("loginScreen")
                 },
