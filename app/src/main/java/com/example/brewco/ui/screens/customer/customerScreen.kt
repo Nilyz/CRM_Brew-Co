@@ -79,51 +79,51 @@ fun CustomerScreen(
             )
         },
     ) {
-    Scaffold(
-        snackbarHost = {
-            CustomSnackBar(snackbarHostState,)
+        Scaffold(
+            snackbarHost = {
+                CustomSnackBar(snackbarHostState)
 
-        },
-        topBar = {
-            TopBar(title = "Clientes", onMenuClick = {
-                scope.launch {
-                    if (drawerState.isClosed) {
-                        drawerState.open()
-                    } else {
-                        drawerState.close()
+            },
+            topBar = {
+                TopBar(title = "Clientes", onMenuClick = {
+                    scope.launch {
+                        if (drawerState.isClosed) {
+                            drawerState.open()
+                        } else {
+                            drawerState.close()
+                        }
                     }
-                }
-            })
-        },
-        containerColor = Color.White,
-        bottomBar = { CustomBottomNavBar(navHostController) },
-        floatingActionButton = {
-            CustomFloatingActionButton(
-                navHostController,
-                onClick = { navHostController.navigate("addCustomerScreen") })
-        },
-        content = { paddingValues ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-            ) {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(1.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                })
+            },
+            containerColor = Color.White,
+            bottomBar = { CustomBottomNavBar(navHostController) },
+            floatingActionButton = {
+                CustomFloatingActionButton(
+                    navHostController,
+                    onClick = { navHostController.navigate("addCustomerScreen") })
+            },
+            content = { paddingValues ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
                 ) {
-                    items(clientList) { client ->
-                        CustomerItem(client = client, navHostController = navHostController)
-                        Spacer(modifier = Modifier.height(16.dp))
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(1.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(clientList) { client ->
+                            CustomerItem(client = client, navHostController = navHostController)
+                            Spacer(modifier = Modifier.height(16.dp))
 
+                        }
                     }
                 }
             }
-        }
-    )
+        )
     }
     Box(
         modifier = Modifier
