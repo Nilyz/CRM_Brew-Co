@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Icon
@@ -20,39 +22,50 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.brewco.ui.theme.Brown
+import com.example.brewco.ui.theme.Cream
 
 @Composable
 fun CustomDrawer(
     navHostController: NavHostController,
     onLogoutClick: () -> Unit
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxWidth(0.45f)
             .fillMaxHeight()
-            .background(color = Brown)
+            .background(
+                color = Brown,
+                shape = RoundedCornerShape(topEnd = 32.dp, bottomEnd = 32.dp)
+            )
             .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceAround
     ) {
-        // Aquí se implementa el contenido del Drawer
-        Column (
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
-            // Aquí se implementa el contenido del Drawer
+            Spacer(modifier = Modifier.height(32.dp))
+            // Icono del usuario
             Icon(
                 imageVector = Icons.Default.AccountCircle,
                 contentDescription = "Icono de usuario",
-                tint = Black,
+                tint = Cream,
                 modifier = Modifier.size(100.dp)
             )
+
+            // Texto del usuario
             Text(
                 text = "Usuario",
-                color = Black,
+                color = Cream,
+                fontSize = 16.sp,
             )
+
             Spacer(modifier = Modifier.weight(1f))
+
+            // Botón de cierre de sesión
             TextButton(
                 onClick = {
                     navHostController.navigate("startSplashScreen") {
@@ -62,13 +75,12 @@ fun CustomDrawer(
                 }
             ) {
                 Text(
-
                     text = "Cerrar Sesión",
-                    color = Black,
+                    color = Cream,
+                    fontSize = 16.sp,
                     modifier = Modifier.padding(8.dp)
                 )
             }
-
         }
     }
 }

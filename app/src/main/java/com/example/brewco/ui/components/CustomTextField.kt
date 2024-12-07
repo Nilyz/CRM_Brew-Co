@@ -8,6 +8,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.theme.Brown
 import com.example.brewco.ui.theme.DarkBrown
@@ -19,21 +20,22 @@ import com.example.brewco.ui.theme.Gray
 fun CustomTextField(
     value: String,
     labelText: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier // Agrega este parámetro para aceptar un modificador externo
 ) {
     TextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(text = labelText) },
         singleLine = true,
-        modifier = Modifier.fillMaxWidth(),
-        textStyle = androidx.compose.ui.text.TextStyle(color = DarkBrown), // Estilo del texto
+        modifier = modifier, // Usa el modificador proporcionado
+        textStyle = androidx.compose.ui.text.TextStyle(color = DarkBrown,  fontSize = 16.sp),
         colors = TextFieldDefaults.textFieldColors(
-            containerColor = Beige, // Fondo del campo
-            focusedIndicatorColor = Brown, // Línea inferior enfocada
-            unfocusedIndicatorColor = Beige, // Línea inferior no enfocada
-            focusedLabelColor = DarkBrown, // Color de la etiqueta enfocada
-            unfocusedLabelColor = Gray // Color de la etiqueta no enfocada
+            containerColor = Beige,
+            focusedIndicatorColor = Brown,
+            unfocusedIndicatorColor = Beige,
+            focusedLabelColor = DarkBrown,
+            unfocusedLabelColor = Gray
         )
     )
 }

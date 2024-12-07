@@ -42,6 +42,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.brewco.ui.components.CustomDrawer
 import com.example.brewco.ui.components.CustomSnackBar
@@ -155,9 +156,10 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Brown // Color de fondo del botón
                         ),
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(8.dp),
+
                     ) {
-                        Text("Agregar evento")
+                        Text("Agregar evento", fontSize = 18.sp)
                     }
                 }
 
@@ -165,6 +167,7 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
                 item {
                     Text(
                         text = "Eventos de hoy",
+                        fontSize = 16.sp,
                         style = MaterialTheme.typography.titleMedium, // Título con estilo
                         modifier = Modifier
                             .fillMaxWidth()

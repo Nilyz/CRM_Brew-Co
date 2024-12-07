@@ -57,7 +57,7 @@ fun StartSplashScreen(navHostController: NavHostController, modifier: Modifier =
         ) {
 
             CustomButton(
-                text = "Ir a inicio de sesión", textColor = Cream, contColor = Beige, fontSize = 18.sp,  contentPadding = PaddingValues(16.dp),
+                text = "Ir a inicio de sesión", textColor = Cream, contColor = Beige, fontSize = 16.sp,  contentPadding = PaddingValues(16.dp),
                 onClick = {
                     navHostController.navigate("loginScreen")
                 },

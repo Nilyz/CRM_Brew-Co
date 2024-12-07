@@ -9,9 +9,9 @@ class CustomerRepository {
     private val clientsCollection = db.collection("clientes") // Nombre de la colección en Firestore
 
     // Crear un nuevo cliente
-    suspend fun addCustomer(customer: Client): Boolean {
+    suspend fun addClient(client: Client): Boolean {
         return try {
-            clientsCollection.add(customer).await()
+            clientsCollection.add(client).await()
             true
         } catch (e: Exception) {
             false

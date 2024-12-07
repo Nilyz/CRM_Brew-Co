@@ -28,6 +28,20 @@ class CustomerViewModel : ViewModel() {
         }
     }
 
+    /*---------------CREAR NUEVO CLIENTE PULSADO-----------------------*/
+    fun addClient(client: Client, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            val isAdded = customerRepository.addClient(client)
+            if (isAdded) {
+                getClients()
+                onSuccess()
+            } else {
+                onError("Error al añadir el cliente")
+            }
+        }
+    }
+
+
     /*---------------OBTENER CLIENTE POR ID-----------------------*/
     fun getClienteById(clientId: String, onClientFetched: (Client?) -> Unit) {
         viewModelScope.launch {
@@ -37,5 +51,41 @@ class CustomerViewModel : ViewModel() {
             } catch (e: Exception) {
                 onClientFetched(null)
             }
-        }}
+        }
+    }
+    /*---------------EDITAR CLIENTE-----------------------*/
+    fun updateClient(client: Client, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val isUpdated = customerRepository.updateClient(client) // Llamada al repositorio
+                if (isUpdated) {
+                    getClients() // Refrescar la lista
+                    onSuccess()
+                } else {
+                    onError("Error al actualizar el cliente")
+                }
+            } catch (e: Exception) {
+                onError("Error al actualizar el cliente: ${e.message}")
+            }
+        }
+    }
+
+    /*---------------ELIMINAR CLIENTE-----------------------*/
+    fun deleteClient(clientId: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val isDeleted = customerRepository.deleteClient(clientId) // Llamar al repositorio
+                if (isDeleted) {
+                    getClients()
+                    onSuccess()
+                } else {
+                    onError("Error al eliminar el cliente")
+                }
+            } catch (e: Exception) {
+                onError("Error al eliminar el cliente: ${e.message}")
+            }
+        }
+    }
+
+
 }

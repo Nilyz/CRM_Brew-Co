@@ -4,6 +4,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -59,11 +60,10 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                     .fillMaxWidth()
 
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier
-                    .border(
-                        width = 2.dp, Color.Transparent
-                    )
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -71,14 +71,14 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                     text = "Puntos: ",
                     color = DarkBrown,
                     fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
                     modifier = Modifier
-
-
                 )
                 Text(
 
                     text = "${client.puntos}",
                     color = DarkBrown,
+                    fontSize = 16.sp,
                     modifier = Modifier
                 )
                 Icon(
@@ -101,17 +101,22 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                         )
                         .fillMaxWidth()
                 ) {
-                    Text(
-                        text = "Tel:",
-                        color = DarkBrown,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                    )
-                    Text(
-                        text = "${client.telefono}",
-                        color = DarkBrown,
-                        modifier = Modifier
-                    )
+                    Row(modifier = Modifier
+                        .fillMaxWidth(),){
+                        Text(
+                            text = "Tel: ",
+                            color = DarkBrown,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            modifier = Modifier
+                        )
+                        Text(
+                            text = "${client.telefono}",
+                            color = DarkBrown,
+                            fontSize = 16.sp,
+                            modifier = Modifier
+                        )
+                    }
                 }
             }
             Column(
@@ -125,11 +130,13 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                     text = "Últ Compra: ",
                     color = DarkBrown,
                     fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
                     modifier = Modifier
                 )
                 Text(
                     text = "${client.ultCompra}",
                     color = DarkBrown,
+                    fontSize = 16.sp,
                     modifier = Modifier
                 )
             }

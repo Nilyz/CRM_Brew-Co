@@ -52,9 +52,17 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         composable("homeScreen") { HomeScreen(navHostController) }
 
         /*----------------------------PANTALLAS DE CLIENTE----------------------*/
-        composable("customerScreen") {
+        composable(
+            route = "customerScreen?added={added}&deleted={deleted}&edited={edited}",
+            arguments = listOf(
+                navArgument("added") { defaultValue = "false" },
+                navArgument("deleted") { defaultValue = "false" },
+                navArgument("edited") { defaultValue = "false" }
+            )
+        ) {
             CustomerScreen(navHostController)
         }
+
         composable(
             "customerDetailsScreen/{clientId}",
             arguments = listOf(navArgument("clientId") { type = NavType.StringType })
@@ -67,8 +75,14 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         composable("addCustomerScreen") {
             AddCustomerScreen(navHostController)
         }
-        composable("editCustomerScreen") {
-            EditCustomerScreen(navHostController)
+        composable(
+            "editCustomerScreen/{customerId}",
+            arguments = listOf(navArgument("customerId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val clientId = backStackEntry.arguments?.getString("customerId")
+            clientId?.let {
+                EditCustomerScreen(navHostController, clientId = it)
+            }
         }
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/
         composable("notificationScreen") { NotificationScreen(navHostController) }

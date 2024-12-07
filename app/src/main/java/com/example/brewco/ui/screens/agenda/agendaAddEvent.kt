@@ -49,6 +49,7 @@ import com.example.brewco.ui.components.*
 import com.example.brewco.ui.theme.DarkBrown
 import android.app.DatePickerDialog
 import androidx.compose.runtime.*
+import androidx.compose.ui.unit.sp
 import java.util.Calendar
 import com.example.brewco.data.model.Alert
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -203,7 +204,8 @@ fun AgendaAddEvent(
                             CustomTextField(
                                 value = titulo,
                                 labelText = "Título",
-                                onValueChange = { titulo = it }
+                                onValueChange = { titulo = it },
+                                modifier = Modifier.fillMaxWidth(),
                             )
 
                             Spacer(modifier = Modifier.height(20.dp))
@@ -213,7 +215,7 @@ fun AgendaAddEvent(
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("Todo el día", style = TextStyle(color = DarkBrown))
+                                Text("Todo el día", style = TextStyle(color = DarkBrown,fontSize = 16.sp))
 
                                 // Aquí se cambia el valor de `isAllDayState` cuando se interactúa con el ToggleSwitch
                                 ToggleSwitch(
@@ -248,7 +250,7 @@ fun AgendaAddEvent(
                                 ) {
                                     Text(
                                         "Empieza",
-                                        style = TextStyle(color = DarkBrown),
+                                        style = TextStyle(color = DarkBrown,fontSize = 16.sp),
                                         modifier = Modifier.fillMaxWidth() // Hace que el texto ocupe todo el ancho disponible
                                     )
                                 }
@@ -314,7 +316,7 @@ fun AgendaAddEvent(
                                             .clickable { expandedInicialMinute = true }
                                     ) {
                                         Text(
-                                            "Minuto: $selectedInicicalMinute",
+                                            "Min: $selectedInicicalMinute",
                                             style = TextStyle(color = DarkBrown)
                                         )
                                     }
@@ -349,7 +351,7 @@ fun AgendaAddEvent(
                                 ) {
                                     Text(
                                         "Termina",
-                                        style = TextStyle(color = DarkBrown),
+                                        style = TextStyle(color = DarkBrown,fontSize = 16.sp),
                                         modifier = Modifier.fillMaxWidth() // Hace que el texto ocupe todo el ancho disponible
                                     )
                                 }
@@ -422,7 +424,7 @@ fun AgendaAddEvent(
                                             }
                                     ) {
                                         Text(
-                                            "Minuto: $selectedFinalMinute",
+                                            "Min: $selectedFinalMinute",
                                             style = TextStyle(color = DarkBrown)
                                         )
                                     }
@@ -452,7 +454,7 @@ fun AgendaAddEvent(
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("Aviso", style = TextStyle(color = DarkBrown))
+                                Text("Aviso", style = TextStyle(color = DarkBrown,fontSize = 16.sp))
 
                                 // Selector de aviso
                                 Column {
@@ -512,7 +514,7 @@ fun AgendaAddEvent(
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("Empleado", style = TextStyle(color = DarkBrown))
+                                Text("Empleado", style = TextStyle(color = DarkBrown,fontSize = 16.sp))
 
 
                                 Column {
@@ -577,7 +579,7 @@ fun AgendaAddEvent(
                                     .fillMaxWidth()
                             ) {
                                 Text(
-                                    text = "Notas",
+                                    text = "Notas",fontSize = 16.sp,
                                     modifier = Modifier.padding(bottom = 8.dp)
                                 )
 
@@ -593,7 +595,7 @@ fun AgendaAddEvent(
                                             shape = RoundedCornerShape(8.dp)
                                         ), // Borde beige
                                     placeholder = { Text("Escribe tus notas aquí...") },
-                                    textStyle = TextStyle(color = DarkBrown), // Color del texto
+                                    textStyle = TextStyle(color = DarkBrown,fontSize = 16.sp), // Color del texto
                                     colors = TextFieldDefaults.textFieldColors(
                                         containerColor = Beige, // Fondo beige
                                         focusedIndicatorColor = Color.Transparent, // Sin línea de foco

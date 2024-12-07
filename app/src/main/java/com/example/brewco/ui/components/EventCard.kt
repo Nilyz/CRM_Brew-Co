@@ -69,7 +69,7 @@ fun EventCard(alert: Alert, navHostController: NavHostController) {
             Text(
                 text = "${alert.empleado}",
                 fontSize = 14.sp,
-                color = DarkBrown
+                color = Brown
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -87,7 +87,7 @@ fun EventCard(alert: Alert, navHostController: NavHostController) {
                 Spacer(modifier = Modifier.width(8.dp)) // Espaciado entre el icono y el texto
                 Text(
                     text = "${alert.horaInicio}:${alert.minutosInicio} - ${alert.horaFin}:${alert.minutosFin}",
-                    fontSize = 14.sp, // Consistencia en el tamaño del texto
+                    fontSize = 16.sp, // Consistencia en el tamaño del texto
                     color = DarkBrown
                 )
             }

@@ -53,7 +53,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.ButtonDefaults
-
+import androidx.compose.ui.unit.sp
+import com.example.brewco.ui.theme.Brown
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -206,28 +207,31 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                         top = 32.dp,
                         bottom = 16.dp
                     ),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 item {
                     Column(
                         modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        // Campo de texto para el título
-                        CustomTextField(
-                            value = titulo,
-                            labelText = "Título",
-                            onValueChange = { titulo = it }
-                        )
 
-                        Spacer(modifier = Modifier.height(20.dp))
+                            // Campo de texto para el título
+                            CustomTextField(
+                                value = titulo,
+                                labelText = "Título",
+                                onValueChange = { titulo = it },
+                                modifier=Modifier.fillMaxWidth()
+                            )
+
+
+                        Spacer(modifier = Modifier.height(16.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Todo el día", style = TextStyle(color = DarkBrown))
+                            Text("Todo el día", style = TextStyle(color = DarkBrown),fontSize = 16.sp)
 
                             // Aquí se cambia el valor de `isAllDayState` cuando se interactúa con el ToggleSwitch
                             ToggleSwitch(
@@ -253,7 +257,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
 
                         }
 
-                        Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -265,7 +269,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                             ) {
                                 Text(
                                     "Empieza",
-                                    style = TextStyle(color = DarkBrown),
+                                    style = TextStyle(color = DarkBrown),fontSize = 16.sp,
                                     modifier = Modifier.fillMaxWidth() // Hace que el texto ocupe todo el ancho disponible
                                 )
                             }
@@ -331,7 +335,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                                         .clickable { expandedInicialMinute = true }
                                 ) {
                                     Text(
-                                        "Minuto: $minutosInicio",
+                                        "Min: $minutosInicio",
                                         style = TextStyle(color = DarkBrown)
                                     )
                                 }
@@ -354,7 +358,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -367,6 +371,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                                 Text(
                                     "Termina",
                                     style = TextStyle(color = DarkBrown),
+                                    fontSize = 16.sp,
                                     modifier = Modifier.fillMaxWidth() // Hace que el texto ocupe todo el ancho disponible
                                 )
                             }
@@ -439,7 +444,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                                         }
                                 ) {
                                     Text(
-                                        "Minuto: $minutosFin",
+                                        "Min: $minutosFin",
                                         style = TextStyle(color = DarkBrown)
                                     )
                                 }
@@ -462,14 +467,14 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Aviso", style = TextStyle(color = DarkBrown))
+                            Text("Aviso", style = TextStyle(color = DarkBrown),fontSize = 16.sp)
 
                             // Selector de aviso
                             Column {
@@ -529,7 +534,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Empleado", style = TextStyle(color = DarkBrown))
+                            Text("Empleado", style = TextStyle(color = DarkBrown),fontSize = 16.sp)
 
 
                             Column {
@@ -551,7 +556,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                                             text = "$empleado",
                                             style = TextStyle(color = DarkBrown)
                                         )
-                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Spacer(modifier = Modifier.width(8.dp))
                                         Image(
                                             painter = painterResource(id = R.drawable.mynauichevronupdownsolid), // Reemplaza con el nombre correcto
                                             contentDescription = "Flecha arriba/abajo",
@@ -587,14 +592,14 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = "Notas",
+                                text = "Notas",fontSize = 16.sp,
                                 modifier = Modifier.padding(bottom = 8.dp)
                             )
 
@@ -610,7 +615,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                                         shape = RoundedCornerShape(8.dp)
                                     ), // Borde beige
                                 placeholder = { Text("Escribe tus notas aquí...") },
-                                textStyle = TextStyle(color = DarkBrown), // Color del texto
+                                textStyle = TextStyle(color = DarkBrown,fontSize = 16.sp), // Color del texto
                                 colors = TextFieldDefaults.textFieldColors(
                                     containerColor = Beige, // Fondo beige
                                     focusedIndicatorColor = Color.Transparent, // Sin línea de foco
@@ -622,7 +627,7 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     // Botón de eliminar en la parte inferior
                     Button(
@@ -650,7 +655,8 @@ fun AgendaEditEvent(navHostController: NavHostController, alertId: String, isAll
                     ) {
                         Text(
                             text = "Eliminar evento",
-                            color = Color.Red // Texto en rojo
+                            color = Color.Red,
+                            fontSize = 16.sp
                         )
                     }
                 }

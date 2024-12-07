@@ -61,13 +61,16 @@ fun NotificationItem(alert: Alert,navHostController: NavHostController) {
                         .weight(0.3f),
                         //.border(width = 2.dp, color = Color.Black),
                     textAlign = TextAlign.End, color = Brown
+                    , fontSize = 16.sp
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
             Row() {
-                Text("${alert.horaInicio}:${alert.minutosInicio}", color = Brown, fontSize = 14.sp)
-                Text("-", color = Brown, fontSize = 14.sp)
-                Text("${alert.horaFin}:${alert.minutosFin}", color = Brown, fontSize = 14.sp)
+                Text(
+                    text = "${alert.horaInicio}:${alert.minutosInicio} - ${alert.horaFin}:${alert.minutosFin}",
+                    fontSize = 14.sp, // Consistencia en el tamaño del texto
+                    color = Brown
+                )
             }
             Spacer(modifier = Modifier.height(5.dp))
             Row(modifier = Modifier.fillMaxWidth()) {
@@ -78,7 +81,7 @@ fun NotificationItem(alert: Alert,navHostController: NavHostController) {
                         .weight(0.3f)
                         //.border(width = 2.dp, color = Color.Black)
                         .padding(bottom = 8.dp),
-
+                     fontSize = 16.sp
                     )
             }
         }
