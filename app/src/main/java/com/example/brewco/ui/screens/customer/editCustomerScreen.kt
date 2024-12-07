@@ -49,6 +49,12 @@ fun EditCustomerScreen(
     var isErrorVisible by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
+    // Función para validar el correo electrónico
+    fun isValidEmail(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+        return email.matches(emailPattern.toRegex())
+    }
+
     // Cargar el cliente desde la base de datos por el id
     LaunchedEffect(clientId) {
         viewModel.getClienteById(clientId) { fetchedClient ->
@@ -77,6 +83,9 @@ fun EditCustomerScreen(
                         errorMessage = "Por favor, rellena todos los campos."
                         isErrorVisible = true
 
+                    } else if (!isValidEmail(correo)) {
+                        errorMessage = "Por favor, ingresa un correo electrónico válido."
+                        isErrorVisible = true
                     } else {
                         val updatedClient = Client(
                             id = clientId,

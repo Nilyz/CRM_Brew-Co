@@ -25,11 +25,13 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,7 +50,9 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material3.Button
 import com.example.brewco.data.model.Client
+import com.example.brewco.ui.components.CustomSnackBar
 import com.example.brewco.ui.components.CustomerItem
+import com.example.brewco.ui.components.SnackbarMessageHandler
 import com.example.brewco.ui.screens.inventory.StockViewModel
 
 @Composable
@@ -59,6 +63,8 @@ fun CustomerScreen(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val clientList by viewModel.customers.collectAsState()
+
+    val snackbarHostState = remember { SnackbarHostState() }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -74,6 +80,10 @@ fun CustomerScreen(
         },
     ) {
     Scaffold(
+        snackbarHost = {
+            CustomSnackBar(snackbarHostState,)
+
+        },
         topBar = {
             TopBar(title = "Clientes", onMenuClick = {
                 scope.launch {
@@ -114,6 +124,18 @@ fun CustomerScreen(
             }
         }
     )
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        SnackbarMessageHandler(
+            navHostController = navHostController,
+            snackbarHostState = snackbarHostState,
+            element = "Cliente"
+        )
     }
 }
 

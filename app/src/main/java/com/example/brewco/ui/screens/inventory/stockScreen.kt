@@ -74,7 +74,7 @@ fun InventoryScreen(navHostController: NavHostController, viewModel: StockViewMo
 
     val currentBackStackEntry by navHostController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry?.destination?.route
-    var isSnackBar by remember { mutableStateOf(false) }
+
 
     Log.i("NavDebug", "Ruta actual: $currentRoute")
 

@@ -49,48 +49,56 @@ fun AddCustomerScreen(
     var isErrorVisible by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
+    // Función para validar el correo electrónico
+    fun isValidEmail(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+        return email.matches(emailPattern.toRegex())
+    }
+
     Scaffold(
         topBar = {
             TopBarWithText(
                 title = "Nuevo Cliente",
                 text1 = "Cancelar",
                 text2 = "Añadir",
-                navController = navHostController, // Aquí se pasa el navHostController
+                navController = navHostController,
                 onActionClick = {
-                    val newClient = Client(
-                        nombre = nombre,
-                        apellido = apellido,
-                        telefono = telefono,
-                        ultCompra = ultCompra,
-                        puntos = puntos,
-                        correo = correo,
-                        notas = notas
-                    )
-
-                    // Validación de los campos
-                    if (newClient.nombre.isBlank() || newClient.apellido.isBlank() || newClient.telefono.isBlank() ||
-                        newClient.correo.isBlank() || newClient.ultCompra.isBlank()
+                    // Validación del correo antes de guardar
+                    if (nombre.isBlank() || apellido.isBlank() || telefono.isBlank() ||
+                        ultCompra.isBlank() || correo.isBlank()
                     ) {
                         errorMessage = "Por favor, rellena todos los campos."
-                        isErrorVisible = true // Se muestra el error si hay campos vacíos
+                        isErrorVisible = true
+                    } else if (!isValidEmail(correo)) {
+                        errorMessage = "Por favor, ingresa un correo electrónico válido."
+                        isErrorVisible = true
                     } else {
+                        val newCustomer = Client(
+                            nombre = nombre,
+                            apellido = apellido,
+                            telefono = telefono,
+                            ultCompra = ultCompra,
+                            puntos = puntos,
+                            correo = correo,
+                            notas = notas
+                        )
 
+                        // Llamada al ViewModel para añadir el cliente
                         viewModel.addClient(
-                            client = newClient,
+                            client = newCustomer,
                             onSuccess = {
+                                // Si el cliente es añadido exitosamente, navega a la pantalla anterior
                                 navHostController.navigate("customerScreen?added=true") {
                                     popUpTo("addCustomerScreen") { inclusive = true }
                                 }
                             },
-                            onError = {
-
-                                errorMessage = "Hubo un problema al agregar el cliente."
-                                isErrorVisible = true
+                            onError = { error ->
+                                // Aquí puedes manejar el error de la base de datos
                             }
                         )
                     }
-
-                })
+                }
+            )
         },
         containerColor = Color.White,
         content = { paddingValues ->
