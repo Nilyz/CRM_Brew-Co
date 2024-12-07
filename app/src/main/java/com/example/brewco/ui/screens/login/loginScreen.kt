@@ -74,9 +74,7 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                 .fillMaxHeight(0.40f)
         ) {
 
-            ArrowButton {
-                navHostController.navigate("startSplashScreen")
-            }
+            Spacer(modifier = Modifier.height(70.dp))
 
             Column(
                 modifier = Modifier

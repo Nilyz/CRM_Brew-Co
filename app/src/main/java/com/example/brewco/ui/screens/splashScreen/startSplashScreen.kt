@@ -38,9 +38,6 @@ import com.example.brewco.ui.screens.login.AuthViewModel
 fun StartSplashScreen(navHostController: NavHostController, modifier: Modifier = Modifier) {
     val authViewModel: AuthViewModel = viewModel()
 
-
-
-    // Componente visual para la pantalla de splash
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -67,11 +64,8 @@ fun StartSplashScreen(navHostController: NavHostController, modifier: Modifier =
                 fontSize = 18.sp,
                 contentPadding = PaddingValues(16.dp),
                 onClick = {
-                    // Al hacer clic en el botón, navegar directamente al loginScreen
                     navHostController.navigate("loginScreen") {
-                        // Limpiar la pila de navegación para evitar que el usuario regrese al splash o home
                         popUpTo("startSplashScreen") { inclusive = true }
-                        launchSingleTop = true
                     }
                 }
             )
