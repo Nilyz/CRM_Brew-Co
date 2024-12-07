@@ -37,5 +37,23 @@ class CustomerViewModel : ViewModel() {
             } catch (e: Exception) {
                 onClientFetched(null)
             }
-        }}
+        }
+    }
+    /*---------------EDITAR CLIENTE-----------------------*/
+    fun updateClient(client: Client, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val isUpdated = customerRepository.updateClient(client) // Llamada al repositorio
+                if (isUpdated) {
+                    getClients() // Refrescar la lista
+                    onSuccess()
+                } else {
+                    onError("Error al actualizar el cliente")
+                }
+            } catch (e: Exception) {
+                onError("Error al actualizar el cliente: ${e.message}")
+            }
+        }
+    }
+
 }

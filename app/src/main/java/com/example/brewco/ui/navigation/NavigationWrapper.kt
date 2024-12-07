@@ -22,7 +22,7 @@ import com.example.brewco.ui.screens.splashScreen.StartSplashScreen
 
 @Composable
 fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthViewModel) {
-    NavHost(navController = navHostController, startDestination = "homeScreen") {
+    NavHost(navController = navHostController, startDestination = "customerScreen") {
 
         composable("startSplashScreen") { StartSplashScreen(navHostController) }
         composable("loginScreen") { LoginScreen(navHostController, authViewModel) }
@@ -67,8 +67,14 @@ fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthV
         composable("addCustomerScreen") {
             AddCustomerScreen(navHostController)
         }
-        composable("editCustomerScreen") {
-            EditCustomerScreen(navHostController)
+        composable(
+            "editCustomerScreen/{customerId}",
+            arguments = listOf(navArgument("customerId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val customerId = backStackEntry.arguments?.getString("customerId")
+            customerId?.let {
+                EditCustomerScreen(navHostController, customerId = it)
+            }
         }
         /*----------------------------PANTALLAS DE NOTIFICACIONES--------------------*/
         composable("notificationScreen") { NotificationScreen(navHostController) }
