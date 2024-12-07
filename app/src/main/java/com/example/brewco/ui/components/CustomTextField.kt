@@ -8,6 +8,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.theme.Brown
 import com.example.brewco.ui.theme.DarkBrown
@@ -28,7 +29,7 @@ fun CustomTextField(
         label = { Text(text = labelText) },
         singleLine = true,
         modifier = modifier, // Usa el modificador proporcionado
-        textStyle = androidx.compose.ui.text.TextStyle(color = DarkBrown),
+        textStyle = androidx.compose.ui.text.TextStyle(color = DarkBrown,  fontSize = 16.sp),
         colors = TextFieldDefaults.textFieldColors(
             containerColor = Beige,
             focusedIndicatorColor = Brown,

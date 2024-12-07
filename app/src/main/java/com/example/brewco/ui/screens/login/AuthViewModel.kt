@@ -12,11 +12,16 @@ class AuthViewModel : ViewModel() {
     val authState: LiveData<AuthState> = _authState
 
     fun login(email: String, password: String) {
-        if(email.isEmpty()|| password.isEmpty()){
-            _authState.value =
-                AuthState.Error("Los campos no pueden estar vacíos")
+        if (email.isEmpty() || password.isEmpty()) {
+            _authState.value = AuthState.Error("Los campos no pueden estar vacíos")
             return
         }
+
+        if (!isValidEmail(email)) {
+            _authState.value = AuthState.Error("El correo no tiene un formato válido")
+            return
+        }
+
         _authState.value = AuthState.Loading
 
         auth.signInWithEmailAndPassword(email, password)
@@ -29,7 +34,10 @@ class AuthViewModel : ViewModel() {
             }
     }
 
-
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+        return email.matches(emailPattern.toRegex())
+    }
 
     // Estados de autenticación
     sealed class AuthState {
@@ -37,5 +45,4 @@ class AuthViewModel : ViewModel() {
         object Loading : AuthState()
         data class Error(val message: String) : AuthState()
     }
-
 }

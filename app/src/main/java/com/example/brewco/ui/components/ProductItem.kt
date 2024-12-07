@@ -2,6 +2,7 @@ package com.example.brewco.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -110,20 +111,20 @@ fun ProductItem(product: Product, navHostController: NavHostController) {
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Row() {
-                        Text("Categoría: ", color = DarkBrown, fontWeight = FontWeight.Bold)
-                        Text("${product.categoria}", color = DarkBrown)
+                        Text("Categoría: ", color = DarkBrown, fontWeight = FontWeight.Bold,fontSize = 16.sp)
+                        Text("${product.categoria}", color = DarkBrown,fontSize = 16.sp)
                     }
                     Row() {
-                        Text("Stock disponible: ", color = DarkBrown, fontWeight = FontWeight.Bold)
-                        Text("${product.inventario}", color = DarkBrown)
+                        Text("Stock disponible: ", color = DarkBrown, fontWeight = FontWeight.Bold,fontSize = 16.sp)
+                        Text("${product.inventario}", color = DarkBrown,fontSize = 16.sp)
                     }
                     Row() {
-                        Text("Stock mínimo: ", color = DarkBrown, fontWeight = FontWeight.Bold)
-                        Text("${product.inventario_minimo}", color = DarkBrown)
+                        Text("Stock mínimo: ", color = DarkBrown, fontWeight = FontWeight.Bold,fontSize = 16.sp)
+                        Text("${product.inventario_minimo}", color = DarkBrown,fontSize = 16.sp)
                     }
                     Row() {
-                        Text("Precio: ", color = DarkBrown, fontWeight = FontWeight.Bold)
-                        Text("${product.precio} €", color = DarkBrown)
+                        Text("Precio: ", color = DarkBrown, fontWeight = FontWeight.Bold,fontSize = 16.sp)
+                        Text("${product.precio} €", color = DarkBrown,fontSize = 16.sp)
                     }
                 }
 

@@ -61,11 +61,11 @@ fun TradeReportCard(
         ) {
             Text(
                 "${tradeType1}: ",
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 color = DarkBrown
             )
-            Text("${ventas + randomNum1}", fontSize = 18.sp, color = DarkBrown)
+            Text("${ventas + randomNum1}", fontSize = 16.sp, color = DarkBrown)
         }
         HorizontalDivider(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp),
@@ -83,11 +83,11 @@ fun TradeReportCard(
         ) {
             Text(
                 "${tradeType2}: ",
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 color = DarkBrown
             )
-            Text("${ventas + randomNum2}", fontSize = 18.sp, color = DarkBrown)
+            Text("${ventas + randomNum2}", fontSize = 16.sp, color = DarkBrown)
         }
     }
 }
@@ -132,8 +132,8 @@ fun TradeReportCard2(
                 .padding(start = 16.dp, end = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text("${tradeType1}: ", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Cream)
-            Text("${ventas + randomNum1}", fontSize = 18.sp, color = Cream)
+            Text("${tradeType1}: ", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Cream)
+            Text("${ventas + randomNum1}", fontSize = 16.sp, color = Cream)
         }
         HorizontalDivider(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp),
@@ -149,8 +149,8 @@ fun TradeReportCard2(
                 .padding(start = 16.dp, end = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text("${tradeType2}: ", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Cream)
-            Text("${randomNum2}", fontSize = 18.sp, color = Cream)
+            Text("${tradeType2}: ", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Cream)
+            Text("${randomNum2}", fontSize = 16.sp, color = Cream)
         }
     }
 }

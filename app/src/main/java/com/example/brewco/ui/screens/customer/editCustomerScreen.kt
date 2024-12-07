@@ -278,7 +278,7 @@ fun EditCustomerScreen(
                             )
                         }
                     )
-                    
+
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()

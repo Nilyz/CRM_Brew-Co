@@ -61,6 +61,7 @@ fun NotificationItem(alert: Alert,navHostController: NavHostController) {
                         .weight(0.3f),
                         //.border(width = 2.dp, color = Color.Black),
                     textAlign = TextAlign.End, color = Brown
+                    , fontSize = 16.sp
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
@@ -78,7 +79,7 @@ fun NotificationItem(alert: Alert,navHostController: NavHostController) {
                         .weight(0.3f)
                         //.border(width = 2.dp, color = Color.Black)
                         .padding(bottom = 8.dp),
-
+                     fontSize = 16.sp
                     )
             }
         }

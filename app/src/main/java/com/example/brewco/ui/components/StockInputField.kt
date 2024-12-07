@@ -77,7 +77,7 @@ fun StockInputField(
                 },
                 modifier = Modifier.width(80.dp).height(65.dp)
                     .padding(8.dp),
-                textStyle =TextStyle(color = DarkBrown, fontSize = 16.sp),
+                textStyle =TextStyle(color = DarkBrown, fontSize = 18.sp),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Beige,
                     focusedIndicatorColor = Brown,

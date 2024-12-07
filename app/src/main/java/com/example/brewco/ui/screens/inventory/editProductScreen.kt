@@ -106,35 +106,40 @@ fun EditProductScreen(
                         .padding(16.dp)
                 ) {
                     ImagePicker()
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
                     CustomTextField(
                         value = nombre,
                         labelText = "Producto",
-                        onValueChange = { nombre = it }
+                        onValueChange = { nombre = it },
+                        modifier=Modifier.fillMaxWidth()
                     )
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
                     CustomTextField(
                         value = categoria,
                         labelText = "Categoría",
                         onValueChange = { categoria = it }
+                        ,modifier=Modifier.fillMaxWidth()
                     )
-                    Spacer(modifier = Modifier.height(26.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
                     StockInputField(
                         "Stock disponible",
                         value = stockDisponible,
-                        onValueChange = { newValue -> stockDisponible = newValue }
+                        onValueChange = { newValue -> stockDisponible = newValue },
+                        modifier=Modifier.fillMaxWidth()
                     )
                     StockInputField(
                         "Stock mínimo",
                         value = stockMinimo,
-                        onValueChange = { newValue -> stockMinimo = newValue }
+                        onValueChange = { newValue -> stockMinimo = newValue },
+                        modifier=Modifier.fillMaxWidth()
                     )
                     StockInputField(
                         "Precio",
                         value = precio,
-                        onValueChange = { newValue -> precio = newValue }
+                        onValueChange = { newValue -> precio = newValue },
+                        modifier=Modifier.fillMaxWidth()
                     )
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
                     CustomButton(
                         text = "Eliminar producto", textColor = Color.Red, contColor = Color.White,fontSize = 16.sp,contentPadding = PaddingValues(0.dp),
                         onClick = {

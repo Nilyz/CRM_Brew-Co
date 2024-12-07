@@ -105,7 +105,7 @@ fun HomeNotificationBox(
                         text = "* ${alert.titulo}",
                         color = DarkBrown,
                         fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp
+                        fontSize = 16.sp
                     )
                 }
             } else {
@@ -113,7 +113,7 @@ fun HomeNotificationBox(
                     text = "No hay notificaciones disponibles.",
                     color = DarkBrown,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 14.sp
+                    fontSize = 16.sp
                 )
             }
         }

@@ -47,6 +47,9 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
     val context = LocalContext.current
     var isChecked by remember { mutableStateOf(false) } // Desactivado por defecto
 
+
+
+
     LaunchedEffect(authState) {
         when (authState) {
             is AuthViewModel.AuthState.Authenticated -> navHostController.navigate("homeScreen")
@@ -120,13 +123,19 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                 CustomTextField(
                     value = email,
                     labelText = "Email",
-                    onValueChange = { email = it }
+                    onValueChange = { email = it },
+                    modifier=Modifier.fillMaxWidth(
+
+                    )
                 )
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 CustomTextField(
                     value = password,
                     labelText = "Contraseña" ,
-                    onValueChange = { password = it }
+                    onValueChange = { password = it },
+                    modifier=Modifier.fillMaxWidth(
+
+                    )
                 )
             }
             TextButton(onClick = {
@@ -134,7 +143,7 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                 Text(
                     "Olvidaste la contraseña?",
                     style = TextStyle(
-                        fontSize = 15.sp,
+                        fontSize = 14.sp,
                         textAlign = TextAlign.Right,
                                 color= DarkBrown
                     ),
@@ -144,7 +153,7 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
             Spacer(modifier = Modifier.height(16.dp))
 
             CustomButton(
-                text = "Iniciar Sesión",contColor= Brown,textColor=Cream,fontSize = 18.sp,contentPadding = PaddingValues(16.dp),
+                text = "Iniciar Sesión",contColor= Brown,textColor=Cream,fontSize = 16.sp,contentPadding = PaddingValues(16.dp),
                 onClick = {
                     authViewModel.login(email, password)
                 },
@@ -157,6 +166,7 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text("Recuérdame",
+                    fontSize = 16.sp,
                     style = TextStyle(
                         color= DarkBrown
                     ),)

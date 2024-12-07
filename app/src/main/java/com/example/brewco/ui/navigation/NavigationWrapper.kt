@@ -22,7 +22,7 @@ import com.example.brewco.ui.screens.splashScreen.StartSplashScreen
 
 @Composable
 fun NavigationWrapper(navHostController: NavHostController, authViewModel: AuthViewModel) {
-    NavHost(navController = navHostController, startDestination = "customerScreen") {
+    NavHost(navController = navHostController, startDestination = "homeScreen") {
 
         composable("startSplashScreen") { StartSplashScreen(navHostController) }
         composable("loginScreen") { LoginScreen(navHostController, authViewModel) }
