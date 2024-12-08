@@ -168,7 +168,7 @@ fun CustomBottomNavBar(navController: NavController) {
 
         // Botón de Clientes
         IconButton(
-            onClick = { navController.navigate("customerScreen") },
+            onClick = { navController.navigate("customerScreen?added={added}&deleted={deleted}&edited={edited}") },
             modifier = Modifier
                 .size(60.dp)
         ) {
@@ -177,7 +177,7 @@ fun CustomBottomNavBar(navController: NavController) {
                 contentDescription = "Clientes",
                 modifier = Modifier.size(40.dp), // Tamaño del icono
                 colorFilter = ColorFilter.tint(
-                    if (pantallaActual == "customerScreen") DarkBrown else Color.White
+                    if (pantallaActual == "customerScreen?added={added}&deleted={deleted}&edited={edited}") DarkBrown else Color.White
                 )
             )
         }
