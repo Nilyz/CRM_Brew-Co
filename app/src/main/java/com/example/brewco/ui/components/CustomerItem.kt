@@ -28,6 +28,7 @@ import androidx.navigation.NavHostController
 import com.example.brewco.data.model.Client
 import com.example.brewco.ui.theme.Beige
 import com.example.brewco.ui.theme.DarkBrown
+import com.example.brewco.ui.theme.Yellow
 
 @Composable
 fun CustomerItem(client: Client, navHostController: NavHostController) {
@@ -84,7 +85,7 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 Icon(
                     Icons.Default.Star, contentDescription = "Agregar",
                     modifier = Modifier.size(20.dp),
-                    Color.Yellow
+                    Yellow
                 )
             }
             Row(
