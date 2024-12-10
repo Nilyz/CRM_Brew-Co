@@ -37,7 +37,7 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(6.dp)
             .clickable {
                 navHostController.navigate("customerDetailsScreen/${client.id}")
             },

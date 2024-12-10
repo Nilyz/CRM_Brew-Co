@@ -26,9 +26,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -67,11 +69,13 @@ fun TopBar(title: String, onMenuClick: () -> Unit) {
             }
         },
         actions = {
-            IconButton(onClick = { /* Acción del icono de usuario */ }) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "User Icon",
-                    modifier = Modifier.size(36.dp) // Cambia el tamaño del icono
+            IconButton(onClick = onMenuClick) {
+                Image(
+                    painter = painterResource(id = R.drawable.logo_brew_co), // Reemplaza con el recurso de tu imagen
+                    contentDescription = "Perfil",
+                    modifier = Modifier
+                        .size(40.dp) // Ajusta el tamaño de la imagen
+                        .clip(CircleShape) // Opcional: Aplica un diseño circular
                 )
             }
         },

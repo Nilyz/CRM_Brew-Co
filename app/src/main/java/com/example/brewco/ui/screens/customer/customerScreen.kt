@@ -159,15 +159,19 @@ fun CustomerScreen(
                             LazyVerticalGrid(
                                 columns = GridCells.Fixed(2), // Definimos 2 columnas
                                 modifier = Modifier
-                                    .border(1.dp, Color.Black)
                                     .fillMaxSize(),
-                                contentPadding = PaddingValues(8.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                                contentPadding = PaddingValues(0.dp), // Margen interno
+                                verticalArrangement = Arrangement.spacedBy(16.dp), // Espaciado vertical
+                                horizontalArrangement = Arrangement.SpaceBetween // Espaciado horizontal como space-between
                             ) {
                                 items(filteredClients) { client ->
-                                    CustomerItem(client = client, navHostController = navHostController)
+                                    CustomerItem(
+                                        client = client,
+                                        navHostController = navHostController,
+                                    )
                                 }
                             }
+
                         }
                     }
 
