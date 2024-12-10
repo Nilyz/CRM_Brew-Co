@@ -54,6 +54,8 @@ fun NotificationItem(alert: Alert, navHostController: NavHostController) {
                     color = DarkBrown,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Text(

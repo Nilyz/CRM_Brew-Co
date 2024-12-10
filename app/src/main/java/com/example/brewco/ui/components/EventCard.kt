@@ -32,7 +32,7 @@ fun EventCard(alert: Alert, navHostController: NavHostController) {
             .height(120.dp) // Altura fija para pruebas; ajusta según sea necesario
             .background(
                 color = Beige, // Color del fondo de la tarjeta
-                shape = RoundedCornerShape(16.dp) // Esquinas redondeadas
+                shape = RoundedCornerShape(8.dp) // Esquinas redondeadas
             )
             .padding(15.dp) // Padding interno de la tarjeta
             .clickable {

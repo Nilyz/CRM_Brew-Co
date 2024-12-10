@@ -64,18 +64,18 @@ fun TopBar(title: String, onMenuClick: () -> Unit) {
                 Icon(
                     imageVector = Icons.Default.Menu,
                     contentDescription = "Perfil",
-                    modifier = Modifier.size(36.dp) // Cambia el tamaño del icono
+                    modifier = Modifier.size(36.dp)
                 )
             }
         },
         actions = {
             IconButton(onClick = onMenuClick) {
                 Image(
-                    painter = painterResource(id = R.drawable.logo_brew_co), // Reemplaza con el recurso de tu imagen
+                    painter = painterResource(id = R.drawable.logo_brew_co),
                     contentDescription = "Perfil",
                     modifier = Modifier
-                        .size(40.dp) // Ajusta el tamaño de la imagen
-                        .clip(CircleShape) // Opcional: Aplica un diseño circular
+                        .size(40.dp)
+                        .clip(CircleShape)
                 )
             }
         },
@@ -117,7 +117,7 @@ fun TopBarWithText(
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
                     .clickable {
-                        navController.popBackStack() // Esto navegará hacia la pantalla anterior
+                        navController.popBackStack()
                     },
                 fontSize = 16.sp,
                 color = Brown
@@ -151,7 +151,7 @@ fun CustomBottomNavBar(navController: NavController) {
     BottomAppBar(
         modifier = Modifier
             .fillMaxWidth(),
-        containerColor = Brown, // Fondo personalizado
+        containerColor = Brown,
     ) {
         Spacer(modifier = Modifier.weight(1f))
 
@@ -163,7 +163,7 @@ fun CustomBottomNavBar(navController: NavController) {
             Icon(
                 Icons.Default.DateRange,
                 contentDescription = "Agenda",
-                modifier = Modifier.size(40.dp), // Tamaño del icono
+                modifier = Modifier.size(40.dp),
                 tint = if (pantallaActual == "agendaScreen?added={added}&delete={delete}&edited={edited}") DarkBrown else Color.White // Cambia el color si es la pantalla activa
             )
         }
@@ -179,7 +179,7 @@ fun CustomBottomNavBar(navController: NavController) {
             Image(
                 painter = painterResource(id = R.drawable.fa6solidusergroup), // Recurso de drawable
                 contentDescription = "Clientes",
-                modifier = Modifier.size(40.dp), // Tamaño del icono
+                modifier = Modifier.size(40.dp),
                 colorFilter = ColorFilter.tint(
                     if (pantallaActual == "customerScreen?added={added}&deleted={deleted}&edited={edited}") DarkBrown else Color.White
                 )
@@ -196,7 +196,7 @@ fun CustomBottomNavBar(navController: NavController) {
             Image(
                 painter = painterResource(id = R.drawable.house), // Recurso de drawable
                 contentDescription = "Home",
-                modifier = Modifier.size(33.dp), // Tamaño del icono
+                modifier = Modifier.size(33.dp),
                 colorFilter = ColorFilter.tint(if (pantallaActual == "homeScreen") DarkBrown else Color.White)
             )
         }
@@ -212,7 +212,7 @@ fun CustomBottomNavBar(navController: NavController) {
             Image(
                 painter = painterResource(id = R.drawable.bxsbox), // Recurso de drawable
                 contentDescription = "Inventario",
-                modifier = Modifier.size(40.dp), // Tamaño del icono
+                modifier = Modifier.size(40.dp),
                 colorFilter = ColorFilter.tint(if (pantallaActual == "inventoryScreen?added={added}&delete={delete}&edited={edited}") DarkBrown else Color.White)
             )
         }
@@ -227,7 +227,7 @@ fun CustomBottomNavBar(navController: NavController) {
             Icon(
                 Icons.Default.Notifications,
                 contentDescription = "Notificaciones",
-                modifier = Modifier.size(45.dp), // Tamaño del icono
+                modifier = Modifier.size(45.dp),
                 tint = if (pantallaActual == "notificationScreen") DarkBrown else Color.White
             )
         }

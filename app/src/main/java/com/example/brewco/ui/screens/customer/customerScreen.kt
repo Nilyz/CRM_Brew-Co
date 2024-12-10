@@ -131,7 +131,7 @@ fun CustomerScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(16.dp)
+                            .padding(start = 16.dp, end = 16.dp)
                     ) {
                         // CustomTextField para ingresar el teléfono
                         CustomTextField(
@@ -157,12 +157,12 @@ fun CustomerScreen(
                         } else {
                             // Usamos LazyVerticalGrid para mostrar los clientes filtrados en una cuadrícula de 2 por fila
                             LazyVerticalGrid(
-                                columns = GridCells.Fixed(2), // Definimos 2 columnas
-                                modifier = Modifier
-                                    .fillMaxSize(),
-                                contentPadding = PaddingValues(0.dp), // Margen interno
-                                verticalArrangement = Arrangement.spacedBy(16.dp), // Espaciado vertical
-                                horizontalArrangement = Arrangement.SpaceBetween // Espaciado horizontal como space-between
+                                columns = GridCells.Fixed(2),
+                                modifier = Modifier.fillMaxWidth(),
+                                contentPadding = PaddingValues(bottom = 40.dp),
+                                verticalArrangement = Arrangement.spacedBy(16.dp),
+                                horizontalArrangement = Arrangement.spacedBy(16.dp)
+
                             ) {
                                 items(filteredClients) { client ->
                                     CustomerItem(

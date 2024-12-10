@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
@@ -37,11 +38,11 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(6.dp)
             .clickable {
                 navHostController.navigate("customerDetailsScreen/${client.id}")
             },
-        colors = CardDefaults.cardColors(containerColor = Beige)
+        colors = CardDefaults.cardColors(containerColor = Beige),
+        shape = RoundedCornerShape(8.dp)
 
     ) {
 
@@ -80,7 +81,6 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                     modifier = Modifier
                 )
                 Text(
-
                     text = "${client.puntos}",
                     color = DarkBrown,
                     fontSize = 16.sp,
@@ -94,16 +94,10 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
             }
             Row(
                 modifier = Modifier
-                    .border(
-                        width = 2.dp, Color.Transparent
-                    )
                     .fillMaxWidth()
             ) {
                 Column(
                     modifier = Modifier
-                        .border(
-                            width = 2.dp, Color.Transparent
-                        )
                         .fillMaxWidth()
                 ) {
                     Row(
@@ -128,9 +122,6 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
             }
             Column(
                 modifier = Modifier
-                    .border(
-                        width = 2.dp, Color.Transparent
-                    )
                     .fillMaxWidth()
             ) {
                 Text(

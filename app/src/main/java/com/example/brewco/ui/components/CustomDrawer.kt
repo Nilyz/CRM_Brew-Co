@@ -1,5 +1,6 @@
 package com.example.brewco.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -23,10 +25,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.brewco.R
 import com.example.brewco.ui.screens.login.AuthViewModel
 import com.example.brewco.ui.theme.Brown
 import com.example.brewco.ui.theme.Cream
@@ -38,8 +43,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun CustomDrawer(
     navHostController: NavHostController,
-    authViewModel: AuthViewModel, // Pasa el ViewModel como parámetro
-    onLogoutClick: () -> Unit // Acción adicional después del logout (opcional)
+    authViewModel: AuthViewModel,
+    onLogoutClick: () -> Unit
 ) {
     val authState by authViewModel.authState.observeAsState()
 
@@ -61,11 +66,13 @@ fun CustomDrawer(
             Spacer(modifier = Modifier.height(32.dp))
 
             // Icono del usuario
-            Icon(
-                imageVector = Icons.Default.AccountCircle,
-                contentDescription = "Icono de usuario",
-                tint = Cream,
-                modifier = Modifier.size(100.dp)
+            Image(
+                painter = painterResource(id = R.drawable.logo_brew_co),
+                contentDescription = "Perfil",
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(CircleShape)
+                    .background(Cream)
             )
 
             // Texto del usuario
@@ -82,13 +89,13 @@ fun CustomDrawer(
                 onClick = {
                     authViewModel.logout()
                     CoroutineScope(Dispatchers.Main).launch {
-                        delay(300) // Esperar 300 ms antes de hacer la navegación
+                        delay(300)
                         navHostController.navigate("loginScreen") {
                             popUpTo("homeScreen") { inclusive = true }
                             launchSingleTop = true
                         }
                     }
-                    onLogoutClick() // Acción adicional después de logout (opcional)
+                    onLogoutClick()
                 }
             )
             {
@@ -102,11 +109,10 @@ fun CustomDrawer(
         }
     }
 
-    // Observa el cambio de estado de autenticación para navegar si es necesario
     LaunchedEffect(authState) {
         if (authState is AuthViewModel.AuthState.Unauthenticated) {
             navHostController.navigate("loginScreen") {
-                popUpTo(0) // Limpia la pila de navegación
+                popUpTo(0)
                 launchSingleTop = true
             }
         }
