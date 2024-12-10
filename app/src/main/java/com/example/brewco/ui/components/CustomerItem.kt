@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -48,11 +49,14 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                 .border(
                     width = 2.dp, color = Color.Transparent
                 )
-                .fillMaxSize().padding(12.dp)
+                .fillMaxSize()
+                .padding(12.dp)
         ) {
             Text(
                 text = "${client.nombre} ${client.apellido}",
                 fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Center,
                 fontSize = 18.sp,
                 color = DarkBrown,
@@ -101,8 +105,10 @@ fun CustomerItem(client: Client, navHostController: NavHostController) {
                         )
                         .fillMaxWidth()
                 ) {
-                    Row(modifier = Modifier
-                        .fillMaxWidth(),){
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    ) {
                         Text(
                             text = "Tel: ",
                             color = DarkBrown,

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -26,7 +27,7 @@ import com.example.brewco.ui.theme.Brown
 import com.example.brewco.ui.theme.DarkBrown
 
 @Composable
-fun NotificationItem(alert: Alert,navHostController: NavHostController) {
+fun NotificationItem(alert: Alert, navHostController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -49,7 +50,7 @@ fun NotificationItem(alert: Alert,navHostController: NavHostController) {
                     modifier = Modifier
                         .weight(0.7f)
                         .padding(end = 8.dp),
-                        //.border(width = 2.dp, color = Color.Black),
+                    //.border(width = 2.dp, color = Color.Black),
                     color = DarkBrown,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
@@ -59,9 +60,8 @@ fun NotificationItem(alert: Alert,navHostController: NavHostController) {
                     text = "${alert.fechaFin}",
                     modifier = Modifier
                         .weight(0.3f),
-                        //.border(width = 2.dp, color = Color.Black),
-                    textAlign = TextAlign.End, color = Brown
-                    , fontSize = 16.sp
+                    //.border(width = 2.dp, color = Color.Black),
+                    textAlign = TextAlign.End, color = Brown, fontSize = 16.sp
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
@@ -73,17 +73,23 @@ fun NotificationItem(alert: Alert,navHostController: NavHostController) {
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
                 Text(
                     "${alert.descripcion}",
                     color = DarkBrown,
                     modifier = Modifier
                         .weight(0.3f)
-                        //.border(width = 2.dp, color = Color.Black)
                         .padding(bottom = 8.dp),
-                     fontSize = 16.sp
-                    )
+                    fontSize = 16.sp,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Justify
+                )
             }
+
         }
     }
 }
