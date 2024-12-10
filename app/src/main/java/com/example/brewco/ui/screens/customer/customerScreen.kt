@@ -29,8 +29,10 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -54,78 +56,92 @@ import com.example.brewco.ui.components.CustomSnackBar
 import com.example.brewco.ui.components.CustomerItem
 import com.example.brewco.ui.components.SnackbarMessageHandler
 import com.example.brewco.ui.screens.inventory.StockViewModel
+import com.example.brewco.ui.screens.login.AuthViewModel
 
 @Composable
 fun CustomerScreen(
     navHostController: NavHostController,
     viewModel: CustomerViewModel = viewModel()
 ) {
+    val authViewModel: AuthViewModel = viewModel()
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val clientList by viewModel.customers.collectAsState()
 
     val snackbarHostState = remember { SnackbarHostState() }
 
+    val authState by authViewModel.authState.observeAsState()
+
+    LaunchedEffect(authState) {
+        if (authState is AuthViewModel.AuthState.Unauthenticated) {
+            navHostController.navigate("loginScreen") {
+                popUpTo("customerScreen") { inclusive = true }
+                launchSingleTop = true
+            }
+        }
+    }
+
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
             CustomDrawer(
                 navHostController = navHostController,
+                authViewModel = authViewModel,
                 onLogoutClick = {
-                    navHostController.navigate("startSplashScreen") {
-                        popUpTo(0)
-                    }
+
                 }
             )
         },
     ) {
-    Scaffold(
-        snackbarHost = {
-            CustomSnackBar(snackbarHostState,)
+        Scaffold(
+            snackbarHost = {
+                CustomSnackBar(snackbarHostState)
 
-        },
-        topBar = {
-            TopBar(title = "Clientes", onMenuClick = {
-                scope.launch {
-                    if (drawerState.isClosed) {
-                        drawerState.open()
-                    } else {
-                        drawerState.close()
+            },
+            topBar = {
+                TopBar(title = "Clientes", onMenuClick = {
+                    scope.launch {
+                        if (drawerState.isClosed) {
+                            drawerState.open()
+                        } else {
+                            drawerState.close()
+                        }
                     }
-                }
-            })
-        },
-        containerColor = Color.White,
-        bottomBar = { CustomBottomNavBar(navHostController) },
-        floatingActionButton = {
-            CustomFloatingActionButton(
-                navHostController,
-                onClick = { navHostController.navigate("addCustomerScreen") })
-        },
-        content = { paddingValues ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-            ) {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                })
+            },
+            containerColor = Color.White,
+            bottomBar = { CustomBottomNavBar(navHostController) },
+            floatingActionButton = {
+                CustomFloatingActionButton(
+                    navHostController,
+                    onClick = { navHostController.navigate("addCustomerScreen") })
+            },
+            content = { paddingValues ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
                 ) {
-                    items(clientList) { client ->
-                        CustomerItem(client = client, navHostController = navHostController)
-                        Spacer(modifier = Modifier.height(16.dp))
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(clientList) { client ->
+                            CustomerItem(client = client, navHostController = navHostController)
+                            Spacer(modifier = Modifier.height(16.dp))
+
+                        }
 
                     }
-
-                }
 
                     Spacer(modifier = Modifier.height(30.dp))
-                            }
-        }
-    )
+                }
+            }
+        )
     }
     Box(
         modifier = Modifier

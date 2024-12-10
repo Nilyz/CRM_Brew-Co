@@ -178,8 +178,8 @@ fun CustomerDetailsScreen(
                         Icon(
                             Icons.Default.Star,
                             contentDescription = "Agregar",
-                            modifier = Modifier.size(20.dp),
-                            tint = Color.Yellow
+                            modifier = Modifier.size(30.dp),
+                            tint = Yellow
                         )
                     }
                 }

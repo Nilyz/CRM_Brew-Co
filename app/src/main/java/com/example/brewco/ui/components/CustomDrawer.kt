@@ -18,20 +18,31 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.brewco.ui.screens.login.AuthViewModel
 import com.example.brewco.ui.theme.Brown
 import com.example.brewco.ui.theme.Cream
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun CustomDrawer(
     navHostController: NavHostController,
-    onLogoutClick: () -> Unit
+    authViewModel: AuthViewModel, // Pasa el ViewModel como parámetro
+    onLogoutClick: () -> Unit // Acción adicional después del logout (opcional)
 ) {
+    val authState by authViewModel.authState.observeAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth(0.45f)
@@ -48,6 +59,7 @@ fun CustomDrawer(
             modifier = Modifier.fillMaxSize()
         ) {
             Spacer(modifier = Modifier.height(32.dp))
+
             // Icono del usuario
             Icon(
                 imageVector = Icons.Default.AccountCircle,
@@ -68,18 +80,34 @@ fun CustomDrawer(
             // Botón de cierre de sesión
             TextButton(
                 onClick = {
-                    navHostController.navigate("startSplashScreen") {
-                        popUpTo(0) // Limpia la pila de navegación
+                    authViewModel.logout()
+                    CoroutineScope(Dispatchers.Main).launch {
+                        delay(300) // Esperar 300 ms antes de hacer la navegación
+                        navHostController.navigate("loginScreen") {
+                            popUpTo("homeScreen") { inclusive = true }
+                            launchSingleTop = true
+                        }
                     }
-                    onLogoutClick()
+                    onLogoutClick() // Acción adicional después de logout (opcional)
                 }
-            ) {
+            )
+            {
                 Text(
                     text = "Cerrar Sesión",
                     color = Cream,
                     fontSize = 16.sp,
                     modifier = Modifier.padding(8.dp)
                 )
+            }
+        }
+    }
+
+    // Observa el cambio de estado de autenticación para navegar si es necesario
+    LaunchedEffect(authState) {
+        if (authState is AuthViewModel.AuthState.Unauthenticated) {
+            navHostController.navigate("loginScreen") {
+                popUpTo(0) // Limpia la pila de navegación
+                launchSingleTop = true
             }
         }
     }

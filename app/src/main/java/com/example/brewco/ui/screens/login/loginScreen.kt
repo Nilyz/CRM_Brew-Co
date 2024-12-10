@@ -36,6 +36,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.brewco.ui.theme.*
 import com.example.brewco.ui.components.*
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,9 +76,7 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                 .fillMaxHeight(0.40f)
         ) {
 
-            ArrowButton {
-                navHostController.navigate("startSplashScreen")
-            }
+            Spacer(modifier = Modifier.height(70.dp))
 
             Column(
                 modifier = Modifier
@@ -129,14 +129,15 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
                     )
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                CustomTextField(
-                    value = password,
-                    labelText = "Contraseña" ,
-                    onValueChange = { password = it },
-                    modifier=Modifier.fillMaxWidth(
 
-                    )
+                CustomPasswordField(
+                    value = password,
+                    labelText = "Contraseña",
+                    onValueChange = { password = it },
+                    modifier = Modifier.fillMaxWidth()
                 )
+
+
             }
             TextButton(onClick = {
             }) {

@@ -1,5 +1,6 @@
 package com.example.brewco.ui.screens.home
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -41,6 +43,7 @@ import com.example.brewco.ui.components.TopBar
 import com.example.brewco.ui.components.TradeReportCard
 import com.example.brewco.ui.components.TradeReportCard2
 import com.example.brewco.ui.screens.inventory.StockViewModel
+import com.example.brewco.ui.screens.login.AuthViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -48,7 +51,22 @@ fun HomeScreen(navHostController: NavHostController, viewModel: StockViewModel =
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    val authViewModel: AuthViewModel = viewModel()
+
     val topProducts by viewModel.topProducts.collectAsState() // Observa los productos con más inventario
+
+    val authState by authViewModel.authState.observeAsState()
+    LaunchedEffect(authState) {
+        Log.d("AuthState", "Current state: $authState")
+        if (authState is AuthViewModel.AuthState.Unauthenticated) {
+            // Navegar a login después de que el estado cambie a no autenticado
+            navHostController.navigate("loginScreen") {
+                popUpTo("homeScreen") { inclusive = true } // Esto asegura que 'homeScreen' se elimine de la pila
+                launchSingleTop = true // Evitar duplicados
+            }
+
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.loadTopProducts() // Cargar los 5 productos con más inventario al inicio
@@ -59,11 +77,11 @@ fun HomeScreen(navHostController: NavHostController, viewModel: StockViewModel =
         drawerContent = {
             CustomDrawer(
                 navHostController = navHostController,
+                authViewModel = authViewModel,
                 onLogoutClick = {
-                    navHostController.navigate("startSplashScreen") {
-                        popUpTo(0) // Limpia la pila de navegación
-                    }
-                })
+
+                }
+            )
         },
     ) {
 

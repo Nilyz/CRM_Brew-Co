@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 class AuthViewModel : ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -12,8 +14,19 @@ class AuthViewModel : ViewModel() {
     val authState: LiveData<AuthState> = _authState
 
     fun login(email: String, password: String) {
-        if (email.isEmpty() || password.isEmpty()) {
+        // Validaciones previas
+        if (email.isEmpty() && password.isEmpty()) {
             _authState.value = AuthState.Error("Los campos no pueden estar vacíos")
+            return
+        }
+
+        if (email.isEmpty()) {
+            _authState.value = AuthState.Error("Introduce un correo")
+            return
+        }
+
+        if (password.isEmpty()) {
+            _authState.value = AuthState.Error("Introduce la contraseña")
             return
         }
 
@@ -24,12 +37,15 @@ class AuthViewModel : ViewModel() {
 
         _authState.value = AuthState.Loading
 
+        // Intento de iniciar sesión con Firebase
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                _authState.value = if (task.isSuccessful) {
-                    AuthState.Authenticated
+                if (task.isSuccessful) {
+                    // Si la autenticación es exitosa
+                    _authState.value = AuthState.Authenticated
                 } else {
-                    AuthState.Error(task.exception?.message ?: "Error en el inicio de sesión")
+                    // Si el login falla, mostramos un mensaje genérico
+                    _authState.value = AuthState.Error("Correo o contraseña incorrecta")
                 }
             }
     }
@@ -39,9 +55,15 @@ class AuthViewModel : ViewModel() {
         return email.matches(emailPattern.toRegex())
     }
 
+    fun logout() {
+        auth.signOut()
+        _authState.value = AuthState.Unauthenticated
+    }
+
     // Estados de autenticación
     sealed class AuthState {
         object Authenticated : AuthState()
+        object Unauthenticated : AuthState()  // Nuevo estado para no autenticado
         object Loading : AuthState()
         data class Error(val message: String) : AuthState()
     }
