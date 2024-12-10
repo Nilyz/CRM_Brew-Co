@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -30,7 +31,6 @@ import com.example.brewco.data.model.Alert
 import com.example.brewco.ui.screens.notification.NotificationViewModel
 import com.example.brewco.ui.theme.*
 import androidx.lifecycle.viewmodel.compose.viewModel
-
 
 
 @Composable
@@ -105,7 +105,9 @@ fun HomeNotificationBox(
                         text = "* ${alert.titulo}",
                         color = DarkBrown,
                         fontWeight = FontWeight.Medium,
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                 }
             } else {
