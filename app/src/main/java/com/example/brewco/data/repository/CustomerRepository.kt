@@ -42,6 +42,26 @@ class CustomerRepository {
         }
     }
 
+    // Obtener un cliente por teléfono
+    suspend fun getClientByPhone(phone: String): Client? {
+        return try {
+            val snapshot = clientsCollection
+                .whereEqualTo("phone", phone) // Filtra por el número de teléfono
+                .get()
+                .await()
+
+            // Si hay algún documento que coincida con el teléfono, lo mapeamos a un objeto de tipo Client
+            if (snapshot.documents.isNotEmpty()) {
+                snapshot.documents[0].toObject(Client::class.java)?.copy(id = snapshot.documents[0].id)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+
     // Actualizar un cliente
     suspend fun updateClient(Client: Client): Boolean {
         return try {

@@ -25,8 +25,10 @@ class CustomerViewModel : ViewModel() {
         viewModelScope.launch {
             val clientsList = customerRepository.getClients()
             _customers.value = clientsList
+            println("Clientes cargados: ${clientsList.size}") // Agrega este log para verificar
         }
     }
+
 
     /*---------------CREAR NUEVO CLIENTE PULSADO-----------------------*/
     fun addClient(client: Client, onSuccess: () -> Unit, onError: (String) -> Unit) {
@@ -53,6 +55,23 @@ class CustomerViewModel : ViewModel() {
             }
         }
     }
+
+    // Obtener cliente por teléfono
+    fun filterClientsByPhone(phone: String): List<Client> {
+        val normalizedPhone = phone.replace(" ", "") // Eliminar espacios del teléfono ingresado
+        return if (normalizedPhone.isEmpty()) {
+            customers.value // Devuelve todos los clientes si no hay texto
+        } else {
+            customers.value.filter { client ->
+                val clientPhone = client.telefono.replace(" ", "") // Eliminar espacios del teléfono del cliente
+                clientPhone.contains(normalizedPhone, ignoreCase = true) // Comparar números sin espacios
+            }
+        }
+    }
+
+
+
+
     /*---------------EDITAR CLIENTE-----------------------*/
     fun updateClient(client: Client, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
