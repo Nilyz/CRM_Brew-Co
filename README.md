@@ -2,11 +2,6 @@
 
 Brew & Co is an internal management application designed specifically for coffee shops. It centralizes operations, including customer management, inventory tracking, and event scheduling, to optimize daily workflows and enhance efficiency.
 
-## Preview 
-![Brew & Co Preview](./screenshots/dashboard.png "CafeCRM Dashboard")
-
-Visit the [GitHub Repository](https://github.com/Nilyz/CRM_Brew-Co) for more details.
-
 ## About
 Brew & Co is a mobile application designed to optimize and streamline the internal operations of coffee shops. Built with a focus on efficiency and usability, it empowers staff to manage critical aspects of the business with ease, enabling them to focus more on providing excellent customer experiences.
 <br><br>
