@@ -50,8 +50,6 @@ fun LoginScreen(navHostController: NavHostController ,authViewModel: AuthViewMod
     var isChecked by remember { mutableStateOf(false) } // Desactivado por defecto
 
 
-
-
     LaunchedEffect(authState) {
         when (authState) {
             is AuthViewModel.AuthState.Authenticated -> navHostController.navigate("homeScreen")

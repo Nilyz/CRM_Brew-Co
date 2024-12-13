@@ -47,7 +47,7 @@ class StockViewModel : ViewModel() {
             val isAdded = productRepository.addProduct(product)
             if (isAdded) {
                 loadProducts()
-                onSuccess() // Añadir correctamente
+                onSuccess()
             } else {
                 onError("Error al añadir el producto")
             }
@@ -91,7 +91,7 @@ class StockViewModel : ViewModel() {
                 val isDeleted = productRepository.deleteProduct(productId)
                 if (isDeleted) {
                     loadProducts()
-                    onSuccess() // Acción al eliminar el producto correctamente
+                    onSuccess()
                 } else {
                     onError("Error al eliminar el producto")
                 }

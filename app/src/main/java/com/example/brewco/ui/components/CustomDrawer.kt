@@ -74,10 +74,10 @@ fun CustomDrawer(
                     .clip(CircleShape)
                     .background(Cream)
             )
-
+            Spacer(modifier = Modifier.height(16.dp))
             // Texto del usuario
             Text(
-                text = "Usuario",
+                text = "Brew & Co",
                 color = Cream,
                 fontSize = 16.sp,
             )

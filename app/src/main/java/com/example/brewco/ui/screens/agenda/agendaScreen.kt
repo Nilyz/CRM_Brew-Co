@@ -178,7 +178,7 @@ fun AgendaScreen(navHostController: NavHostController, viewModel: AlertViewModel
                 // Título: "Eventos de hoy"
                 item {
                     Text(
-                        text = "Eventos de hoy",
+                        text = "Eventos",
                         fontSize = 16.sp,
                         style = MaterialTheme.typography.titleMedium, // Título con estilo
                         modifier = Modifier
