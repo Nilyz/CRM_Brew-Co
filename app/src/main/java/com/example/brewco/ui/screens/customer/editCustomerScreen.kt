@@ -267,7 +267,7 @@ fun EditCustomerScreen(
                             onValueChange = { notas = it },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(100.dp) // Altura para simular un TextArea
+                                .height(90.dp) // Altura para simular un TextArea
                                 .border(
                                     1.dp,
                                     Beige,

@@ -9,7 +9,7 @@ val Brown = Color(0xFF917161)
 val DarkBrown = Color(0xFF2A1E1E)
 val Gray = Color(0xFFD9D9D9)
 val Yellow = Color(0xFFFFD665)
-val DarkGray = Color(0xFF8D8D8D)
+
 
 
 //Modo oscuro

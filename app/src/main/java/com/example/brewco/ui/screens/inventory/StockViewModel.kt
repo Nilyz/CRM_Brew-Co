@@ -26,7 +26,6 @@ class StockViewModel : ViewModel() {
     }
 
     fun loadProducts() {
-        //usar una corutina para que getProducts haga petición asíncrona sin molestar
         viewModelScope.launch {
             val productsFromRepo = productRepository.getProducts()
             _products.value = productsFromRepo
